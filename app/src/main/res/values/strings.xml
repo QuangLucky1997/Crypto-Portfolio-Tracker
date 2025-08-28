@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Crypto Portfolio Tracker</string>
+    <string name="cryptomoonx">CryptoMoonX</string>
+    <string name="next">Next</string>
+
+
+    <string name="takehold">Take hold of your finances</string>
+    <string name="smart">Smart trading tools</string>
+    <string name="invest">Invest in the future</string>
+
+    <string name="des_takehold">Learn how to manage money wisely, build financial stability, and take control of your future with simple, practical steps.</string>
+    <string name="des_smart_trading">Powerful trading tools designed to boost your strategy and maximize results.</string>
+    <string name="des_invest">Invest today, enjoy the rewards of tomorrow.</string>
+    <string name="copy_clip_board">copy\n\n</string>
+    <string name="start">Start</string>
+    <string name="market">Market</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="news">News</string>
+    <string name="settings">Settings</string>
+</resources>

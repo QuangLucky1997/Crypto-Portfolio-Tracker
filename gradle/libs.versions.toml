@@ -1,0 +1,218 @@
+[versions]
+agp = "8.12.1"
+kotlin = "2.0.21"
+coreKtx = "1.17.0"
+junit = "4.13.2"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
+lifecycleRuntimeKtx = "2.9.2"
+activityCompose = "1.10.1"
+composeBom = "2024.09.00"
+
+
+
+
+carouselrecyclerview = "1.2.6"
+commonsCodec = "1.15"
+fragmentKtx = "1.8.5"
+gson = "2.11.0"
+kenburnsviewVersion = "1.0.7"
+
+appcompat = "1.6.1"
+kotlinxSerializationJson = "1.3.2"
+kotlinxSerializationProtobuf = "1.4.0"
+lifecycleViewmodelKtx = "2.8.3"
+loggingInterceptor = "2.5.0"
+loggingInterceptorVersion = "4.10.0"
+material = "1.11.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+okhttp = "4.10.0"
+okhttpBom = "2.5.0"
+playServicesAds = "23.2.0"
+retrofit = "2.9.0"
+roomKtx = "2.5.0"
+roundedimageviewVersion = "2.3.0"
+runtime = "1.8.0"
+rxandroid = "3.0.2"
+rxjava = "3.1.5"
+rxlifecycleAndroidLifecycle = "2.2.2"
+stethoOkhttp3 = "1.6.0"
+timber = "5.0.1"
+sdp-ssp = "1.1.0"
+hilt = "2.48.1"
+kotlin-coroutines = "1.7.3"
+kotlin-extensions = "1.9.0"
+lottie = "6.3.0"
+dots-indicator = "5.0"
+glide = "4.16.0"
+retrofit_v = "2.9.0"
+admob = "23.0.0"
+lifecycle = "2.7.0"
+shimmer = "0.5.0"
+rxpref = "2.0.1"
+circleImage = "3.1.0"
+user-autodispose = "1.4.0"
+firebase-storage = "20.3.0"
+firebase-database = "20.3.1"
+firebase-messaging = "23.4.1"
+firebase-bom = "32.8.0"
+firebase-analytic = "21.6.1"
+firebase-config = "21.6.3"
+firebase-crashlytics-ktx = "18.6.3"
+firebase-carshlytics = "2.9.9"
+google-services = "4.4.1"
+billingKtx = "7.0.0"
+gdpr = "3.0.0"
+version-serialization = "1.6.21"
+zip4j = "2.11.2"
+
+
+
+
+
+
+
+
+
+
+
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+
+
+
+
+adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
+
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-lifecycle-viewmodel-ktx-v283 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "runtime" }
+carouselrecyclerview = { module = "com.github.sparrow007:carouselrecyclerview", version.ref = "carouselrecyclerview" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+flaviofaria-kenburnsview = { module = "com.flaviofaria:kenburnsview", version.ref = "kenburnsviewVersion" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationProtobuf" }
+
+
+
+
+
+
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-serialization-json-v132 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-protobuf = { module = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf", version.ref = "kotlinxSerializationProtobuf" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
+makeramen-roundedimageview = { module = "com.makeramen:roundedimageview", version.ref = "roundedimageviewVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+
+
+
+
+# Hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
+# Sdp-Ssp
+okhttp = { module = "com.squareup.okhttp3:okhttp" }
+okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttpBom" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp:logging-interceptor", version.ref = "loggingInterceptor" }
+okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptorVersion" }
+okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+play-services-ads-v2320 = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+rxlifecycle = { module = "com.trello.rxlifecycle2:rxlifecycle", version.ref = "rxlifecycleAndroidLifecycle" }
+rxlifecycle-android = { module = "com.trello.rxlifecycle2:rxlifecycle-android", version.ref = "rxlifecycleAndroidLifecycle" }
+rxlifecycle-android-lifecycle = { module = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle", version.ref = "rxlifecycleAndroidLifecycle" }
+rxlifecycle-kotlin = { module = "com.trello.rxlifecycle2:rxlifecycle-kotlin", version.ref = "rxlifecycleAndroidLifecycle" }
+sdp = { module = "com.intuit.sdp:sdp-android", version.ref = "sdp-ssp" }
+#spikeysanju-motiontoast = { module = "com.github.Spikeysanju:MotionToast", version.ref = "motiontoastVersion" }
+ssp = { module = "com.intuit.ssp:ssp-android", version.ref = "sdp-ssp" }
+# Timber
+stetho-okhttp3 = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stethoOkhttp3" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+# Circle ImageView
+circle-image = { module = "de.hdodenhof:circleimageview", version.ref = "circleImage" }
+
+# Kotlin coroutines
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+
+# Kotlin extensions
+kotlin-extensions = { module = "androidx.activity:activity-ktx", version.ref = "kotlin-extensions" }
+
+# Lottie
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+
+# Dot Indicator
+dots-indicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dots-indicator" }
+
+# Glide
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+# RxPref
+rx-pref = { module = "com.f2prateek.rx.preferences2:rx-preferences", version.ref = "rxpref" }
+# Admob
+admob = { module = "com.google.android.gms:play-services-ads", version.ref = "admob" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+gdpr = { module = "com.google.android.ump:user-messaging-platform", version.ref = "gdpr" }
+
+# Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytic = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytic" }
+firebase-config = { module = "com.google.firebase:firebase-config-ktx", version.ref = "firebase-config" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics-ktx" }
+firebase-storage = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebase-storage" }
+firebase-database = { module = "com.google.firebase:firebase-database-ktx", version.ref = "firebase-database" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging" }
+
+# Lifecycle
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycle" }
+
+# Uber Autoddispose
+uber-autodispose-android = { module = "com.uber.autodispose:autodispose-android-archcomponents", version.ref = "user-autodispose" }
+uber-autodispose = { module = "com.uber.autodispose:autodispose", version.ref = "user-autodispose" }
+uber-autodispose-lifecycle = { module = "com.uber.autodispose:autodispose-lifecycle", version.ref = "user-autodispose" }
+billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
+zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+firebase-carshlytics = { id ="com.google.firebase.crashlytics" , version.ref = "firebase-carshlytics" }
+com-google-gms-google-services= { id = "com.google.gms.google-services", version.ref = "google-services" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "version-serialization" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+[bundles]
+uber-autodispose-libs = ["uber-autodispose-android", "uber-autodispose", "uber-autodispose-lifecycle"]
+firebase-libs = ["firebase-bom", "firebase-analytic", "firebase-config", "firebase-crashlytics", "firebase-storage", "firebase-database", "firebase-messaging"]
+
+
