@@ -1,18 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/tab_home"
+        android:id="@+id/tab_market"
         android:icon="@drawable/market_version"
         android:title="@string/market" />
     <item
-        android:id="@+id/tab_alarm"
+        android:id="@+id/tab_portfolio"
         android:icon="@drawable/invest_version"
         android:title="@string/portfolio" />
     <item
-        android:id="@+id/tab_bread"
+        android:id="@+id/tab_news"
         android:icon="@drawable/news_version"
         android:title="@string/news" />
     <item
-        android:id="@+id/tab_cart"
+        android:id="@+id/tab_settings"
         android:icon="@drawable/settings"
         android:title="@string/settings" />
 </menu>
