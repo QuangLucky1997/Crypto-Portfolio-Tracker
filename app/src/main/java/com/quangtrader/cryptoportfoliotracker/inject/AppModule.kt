@@ -5,11 +5,22 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.gson.GsonBuilder
+import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
+import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -34,49 +45,49 @@ class AppModule {
         RxSharedPreferences.create(sharedPreferences)
 
 
-//    @Provides
-//    @Singleton
-//    fun provideOpenAiApi(): PixabayApi {
-//        val loggingInterceptor = HttpLoggingInterceptor { message ->
-//            Timber.tag("PixabayAPI").e(message)
-//        }
-//        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-//
-//        val networkInterceptor = Interceptor {
-//            val request = it.request().newBuilder().build()
-//            it.proceed(request)
-//        }
-//
-//        val okHttpClient = OkHttpClient.Builder()
-//            .addInterceptor { chain ->
-//                val requestBuilder = chain
-//                    .request()
-//                    .newBuilder()
-//
-//                chain.proceed(requestBuilder.build())
-//            }
-//            .addInterceptor(loggingInterceptor)
-//            .addNetworkInterceptor(networkInterceptor)
-//            .addNetworkInterceptor(StethoInterceptor())
-//            .hostnameVerifier { _, _ -> true }
-//            .retryOnConnectionFailure(false)
-//            .connectTimeout(2, TimeUnit.MINUTES)
-//            .writeTimeout(2, TimeUnit.MINUTES)
-//            .readTimeout(2, TimeUnit.MINUTES)
-//            .build()
-//
-//        val gson = GsonBuilder()
-//            .setLenient()
-//            .create()
-//
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .client(okHttpClient)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .build()
-//
-//        return retrofit.create(PixabayApi::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun provideOpenAiApi(): CoinMarketApi {
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.tag("CoinMarketAPI").e(message)
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val networkInterceptor = Interceptor {
+            val request = it.request().newBuilder().build()
+            it.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val requestBuilder = chain
+                    .request()
+                    .newBuilder()
+
+                chain.proceed(requestBuilder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(networkInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
+            .hostnameVerifier { _, _ -> true }
+            .retryOnConnectionFailure(false)
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .build()
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        return retrofit.create(CoinMarketApi::class.java)
+    }
 
     @Provides
     @Singleton

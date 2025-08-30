@@ -9,6 +9,7 @@ import authenticator.app.otp.authentication.fa.common.extentions.clickWithAnimat
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.local.Tutorial
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityTutorialsBinding
+import com.quangtrader.cryptoportfoliotracker.helper.Preferences
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import com.quangtrader.cryptoportfoliotracker.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +22,15 @@ import javax.inject.Inject
 class TutorialActivity : BaseActivity<ActivityTutorialsBinding>(ActivityTutorialsBinding::inflate) {
     @Inject
     lateinit var adapterTutorial: AdapterTutorial
+
+    @Inject
+    lateinit var preferences: Preferences
     override fun onCreateView() {
         super.onCreateView()
+        if (preferences.isFirstInstall.get()) {
+            startActivity(Intent(this@TutorialActivity, HomeActivity::class.java))
+            finish()
+        }
         setData()
     }
 
@@ -48,19 +56,20 @@ class TutorialActivity : BaseActivity<ActivityTutorialsBinding>(ActivityTutorial
                     viewPager2.setCurrentItem(currentPosition + 1, true)
                 }
                 if (currentPosition == 2) {
-                   // if(!preferences.isConfig3Days.get()){
-                        lifecycleScope.launch {
-                          //  tv3DayFree.isVisible = true
-                            //   val animation = AnimationUtils.loadAnimation(this@OnBoardActivity, R.anim.animation_zoom)
-                            //  tv3DayFree.startAnimation(animation)
-                           // viewNext.isVisible = false
-                            viewPager2.isVisible = false
-                          //  preferences.isConfig3Days.set(true)
-                            delay(1500)
-                           // startIAPActivity(true)
-                        }
-                   // }
-                  startActivity(Intent(this@TutorialActivity, HomeActivity::class.java))
+                    // if(!preferences.isConfig3Days.get()){
+                    lifecycleScope.launch {
+                        //  tv3DayFree.isVisible = true
+                        //   val animation = AnimationUtils.loadAnimation(this@OnBoardActivity, R.anim.animation_zoom)
+                        //  tv3DayFree.startAnimation(animation)
+                        // viewNext.isVisible = false
+                        viewPager2.isVisible = false
+                        //  preferences.isConfig3Days.set(true)
+                        delay(1500)
+                        // startIAPActivity(true)
+                    }
+                    // }
+                    startActivity(Intent(this@TutorialActivity, HomeActivity::class.java))
+                    preferences.isFirstInstall.set(true)
                 }
             }
         }

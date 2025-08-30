@@ -21,4 +21,7 @@
 
     <string name="coin">Coin</string>
     <string name="exchange">Exchange</string>
+    <string name="symbol_oi">Symbol/OI</string>
+    <string name="price">Price</string>
+    <string name="_24h_change">24H Change</string>
 </resources>
