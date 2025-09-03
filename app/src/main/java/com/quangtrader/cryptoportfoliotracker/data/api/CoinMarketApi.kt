@@ -1,6 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.data.api
 
 
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinInfoResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCoinMarket
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 
@@ -16,5 +17,12 @@ interface CoinMarketApi {
         @Query("convert") convert: String = "USD",
         @Header("X-CMC_PRO_API_KEY") apiKey: String = Constants.API_KEY
     ): ResponseCoinMarket
+
+
+    @GET("/v1/cryptocurrency/info")
+    suspend fun getIconCoin(
+        @Query("id") ids: String,
+        @Header("X-CMC_PRO_API_KEY") apiKey: String = Constants.API_KEY
+    ): CoinInfoResponse
 
 }

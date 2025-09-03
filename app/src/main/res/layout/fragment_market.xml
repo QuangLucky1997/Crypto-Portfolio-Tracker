@@ -11,7 +11,7 @@
         app:tabSelectedTextColor="@android:color/black"
         app:tabTextColor="@android:color/darker_gray"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_30sdp"
         app:tabIndicatorHeight="0dp"
         app:tabIndicator="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"

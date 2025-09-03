@@ -121,3 +121,9 @@ fun View.animateHorizontalShake(
     anim.duration = duration
     anim.start()
 }
+
+fun Double?.format(digits: Int = 2): String {
+    if (this == null) return "0.00"
+    return "%.${digits}f".format(this)
+}
+

@@ -3,10 +3,8 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.platform.LocalGraphicsContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentCoinBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,15 +21,16 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
         get() = FragmentCoinBinding::inflate
 
     override fun onViewCreated() {
-        coinViewModel.loadAllToken()
+        coinViewModel.loadCoins()
         loadData()
     }
 
     private fun loadData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            coinViewModel.tokens.collect { list ->
-                Log.d("Main123",list.size.toString())
+            coinViewModel.coins.collect { list ->
                 adapterCoin.data = list.toMutableList()
+                binding.rvListToken.adapter = adapterCoin
+
             }
         }
 
