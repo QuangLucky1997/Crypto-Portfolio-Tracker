@@ -20,7 +20,7 @@ class CoinRepository @Inject constructor(private val coinMarketApi: CoinMarketAp
     }
 
     suspend fun getIconsForTokens(ids: List<Int>): CoinInfoResponse {
-        val idsParam = ids.joinToString(",")  // "1,1027,52,825..."
+        val idsParam = ids.joinToString(",")
         return coinMarketApi.getIconCoin(idsParam)
     }
 
@@ -30,7 +30,6 @@ class CoinRepository @Inject constructor(private val coinMarketApi: CoinMarketAp
         responseCoinInfo: CoinInfoResponse
     ): List<CoinUI> {
         val infoMap = responseCoinInfo.data ?: emptyMap()
-
         return responseCoinMarket.data.map { data ->
             val info = infoMap[data.id?.toString()]
             CoinUI(

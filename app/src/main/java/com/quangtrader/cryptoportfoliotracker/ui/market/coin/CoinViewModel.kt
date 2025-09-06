@@ -39,13 +39,9 @@ class CoinViewModel @Inject constructor(private val coinRepository: CoinReposito
     fun loadCoins() {
         viewModelScope.launch {
             try {
-                // B1: gọi API lấy list token
                 val responseTokens = coinRepository.getTokens(limit = 100)
-                // B2: lấy ra tất cả id
                 val ids = responseTokens.data.mapNotNull { it.id }
-                // B3: gọi API lấy icon theo list id
                 val responseIcons = coinRepository.getIconsForTokens(ids)
-                // B4: merge lại
                 _coins.value = coinRepository.mergeCoins(responseTokens, responseIcons)
             } catch (e: Exception) {
                 Log.d("MainError", e.message.toString())

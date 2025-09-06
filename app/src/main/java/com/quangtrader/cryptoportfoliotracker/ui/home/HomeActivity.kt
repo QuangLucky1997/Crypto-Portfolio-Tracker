@@ -2,6 +2,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.home
 
 import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityHomeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +13,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private val homeViewPaperAdapter by lazy { HomeViewPaperAdapter(this) }
     override fun onCreateView() {
         super.onCreateView()
+        window.apply {
+            navigationBarColor = resources.getColor(R.color.white, null)
+            statusBarColor = resources.getColor(R.color.colorMain, null)
+        }
         initData()
 
     }

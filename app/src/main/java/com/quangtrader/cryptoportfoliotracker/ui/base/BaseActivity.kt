@@ -1,8 +1,10 @@
 package com.quangtrader.cryptoportfoliotracker.ui.base
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.uber.autodispose.android.lifecycle.scope
@@ -30,7 +32,11 @@ open class BaseActivity<VB : ViewBinding>(
         setContentView(binding.root)
         onCreateView()
         window.statusBarColor = Color.WHITE
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.navigationBarColor = Color.WHITE
+
+
     }
 
 

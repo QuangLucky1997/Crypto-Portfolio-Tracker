@@ -3,6 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
@@ -13,6 +14,7 @@ import java.text.DecimalFormat
 
 
 class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRealtimeBinding>() {
+    var subjectDetail: ((CoinUI) -> Unit)? = null
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomListTokenRealtimeBinding
         get() = CustomListTokenRealtimeBinding::inflate
 
@@ -42,6 +44,10 @@ class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRea
                 )
             }
             percentRealtime.text = item.percentChange24h.formatPercent()
+            viewToken.clicks {
+                subjectDetail?.invoke(item)
+            }
+
         }
     }
 
