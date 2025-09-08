@@ -21,6 +21,9 @@ class CoinViewModel @Inject constructor(private val coinRepository: CoinReposito
     val icon: StateFlow<List<CoinData>> = _iconList
 
 
+
+
+
     private val _coins = MutableStateFlow<List<CoinUI>>(emptyList())
     val coins: StateFlow<List<CoinUI>> = _coins
 
@@ -35,6 +38,7 @@ class CoinViewModel @Inject constructor(private val coinRepository: CoinReposito
             }
         }
     }
+
 
     fun loadCoins() {
         viewModelScope.launch {

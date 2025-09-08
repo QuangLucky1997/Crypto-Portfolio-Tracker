@@ -43,6 +43,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>() {
                 }
 
                 1 -> {
+                    tab.text = getString(R.string.trending)
+                }
+                2 -> {
                     tab.text = getString(R.string.exchange)
                 }
             }

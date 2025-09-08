@@ -19,8 +19,9 @@
     <string name="settings">Settings</string>
 
 
-    <string name="coin">Coin</string>
-    <string name="exchange">Exchange</string>
+    <string name="coin">TOP COINS</string>
+    <string name="exchange">EXCHANGE</string>
+    <string name="trending">🔥TRENDING</string>
     <string name="symbol_oi">Symbol/OI</string>
     <string name="price">Price</string>
     <string name="_24h_change">24H Change</string>

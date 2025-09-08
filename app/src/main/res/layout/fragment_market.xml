@@ -8,12 +8,12 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabMarket"
-        app:tabSelectedTextColor="@android:color/black"
+        app:tabSelectedTextColor="@color/yellowMax"
         app:tabTextColor="@android:color/darker_gray"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        app:tabIndicatorHeight="0dp"
-        app:tabIndicator="@android:color/transparent"
+        app:tabIndicatorHeight="@dimen/_2sdp"
+        app:tabIndicatorColor="@color/yellowMax"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

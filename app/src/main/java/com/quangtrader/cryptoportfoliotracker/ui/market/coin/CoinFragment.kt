@@ -1,7 +1,9 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 
+
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,8 +32,15 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
     private fun loadData() {
         viewLifecycleOwner.lifecycleScope.launch {
             coinViewModel.coins.collect { list ->
-                adapterCoin.data = list.toMutableList()
-                binding.rvListToken.adapter = adapterCoin
+                if (list.isEmpty()) {
+                    binding.loadingDataPg.visibility = View.VISIBLE
+                    binding.rvListToken.visibility = View.GONE
+                } else {
+                    binding.loadingDataPg.visibility = View.GONE
+                    binding.rvListToken.visibility = View.VISIBLE
+                    adapterCoin.data = list.toMutableList()
+                    binding.rvListToken.adapter = adapterCoin
+                }
 
             }
         }
