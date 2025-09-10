@@ -8,6 +8,7 @@ import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomTrendingCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class AdapterTrendingCoin @Inject constructor() :
@@ -27,6 +28,11 @@ class AdapterTrendingCoin @Inject constructor() :
             textMarketRank.text = item.marketCapRank.toString()
             textSymbolToken.text = item.symbol
             percentRealtime.text = item.score.toString()
+            val df = DecimalFormat("#.##")
+            df.minimumFractionDigits = 2
+            df.maximumFractionDigits = 2
+            val formatted = df.format(item.data?.price)
+            priceToken.text = "$".plus(formatted.toString())
 
             if (item.data?.priceChangePercentage24h?.get("btc") == null) {
                 cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.gray))

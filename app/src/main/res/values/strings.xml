@@ -20,8 +20,10 @@
 
 
     <string name="coin">TOP COINS</string>
-    <string name="exchange">EXCHANGE</string>
     <string name="trending">🔥TRENDING</string>
+    <string name="gainers">TOP GAINERS</string>
+    <string name="losers">TOP LOSERS</string>
+    <string name="exchange">EXCHANGE</string>
     <string name="symbol_oi">Symbol/OI</string>
     <string name="price">Price</string>
     <string name="_24h_change">24H Change</string>
