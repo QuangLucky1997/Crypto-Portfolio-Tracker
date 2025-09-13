@@ -52,7 +52,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>() {
                     tab.text = getString(R.string.losers)
                 }
                 4 -> {
-                    tab.text = getString(R.string.exchange)
+                    tab.text = getString(R.string.categories)
                 }
             }
         }.attach()

@@ -3,6 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.market
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.quangtrader.cryptoportfoliotracker.ui.market.categories.CategoriesFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.coin.CoinFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.exchange.ExchangeFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.TopGainersFragment
@@ -18,7 +19,7 @@ class AdapterMarket(fragmentActivity: FragmentActivity) : FragmentStateAdapter(f
             1 -> TrendingCoinFragment()
             2 -> TopGainersFragment()
             3-> TopLosersFragment()
-            4 -> ExchangeFragment()
+            4 -> CategoriesFragment()
             else -> CoinFragment()
         }
     }

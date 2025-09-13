@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.SystemClock
@@ -32,6 +33,7 @@ fun View.clickWithAnimationDebounce(
             }
         })
 }
+
 fun ImageView.setTint(color: Int? = null) {
     if (color == null) {
         imageTintList = null
@@ -39,11 +41,13 @@ fun ImageView.setTint(color: Int? = null) {
     }
     imageTintList = ColorStateList.valueOf(color)
 }
+
 fun EditText.showKeyboard() {
     requestFocus()
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
+
 fun Context.copyClipboard(text: String) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
@@ -78,7 +82,13 @@ fun Context.pasterFromClipboard(completed: (String) -> Unit, empty: () -> Unit) 
         empty()
     }
 }
-fun View.clicks(debounce: Long = 250, withAnim: Boolean = true, scale: Float = 0.96F, clicks: (View) -> Unit) {
+
+fun View.clicks(
+    debounce: Long = 250,
+    withAnim: Boolean = true,
+    scale: Float = 0.96F,
+    clicks: (View) -> Unit
+) {
     if (withAnim) {
         var lastClickTime: Long = 0
         PushDownAnim.setPushDownAnimTo(this)
@@ -97,6 +107,7 @@ fun View.clicks(debounce: Long = 250, withAnim: Boolean = true, scale: Float = 0
         }
     }
 }
+
 fun View.animateHorizontalShake(
     offset: Float,
     repeatCount: Int = 3,
@@ -125,5 +136,11 @@ fun View.animateHorizontalShake(
 fun Double?.format(digits: Int = 2): String {
     if (this == null) return "0.00"
     return "%.${digits}f".format(this)
+}
+
+
+fun View.startActivity(context: Context, activity: Class<*>) {
+    val intent = Intent(context, activity)
+    context.startActivity(intent)
 }
 

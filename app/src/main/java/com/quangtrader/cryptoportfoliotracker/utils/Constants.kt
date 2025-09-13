@@ -9,4 +9,9 @@ object Constants {
     const val EXTRA_NAME_COIN = "EXTRA_NAME_COIN"
     const val EXTRA_LOGO_COIN = "EXTRA_LOGO_COIN"
     const val EXTRA_SYMBOL_COIN = "EXTRA_SYMBOL_COIN"
+
+
+
+
+
 }
