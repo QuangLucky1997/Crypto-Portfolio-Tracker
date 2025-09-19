@@ -1,9 +1,11 @@
 package com.quangtrader.cryptoportfoliotracker.data.api
 
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
+import com.quangtrader.cryptoportfoliotracker.data.remote.InfoToken
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCategoryCoin
 import com.quangtrader.cryptoportfoliotracker.data.remote.TrendingResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CoinGeckoTrendingApi {
     @GET("/api/v3/search/trending")
@@ -16,5 +18,9 @@ interface CoinGeckoTrendingApi {
 
     @GET("/api/v3/coins/categories")
     suspend fun getCategories(): List<ResponseCategoryCoin>
+
+
+    @GET("/api/v3/coins/{id}")
+    suspend fun getAllInfoToken( @Path("id") tokenId: String): InfoToken
 
 }

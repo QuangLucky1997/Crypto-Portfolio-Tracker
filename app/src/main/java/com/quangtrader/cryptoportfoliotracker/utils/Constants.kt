@@ -3,6 +3,8 @@ package com.quangtrader.cryptoportfoliotracker.utils
 object Constants {
     const val BASE_URL = "https://pro-api.coinmarketcap.com"
     const val BASE_TRENDING = "https://api.coingecko.com"
+
+    const val BASE_BINANCE = "https://api.binance.com/"
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
@@ -10,8 +12,11 @@ object Constants {
     const val EXTRA_LOGO_COIN = "EXTRA_LOGO_COIN"
     const val EXTRA_SYMBOL_COIN = "EXTRA_SYMBOL_COIN"
 
+    const val EXTRA_MARKET_RANK_COIN = "EXTRA_MARKET_RANK_COIN"
 
+    const val EXTRA_PRICE_COIN = "EXTRA_PRICE_COIN"
 
+    const val EXTRA_PRICE_24H = "EXTRA_PRICE_24H"
 
 
 }

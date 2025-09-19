@@ -144,3 +144,45 @@ fun View.startActivity(context: Context, activity: Class<*>) {
     context.startActivity(intent)
 }
 
+
+fun getTradingViewChartHtml(symbol: String, interval: String): String {
+    return """
+        <html>
+        <head>
+            <style>
+                body, html { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
+            </style>
+        </head>
+        <body>
+            <div id="tradingview_chart"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+            <script type="text/javascript">
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "$symbol",
+                    "interval": "$interval",       // <- đổi theo input
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "vi_VN",
+                    "hide_top_toolbar": true,
+                    "hide_side_toolbar": true,
+                    "withdateranges": false,
+                    "allow_symbol_change": false,
+                    "hide_legend": true,
+                    "details": false,
+                    "hotlist": false,
+                    "calendar": false,
+                    "studies": [],
+                    "container_id": "tradingview_chart"
+                });
+            </script>
+        </body>
+        </html>
+    """.trimIndent()
+}
+
+fun formatNumberWithCommas(number: Long): String {
+    return String.format("%,d", number)
+}

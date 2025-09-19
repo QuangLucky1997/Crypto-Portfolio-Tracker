@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
+import com.quangtrader.cryptoportfoliotracker.data.api.BinanceApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinGeckoTrendingApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
@@ -134,6 +135,51 @@ class AppModule {
             .build()
 
         return retrofit.create(CoinGeckoTrendingApi::class.java)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideGetRealtimePrice(): BinanceApi {
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.tag("Realtime_DATA").e(message)
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val networkInterceptor = Interceptor {
+            val request = it.request().newBuilder().build()
+            it.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val requestBuilder = chain
+                    .request()
+                    .newBuilder()
+
+                chain.proceed(requestBuilder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(networkInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
+            .hostnameVerifier { _, _ -> true }
+            .retryOnConnectionFailure(false)
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .build()
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_BINANCE)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        return retrofit.create(BinanceApi::class.java)
     }
 
     @Provides

@@ -35,6 +35,10 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
             val intentTrending = Intent(requireActivity(), DetailTokenActivity::class.java)
             intentTrending.putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
             intentTrending.putExtra(Constants.EXTRA_LOGO_COIN, data.thumb)
+            intentTrending.putExtra(Constants.EXTRA_NAME_COIN, data.name)
+            intentTrending.putExtra(Constants.EXTRA_MARKET_RANK_COIN, data.marketCapRank)
+            intentTrending.putExtra(Constants.EXTRA_PRICE_COIN, data.data?.price ?: 0.0)
+            intentTrending.putExtra(Constants.EXTRA_PRICE_24H, data.data?.priceChangePercentage24h?.get("btc") ?: 0.0)
             startActivity(intentTrending)
         }
     }

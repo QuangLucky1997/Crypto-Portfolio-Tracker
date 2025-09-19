@@ -69,6 +69,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:tabIndicatorColor="@color/blue01"
             app:tabIndicatorHeight="@dimen/_2sdp"
+            android:background="@android:color/black"
             app:tabSelectedTextColor="@color/blue01"
             app:tabTextColor="@android:color/darker_gray" />
     </LinearLayout>

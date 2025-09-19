@@ -1,5 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID
 
+
+import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -8,6 +10,7 @@ import com.quangtrader.cryptoportfoliotracker.databinding.ActivityDetailTokenBin
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
 
 @AndroidEntryPoint
@@ -18,7 +21,6 @@ class DetailTokenActivity :
         super.onCreateView()
         initView()
         handleData()
-
     }
 
     private fun handleData() {
@@ -27,6 +29,9 @@ class DetailTokenActivity :
         binding.apply {
             Glide.with(this@DetailTokenActivity).load(logoData).into(imgToken)
             tokenName.text = symbolData
+            imgBack.clicks {
+                finish()
+            }
         }
     }
 

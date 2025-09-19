@@ -29,6 +29,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                 override fun onTabSelected(
                     lastIndex: Int,
                     lastTab: AnimatedBottomBar.Tab?,
+
+
+
                     newIndex: Int,
                     newTab: AnimatedBottomBar.Tab
                 ) {

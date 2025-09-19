@@ -17,6 +17,8 @@
 
     <color name="blue01">#3F51B5</color>
 
+    <color name="blackAlpha">#1D1D1D</color>
+    <color name="white_alpha">#DED4D4</color>
 
     <color name="trans">#00000000</color>
 

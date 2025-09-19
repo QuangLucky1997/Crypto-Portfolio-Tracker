@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID
+package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.alert
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
