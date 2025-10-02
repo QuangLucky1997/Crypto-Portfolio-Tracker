@@ -199,7 +199,13 @@
             app:layout_constraintTop_toBottomOf="@+id/candleChartView"
             app:selectionRequired="true"
             app:singleSelection="true">
-
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip15M"
+                style="@style/Widget.MyApp.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_15m"
+                android:textColor="@color/white" />
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1h"
                 style="@style/Widget.MyApp.Chip.Choice"
@@ -207,13 +213,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/_1h"
                 android:textColor="@color/white" />
-
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip1d"
-                android:checked="true"
+                android:id="@+id/chip4h"
                 style="@style/Widget.MyApp.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/_4h"
+                android:textColor="@color/white" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1d"
+                style="@style/Widget.MyApp.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="@string/_1d"
                 android:textColor="@color/white" />
 
@@ -236,149 +248,165 @@
 
         <TextView
             android:id="@+id/textStats"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroupTimeRange"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/stats"
-            android:layout_margin="@dimen/_8sdp"
-            android:textSize="@dimen/_12ssp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/inter_bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/stats"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupTimeRange" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
             app:cardBackgroundColor="@color/blackAlpha"
             app:cardCornerRadius="@dimen/_14sdp"
-            android:layout_margin="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@+id/textStats"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textStats">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
                 <RelativeLayout
-                    android:layout_margin="@dimen/_8sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp">
+
                     <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/market_cap"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/market_cap"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+
                     <TextView
                         android:id="@+id/dataMarketCap"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="@string/no_data"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
                         android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/fully_diluted_valuation"
                         android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
+                        android:text="@string/no_data"
                         android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp">
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/fully_diluted_valuation"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+
                     <TextView
                         android:id="@+id/dataFullyDilutedValuation"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
                         android:text="@string/no_data"
                         android:textColor="@color/white_alpha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
+
                 <RelativeLayout
-                    android:layout_margin="@dimen/_8sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp">
+
                     <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/total_volume"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/total_volume"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+
                     <TextView
                         android:id="@+id/dataTotalVol"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="@string/no_data"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
                         android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/high_24h"
                         android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
+                        android:text="@string/no_data"
                         android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp">
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/high_24h"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+
                     <TextView
                         android:id="@+id/dataHigh24h"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="@string/no_data"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
                         android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/low_24h"
                         android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
+                        android:text="@string/no_data"
                         android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp">
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/low_24h"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+
                     <TextView
                         android:id="@+id/dataLow24h"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:text="@string/no_data"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/white_alpha"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="@string/no_data"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -386,15 +414,74 @@
 
         <TextView
             android:id="@+id/textCategories"
-            app:layout_constraintTop_toBottomOf="@+id/cardInfo"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/categories_2"
-            android:layout_margin="@dimen/_8sdp"
-            android:textSize="@dimen/_12ssp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/inter_bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/categories_2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardInfo" />
+
+
+        <LinearLayout
+            android:id="@+id/viewCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textCategories">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:cardBackgroundColor="@color/blackAlpha"
+                app:cardCornerRadius="@dimen/_4sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textItemCategories1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/no_data"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:cardBackgroundColor="@color/blackAlpha"
+                app:cardCornerRadius="@dimen/_4sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textItemCategories2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:text="no_data"
+                        android:textColor="@color/white_alpha"
+                        android:textSize="@dimen/_10ssp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

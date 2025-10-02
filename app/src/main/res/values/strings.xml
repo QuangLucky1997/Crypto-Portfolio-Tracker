@@ -50,4 +50,18 @@
     <string name="no_data">No Data</string>
 
     <string name="categories_2">Categories</string>
+    <string name="links">Links</string>
+    <string name="_4h">4H</string>
+    <string name="_15m">15m</string>
+    <string name="_5m">5m</string>
+    <string name="exchange_pair">Exchange Pair</string>
+    <string name="volume">Volume</string>
+
+
+
+    <string name="handpick">👌Handpicked</string>
+    <string name="trending_news">🔥Trending</string>
+    <string name="latest_news">🕑Latest</string>
+    <string name="bullish_news">🦬Bullish</string>
+    <string name="bearish_news">🐻Bearish</string>
 </resources>

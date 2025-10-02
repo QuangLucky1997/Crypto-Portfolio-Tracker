@@ -63,17 +63,17 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
             viewLifecycleOwner.lifecycleScope.launch {
                 overViewModel.infoToken.collect { token ->
                     if (token != null) {
-                        dataMarketCap.text = "$".plus(formatNumberWithCommas( token.marketData.marketCap.usd))
+                        dataMarketCap.text =
+                            "$".plus(formatNumberWithCommas(token.marketData.marketCap.usd))
                         dataFullyDilutedValuation.text =
                             "$".plus(formatNumberWithCommas(token.marketData.fullyDilutedValuation.usd))
                         dataTotalVol.text =
                             "$".plus(formatNumberWithCommas(token.marketData.totalVolume.usd))
                         dataHigh24h.text = "$".plus(token.marketData.high24h.usd.toString())
                         dataLow24h.text = "$".plus(token.marketData.low24h.usd.toString())
-
-                        val listCategory = token.categories.forEach {
-                            Log.d("Main123",it)
-                        }
+                        textItemCategories1.text = token.categories[0]
+                        textItemCategories2.text = token.categories[1]
+                        val dataTest = token.exchange
                     }
                 }
             }
@@ -103,7 +103,9 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
         binding.apply {
             chipGroupTimeRange.setOnCheckedChangeListener { group, checkedId ->
                 when (checkedId) {
+                    R.id.chip15M -> loadChart(tokenSymbol, "15")
                     R.id.chip1h -> loadChart(tokenSymbol, "60")
+                    R.id.chip4h -> loadChart(tokenSymbol, "240")
                     R.id.chip1d -> loadChart(tokenSymbol, "D")
                     R.id.chip1w -> loadChart(tokenSymbol, "W")
                     R.id.chip1m -> loadChart(tokenSymbol, "M")

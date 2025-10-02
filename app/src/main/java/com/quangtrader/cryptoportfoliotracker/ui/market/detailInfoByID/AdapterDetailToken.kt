@@ -7,6 +7,7 @@ import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.alert.Ale
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.market.MarketFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.newsInfo.NewsFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.overview.OverviewFragment
+import com.quangtrader.cryptoportfoliotracker.ui.market.exchange.ExchangeFragment
 
 
 class AdapterDetailToken (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -15,7 +16,7 @@ class AdapterDetailToken (fragmentActivity: FragmentActivity) : FragmentStateAda
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> OverviewFragment()
-            1 -> MarketFragment()
+            1 -> ExchangeFragment()
             2 -> AlertFragment()
             3-> NewsFragment()
             else -> OverviewFragment()

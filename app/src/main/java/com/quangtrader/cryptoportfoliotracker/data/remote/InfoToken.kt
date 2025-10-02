@@ -2,6 +2,7 @@ package com.quangtrader.cryptoportfoliotracker.data.remote
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+
 @Keep
 data class InfoToken(
     @SerializedName("id")
@@ -17,5 +18,7 @@ data class InfoToken(
     val marketCapRank: Long,
     @SerializedName("market_data")
     val marketData: MarketData,
+    @SerializedName("exchange")
+    val exchange: List<Ticket>
 
 )
