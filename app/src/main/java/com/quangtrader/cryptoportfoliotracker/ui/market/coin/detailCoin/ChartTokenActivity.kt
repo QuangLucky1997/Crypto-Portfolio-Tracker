@@ -74,7 +74,10 @@ class ChartTokenActivity :
                         "toolbar_bg": "#f1f3f6",
                         "enable_publishing": false,
                         "allow_symbol_change": true,
-                        "container_id": "tradingview_123456789"
+                        "container_id": "tradingview_123456789",
+                         "hide_top_toolbar": false,   // ẩn top toolbar
+                "hide_side_toolbar": false,
+                "allow_symbol_change": false
                     });
                 </script>
             </div>

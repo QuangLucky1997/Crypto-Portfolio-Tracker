@@ -3,17 +3,22 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.topgainers
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomGainerLoserCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-class AdapterTopGainers @Inject constructor() : BaseAdapter<GainerOrLoserCoinGeckoResponse, CustomGainerLoserCoinsBinding>(){
+class AdapterTopGainers @Inject constructor() :
+    BaseAdapter<GainerOrLoserCoinGeckoResponse, CustomGainerLoserCoinsBinding>() {
+
+    var subjectGainers: ((GainerOrLoserCoinGeckoResponse) -> Unit)? = null
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomGainerLoserCoinsBinding
-        get() = CustomGainerLoserCoinsBinding ::inflate
+        get() = CustomGainerLoserCoinsBinding::inflate
 
     @SuppressLint("DefaultLocale")
     override fun bindItem(
@@ -44,6 +49,9 @@ class AdapterTopGainers @Inject constructor() : BaseAdapter<GainerOrLoserCoinGec
 
             }
             percentRealtime.text = item.priceChangePercentage24h.formatPercent()
+            viewToken.clicks {
+                subjectGainers?.invoke(item)
+            }
         }
     }
 

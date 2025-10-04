@@ -2,6 +2,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.news
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,9 +32,11 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
     private fun setDataNewsHandpicked() {
         newsViewModel.getAllNewsByType("trending")
+        showLoading(true)
         viewLifecycleOwner.lifecycleScope.launch {
             newsViewModel.dataNews.collect { it ->
                 adapterLoadNewsFeed.data = it.toMutableList()
+                showLoading(false)
                 binding.rvNewsFeedByType.adapter = adapterLoadNewsFeed
             }
 
@@ -48,5 +51,20 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
             intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.link)
             startActivity(intentDetail)
         }
+    }
+
+    private fun showLoading(show: Boolean) {
+        binding.apply {
+            if (show) {
+                animationLoading.visibility = View.VISIBLE
+                rvNewsFeedByType.visibility = View.GONE
+                animationLoading.playAnimation()
+            } else {
+                animationLoading.visibility = View.GONE
+                rvNewsFeedByType.visibility = View.VISIBLE
+                animationLoading.cancelAnimation()
+            }
+        }
+
     }
 }

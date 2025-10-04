@@ -94,7 +94,7 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
                 htmlContent,
                 "text/html",
                 "UTF-8",
-                null
+                null,
             )
         }
     }

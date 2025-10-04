@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/viewToken"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_5sdp">
@@ -39,7 +40,7 @@
             android:text="$521,49B"
             android:textSize="@dimen/_10ssp"
             android:fontFamily="@font/inter_medium"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/white_alpha"/>
     </LinearLayout>
 
     <LinearLayout

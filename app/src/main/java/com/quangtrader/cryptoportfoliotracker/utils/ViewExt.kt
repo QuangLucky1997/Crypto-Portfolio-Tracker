@@ -175,7 +175,7 @@ fun getTradingViewChartHtml(symbol: String, interval: String): String {
                     "hotlist": false,
                     "calendar": false,
                     "studies": [],
-                    "container_id": "tradingview_chart"
+                    "container_id": "tradingview_chart",
                 });
             </script>
         </body>

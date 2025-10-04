@@ -1,15 +1,19 @@
 package com.quangtrader.cryptoportfoliotracker.ui.news
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
+import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.utils.getRelativeTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.getValue
+
 @AndroidEntryPoint
 class BullishNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
     private val newsViewModel by viewModels<NewsViewModel>()
@@ -22,6 +26,7 @@ class BullishNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
     override fun onViewCreated() {
         setDataNewsHandpicked()
+        openLink()
     }
 
     private fun setDataNewsHandpicked() {
@@ -34,4 +39,15 @@ class BullishNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
         }
     }
+
+    private fun openLink() {
+        adapterLoadNewsFeed.subjectDetailNew = {
+            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
+            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source)
+            intentDetail.putExtra(Constants.EXTRA_TIME_POST, getRelativeTime(it.feedDate))
+            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.link)
+            startActivity(intentDetail)
+        }
+    }
+
 }

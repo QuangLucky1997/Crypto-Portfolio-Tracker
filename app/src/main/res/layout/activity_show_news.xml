@@ -5,6 +5,21 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationLoading"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
+
     <RelativeLayout
         android:id="@+id/viewTopNews"
         android:layout_width="match_parent"
@@ -16,11 +31,11 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_margin="@dimen/_8sdp"
             android:src="@drawable/ic_back" />
 
         <LinearLayout
