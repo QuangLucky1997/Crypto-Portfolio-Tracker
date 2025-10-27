@@ -49,6 +49,10 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
             intent.putExtra(Constants.EXTRA_NAME_COIN, data.name)
             intent.putExtra(Constants.EXTRA_LOGO_COIN, data.logo)
             intent.putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
+            intent.putExtra(Constants.EXTRA_PERCENT_24_H, data.percentChange24h)
+            intent.putExtra(Constants.EXTRA_LOGO, data.logo)
+            intent.putExtra(Constants.EXTRA_PRICE_COIN,data.price)
+            intent.putExtra(Constants.EXTRA_MARKET_CAP, data.marketCap)
             startActivity(intent)
         }
 

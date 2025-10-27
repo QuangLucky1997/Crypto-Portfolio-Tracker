@@ -1,0 +1,7 @@
+<resources>
+    <array name="progress_colors">
+        <item>@color/gray</item>
+        <item>@color/yellowMax</item>
+        <item>@color/blue01</item>
+    </array>
+</resources>

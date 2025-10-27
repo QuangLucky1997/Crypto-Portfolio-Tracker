@@ -1,6 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.data.api
 
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
+import com.quangtrader.cryptoportfoliotracker.data.remote.GlobalResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.InfoToken
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCategoryCoin
 import com.quangtrader.cryptoportfoliotracker.data.remote.TickerResponse
@@ -28,5 +29,9 @@ interface CoinGeckoTrendingApi {
 
     @GET("/api/v3/coins/{id}/tickers")
     suspend fun getExchange( @Path("id") tokenId: String): TickerResponse
+
+
+    @GET("/api/v3/global")
+    suspend fun getMarketCap(): GlobalResponse
 
 }

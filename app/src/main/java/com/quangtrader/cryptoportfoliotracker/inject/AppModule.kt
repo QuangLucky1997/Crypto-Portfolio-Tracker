@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
+import com.quangtrader.cryptoportfoliotracker.dao.CoinService
 import com.quangtrader.cryptoportfoliotracker.data.api.BinanceApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinGeckoTrendingApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
@@ -238,9 +239,9 @@ class AppModule {
             APP_NAME,
         ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
-//    @Provides
-//    @Singleton
-//    fun provideDao(db: AppDatabase): QrCodeService = db.dao()
+    @Provides
+    @Singleton
+    fun provideDao(db: AppDatabase): CoinService = db.dao()
 
 
 }

@@ -38,6 +38,8 @@
 
                 <TextView
                     android:id="@+id/tokenGainers"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
@@ -142,17 +144,5 @@
         android:text="$111,314.05"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp" />
-
-
-
-
-    <View
-        android:layout_below="@+id/viewTop"
-        android:background="@color/gray"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"/>
 
 </RelativeLayout>

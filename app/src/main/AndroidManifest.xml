@@ -37,6 +37,10 @@
             android:exported="true"/>
 
         <activity
+            android:name=".ui.portfolio.AddTransactionActivity"
+            android:exported="true"/>
+
+        <activity
             android:name=".ui.market.coin.detailCoin.ChartTokenActivity"
             android:exported="true"/>
     </application>

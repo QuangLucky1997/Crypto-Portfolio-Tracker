@@ -2,21 +2,58 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.coin.detailCoin
 
 import android.annotation.SuppressLint
 import android.webkit.WebViewClient
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
+import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.data.repository.ManagerDBRoomRepository
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityChartTokenBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
+import com.quangtrader.cryptoportfoliotracker.ui.market.watchlists.WatchListsViewModel
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChartTokenActivity :
     BaseActivity<ActivityChartTokenBinding>(ActivityChartTokenBinding::inflate) {
-    @SuppressLint("SetJavaScriptEnabled")
+    private val coinFavViewModel by viewModels<WatchListsViewModel>()
+    var isSelect = false
+
+    @Inject
+    lateinit var coinManagerDBRoomRepository: ManagerDBRoomRepository
     override fun onCreateView() {
         super.onCreateView()
-        setData()
+        val nameCoin = intent.getStringExtra(Constants.EXTRA_NAME_COIN)
+        val logoCoin = intent.getStringExtra(Constants.EXTRA_LOGO_COIN)
+        val priceCoin = intent.getDoubleExtra(Constants.EXTRA_PRICE_COIN,0.0)
+        val symbolCoin = intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
+        val percent24H = intent.getDoubleExtra(Constants.EXTRA_PERCENT_24_H, 0.0)
+        val logo = intent.getStringExtra(Constants.EXTRA_LOGO)
+        val marketCap = intent.getDoubleExtra(Constants.EXTRA_MARKET_CAP, 0.0)
+        nameCoin?.let {
+            logoCoin?.let { it1 ->
+                symbolCoin?.let { symbolCoin1 ->
+                    setData(
+                        it,
+                        it1,
+                        symbolCoin1
+                    )
+                }
+            }
+        }
         initHandle()
+        addOrRemoveFav(
+            nameCoin.toString(),
+            symbolCoin.toString(),
+            priceCoin,
+            percent24H,
+            marketCap,
+            logo
+        )
     }
 
     private fun initHandle() {
@@ -27,11 +64,44 @@ class ChartTokenActivity :
         }
     }
 
+    private fun addOrRemoveFav(
+        nameData: String,
+        symbolCoin: String,
+        priceData: Double,
+        percentChange24h: Double,
+        marketCap: Double,
+        logo: String?
+    ) {
+        binding.apply {
+            imgStar.clicks {
+                val newFav = !isSelect
+                val coinFav = CoinFav(
+                    0,
+                    nameData,
+                    symbolCoin,
+                    priceData,
+                    percentChange24h,
+                    marketCap,
+                    logo,
+                    newFav
+                )
+                coinFavViewModel.toggleFav(coinFav, newFav)
+            }
+
+        }
+
+
+    }
+
+
     @SuppressLint("SetJavaScriptEnabled")
-    private fun setData() {
-        val nameCoin = intent.getStringExtra(Constants.EXTRA_NAME_COIN)
-        val logoCoin = intent.getStringExtra(Constants.EXTRA_LOGO_COIN)
-        val symbolCoin = intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
+    private fun setData(nameCoin: String, logoCoin: String, symbolCoin: String) {
+        lifecycleScope.launch {
+            coinFavViewModel.getAllWatchListsCoin.collect { favList ->
+                val isFav = favList.any { it.name == nameCoin }
+                binding.imgStar.setImageResource(if (isFav) R.drawable.ic_started else R.drawable.ic_star)
+            }
+        }
         binding.apply {
             Glide.with(root).load(logoCoin).into(imgToken)
             tokenName.text = nameCoin
@@ -40,7 +110,7 @@ class ChartTokenActivity :
             val htmlContent = getTradingViewChartHtml("BINANCE:${symbolCoin}USDT")
             webChart.loadDataWithBaseURL(
                 "https://www.tradingview.com",
-                htmlContent,
+                 htmlContent,
                 "text/html",
                 "UTF-8",
                 null

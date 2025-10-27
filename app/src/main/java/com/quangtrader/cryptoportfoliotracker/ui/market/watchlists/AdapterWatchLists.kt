@@ -1,0 +1,62 @@
+package com.quangtrader.cryptoportfoliotracker.ui.market.watchlists
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.bumptech.glide.Glide
+import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
+import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
+import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
+import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
+import java.text.DecimalFormat
+import javax.inject.Inject
+
+class AdapterWatchLists @Inject constructor() :
+    BaseAdapter<CoinFav, CustomListTokenRealtimeBinding>() {
+    var subjectDetail: ((CoinFav) -> Unit)? = null
+    var subjectDeleteWatchLists: ((CoinFav) -> Unit)? = null
+    var subjectNotification : ((CoinFav) -> Unit)? = null
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomListTokenRealtimeBinding
+        get() = CustomListTokenRealtimeBinding::inflate
+
+    @SuppressLint("DefaultLocale")
+    override fun bindItem(
+        item: CoinFav,
+        binding: CustomListTokenRealtimeBinding,
+        position: Int
+    ) {
+        binding.apply {
+            Glide.with(root).load(item.logo).into(iconToken);
+            nameToken.text = item.symbol
+            marketCapitalizationToken.text = item.marketCap.formatMarketCap()
+            val df = DecimalFormat("#.##")
+            df.minimumFractionDigits = 2
+            df.maximumFractionDigits = 2
+            val formatted = df.format(item.price)
+            priceToken.text = "$".plus(formatted.toString())
+            String.format("%.2f%%", item.percentChange24h)
+            item.percentChange24h.let {
+                if (it >= 0) cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.green)) else cardPercent24H.setCardBackgroundColor(
+                    root.resources.getColor(R.color.red)
+                )
+            }
+            percentRealtime.text = item.percentChange24h.formatPercent()
+            viewToken.clicks {
+                subjectDetail?.invoke(item)
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun Double.formatMarketCap(): String {
+        return when {
+            this >= 1_000_000_000_000 -> String.format("%.2fT", this / 1_000_000_000_000)
+            this >= 1_000_000_000 -> String.format("%.2fB", this / 1_000_000_000)
+            this >= 1_000_000 -> String.format("%.2fM", this / 1_000_000)
+            this >= 1_000 -> String.format("%.2fK", this / 1_000)
+            else -> String.format("%.2f", this)
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/_2sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/viewData"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/logoToken"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+        <TextView
+            android:id="@+id/textSymbolToken"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/fullTokenName"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"/>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_below="@+id/viewData"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"/>
+
+
+</RelativeLayout>

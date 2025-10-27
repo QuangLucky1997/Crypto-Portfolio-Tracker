@@ -18,12 +18,15 @@ object Constants {
     const val EXTRA_LOGO_COIN = "EXTRA_LOGO_COIN"
     const val EXTRA_SYMBOL_COIN = "EXTRA_SYMBOL_COIN"
 
+    const val EXTRA_PERCENT_24_H = "EXTRA_PERCENT_24_H"
+    const val EXTRA_LOGO = "EXTRA_LOGO"
+    const val EXTRA_MARKET_CAP = "EXTRA_MARKET_CAP"
+
     const val EXTRA_MARKET_RANK_COIN = "EXTRA_MARKET_RANK_COIN"
 
     const val EXTRA_PRICE_COIN = "EXTRA_PRICE_COIN"
 
     const val EXTRA_PRICE_24H = "EXTRA_PRICE_24H"
-
 
 
     const val EXTRA_SOURCE_NEWS = "EXTRA_SOURCE_NEWS"

@@ -8,17 +8,19 @@ import com.quangtrader.cryptoportfoliotracker.ui.market.coin.CoinFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.TopGainersFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.toploser.TopLosersFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.trending.TrendingCoinFragment
+import com.quangtrader.cryptoportfoliotracker.ui.market.watchlists.WatchListsFragment
 
 class AdapterMarket(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = 6
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CoinFragment()
             1 -> TrendingCoinFragment()
-            2 -> TopGainersFragment()
-            3-> TopLosersFragment()
-            4 -> CategoriesFragment()
+            2 -> WatchListsFragment()
+            3 -> TopGainersFragment()
+            4 -> TopLosersFragment()
+            5 -> CategoriesFragment()
             else -> CoinFragment()
         }
     }

@@ -1,5 +1,6 @@
 package com.quangtrader.cryptoportfoliotracker.utils
 
+import com.quangtrader.cryptoportfoliotracker.data.remote.GlobalData
 import java.text.DecimalFormat
 import kotlin.math.floor
 import kotlin.math.log10
@@ -58,5 +59,22 @@ fun getRelativeTime(timestamp: Long): String {
         else -> "${days}d ago"
     }
 }
+
+fun formatMarketCap(number: Double): String {
+    val suffix = listOf("", "K", "M", "B", "T") // K: nghìn, M: triệu, B: tỷ, T: nghìn tỷ
+    if (number < 1000) {
+        return DecimalFormat("#,##0").format(number)
+    }
+    val tier = (Math.log10(number) / 3).toInt()
+    if (tier >= suffix.size) {
+        // Đối với các số rất lớn, chỉ cần hiển thị ở dạng nghìn tỷ (T)
+        val value = number / 10.0.pow(12)
+        return "${DecimalFormat("#,##0.00").format(value)}T"
+    }
+    val value = number / 10.0.pow((tier * 3).toDouble())
+    return "${DecimalFormat("#,##0.00").format(value)}${suffix[tier]}"
+}
+
+
 
 
