@@ -14,6 +14,7 @@ data class CoinFav(
     @ColumnInfo(name = "percentChange24h") var percentChange24h: Double,
     @ColumnInfo(name = "marketCap") var marketCap: Double,
     @ColumnInfo(name = "logo") var logo: String? = "",
-    @ColumnInfo(name = "isFAV") var isFAV: Boolean = false
-
+    @ColumnInfo(name = "isFAV") var isFAV: Boolean = false,
+    @ColumnInfo(name = "quantity") var quantiles: Int,
+    @ColumnInfo(name = "valueToken") var valueToken: Double,
 )

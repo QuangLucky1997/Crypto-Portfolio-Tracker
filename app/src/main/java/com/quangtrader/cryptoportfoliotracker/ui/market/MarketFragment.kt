@@ -1,5 +1,9 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkRequest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.viewModels
@@ -29,6 +33,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>() {
         initView()
         homeViewModel.getMarketCap()
         setData()
+        observeNetworkChanges()
     }
 
     private fun setData() {
@@ -50,6 +55,19 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>() {
         }
 
     }
+    private fun observeNetworkChanges() {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkRequest = NetworkRequest.Builder().build()
+
+        connectivityManager.registerNetworkCallback(networkRequest,
+            object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    homeViewModel.getMarketCap()
+                }
+            })
+    }
+
 
     private fun initView() {
         binding.viewPaperMarketParent.adapter = adapterMarket

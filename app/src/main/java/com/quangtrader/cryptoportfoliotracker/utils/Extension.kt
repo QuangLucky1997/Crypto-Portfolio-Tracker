@@ -1,7 +1,13 @@
 package com.quangtrader.cryptoportfoliotracker.utils
 
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.compose.ui.text.intl.Locale
 import com.quangtrader.cryptoportfoliotracker.data.remote.GlobalData
 import java.text.DecimalFormat
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.pow
@@ -75,6 +81,48 @@ fun formatMarketCap(number: Double): String {
     return "${DecimalFormat("#,##0.00").format(value)}${suffix[tier]}"
 }
 
+fun showKeyboard(context: Context, editText: EditText) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun formatDateTime(isoDateTimeString: String?, outputPattern: String = "dd/MM/yyyy"): String {
+    if (isoDateTimeString.isNullOrEmpty()) {
+        return ""
+    }
+    return try {
+        val zonedDateTime = ZonedDateTime.parse(isoDateTimeString)
+        val outputFormatter = DateTimeFormatter.ofPattern(outputPattern,
+            java.util.Locale.US)
+        zonedDateTime.format(outputFormatter)
+    } catch (e: Exception) {
+        isoDateTimeString
+    }
+}
+fun formatPrice(price: Double?): String {
+    if (price == null) return "$0.00"
+    return when {
+        price >= 1.0 -> {
+            val df = DecimalFormat("#,##0.00")
+            "$" + df.format(price)
+        }
+        price < 0.000001 && price > 0 -> {
+            var tempPrice = price
+            var decimalPlaces = 0
+            while (tempPrice < 1 && tempPrice > 0) {
+                tempPrice *= 10
+                decimalPlaces++
+            }
+            val pattern = "0." + "0".repeat(decimalPlaces + 2)
+            val df = DecimalFormat(pattern)
+            "$" + df.format(price)
+        }
+        else -> {
+            val df = DecimalFormat("0.000000")
+            "$" + df.format(price)
+        }
+    }
+}
 
 
 

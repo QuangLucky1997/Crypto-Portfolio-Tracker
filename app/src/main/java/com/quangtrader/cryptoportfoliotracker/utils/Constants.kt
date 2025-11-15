@@ -8,10 +8,13 @@ object Constants {
 
 
     const val BASE_NEWS = "https://openapiv1.coinstats.app"
+
+    const val BASE_NEWS_TOKEN = "https://newsapi.org/v2/"
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
     const val API_NEWS = "l7q9lYBQWVeqmz6H1s6Lo9m/uBrROWX4SfHT3HETya4="
+    const val NEWS_API = "e1b92310c90e485ba995a5d08375efa7"
 
 
     const val EXTRA_NAME_COIN = "EXTRA_NAME_COIN"

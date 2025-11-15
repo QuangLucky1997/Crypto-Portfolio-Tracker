@@ -17,8 +17,8 @@ class AdapterDetailToken (fragmentActivity: FragmentActivity) : FragmentStateAda
         return when (position) {
             0 -> OverviewFragment()
             1 -> ExchangeFragment()
-            2 -> AlertFragment()
-            3-> NewsFragment()
+            2 -> NewsFragment()
+            3-> AlertFragment()
             else -> OverviewFragment()
         }
     }

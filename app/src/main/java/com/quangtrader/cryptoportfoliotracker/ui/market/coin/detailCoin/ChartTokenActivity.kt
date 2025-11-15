@@ -83,7 +83,7 @@ class ChartTokenActivity :
                     percentChange24h,
                     marketCap,
                     logo,
-                    newFav
+                    newFav, 0,0.0
                 )
                 coinFavViewModel.toggleFav(coinFav, newFav)
             }

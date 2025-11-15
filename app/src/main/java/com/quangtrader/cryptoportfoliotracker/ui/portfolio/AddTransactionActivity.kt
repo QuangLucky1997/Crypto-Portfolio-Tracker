@@ -1,10 +1,12 @@
 package com.quangtrader.cryptoportfoliotracker.ui.portfolio
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityListTransactionBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
+import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,6 +39,14 @@ class AddTransactionActivity :
     private fun handleEvent() {
         binding.backImg.clicks {
             onBackPressedDispatcher.onBackPressed()
+        }
+        adapterAddTransaction.subjectTransaction = { data ->
+            val intentDetailAddTransactionActivity = Intent(this, DetailAddTransactionActivity::class.java)
+            intentDetailAddTransactionActivity.putExtra(Constants.EXTRA_NAME_COIN,data.name)
+            intentDetailAddTransactionActivity.putExtra(Constants.EXTRA_LOGO_COIN, data.logo)
+            intentDetailAddTransactionActivity.putExtra(Constants.EXTRA_SYMBOL_COIN,data.symbol)
+            intentDetailAddTransactionActivity.putExtra(Constants.EXTRA_PRICE_COIN,data.price)
+            startActivity(intentDetailAddTransactionActivity)
         }
     }
 }

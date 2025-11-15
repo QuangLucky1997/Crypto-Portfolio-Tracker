@@ -69,6 +69,7 @@ class MergedCoinViewModel @Inject constructor(
                     name = it.name,
                     symbol = it.symbol,
                     logo = it.logo,
+                    price = it.price,
                     source = CoinTransaction.Source.ROOM
                 )
             })
@@ -81,6 +82,7 @@ class MergedCoinViewModel @Inject constructor(
                     name = it.name,
                     symbol = it.symbol,
                     logo = it.logo,
+                    price = it.price,
                     source = CoinTransaction.Source.API
                 )
             })

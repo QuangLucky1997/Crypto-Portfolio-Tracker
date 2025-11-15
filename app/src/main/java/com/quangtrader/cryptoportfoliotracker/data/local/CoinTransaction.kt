@@ -6,6 +6,7 @@ sealed class CoinTransaction {
         val name: String?,
         val symbol: String?,
         val logo: String? = null,
+        val price: Double?,
         val source: Source
     ) : CoinTransaction()
 

@@ -26,14 +26,14 @@ class WatchListsViewModel @Inject constructor(private val managerDBRoomRepositor
             if (count <= 0 && isFav) {
                 managerDBRoomRepository.addFav(coin)
             } else {
-                managerDBRoomRepository.updateFAVCoin(coin.name, isFav)
+                //managerDBRoomRepository.updateFAVCoin(coin.name, isFav)
             }
         }
     }
 
     fun deleteFAVCoin(coin: CoinFav) {
         viewModelScope.launch(Dispatchers.IO) {
-            managerDBRoomRepository.updateFAVCoin(coin.name, false)
+            managerDBRoomRepository.updateFAVCoin(coin.symbol)
         }
     }
 }

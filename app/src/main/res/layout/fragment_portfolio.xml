@@ -26,8 +26,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textMarket">
 
         <ImageView
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_150sdp"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_250sdp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/portfilio" />
 
@@ -37,6 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/inter_bold"
             android:gravity="center"
+            android:textSize="@dimen/_18ssp"
             android:text="@string/let_s_get_started_with_your_first_portfolio"
             android:textColor="@color/black" />
     </LinearLayout>

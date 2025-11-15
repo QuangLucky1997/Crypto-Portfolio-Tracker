@@ -17,6 +17,7 @@
             android:id="@+id/backImg"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/_4sdp"

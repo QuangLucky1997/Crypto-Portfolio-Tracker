@@ -73,4 +73,8 @@
     <string name="let_s_get_started_with_your_first_portfolio">Let\'s get started with \n your first portfolio!</string>
     <string name="add_transaction">Add Transaction</string>
     <string name="search_coins">Search Coins...</string>
+    <string name="_0">$0</string>
+    <string name="number">$</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
 </resources>

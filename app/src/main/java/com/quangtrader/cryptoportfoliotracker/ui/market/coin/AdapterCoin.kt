@@ -28,11 +28,12 @@ class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRea
             Glide.with(root).load(item.logo).into(iconToken);
             nameToken.text = item.symbol
             marketCapitalizationToken.text = item.marketCap?.formatMarketCap() ?: "--"
-            val df = DecimalFormat("#.##")
-            df.minimumFractionDigits = 2
-            df.maximumFractionDigits = 2
-            val formatted = df.format(item.price)
-            priceToken.text = "$".plus(formatted.toString())
+//            val df = DecimalFormat("#.##")
+//            df.minimumFractionDigits = 6
+//            df.maximumFractionDigits = 6
+//            val formatted = df.format(item.price)
+           // priceToken.text = "$".plus(formatted.toString())
+            priceToken.text = formatPrice(item.price)
             if (item.percentChange24h == null) {
                 cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.gray))
                 return
@@ -48,6 +49,24 @@ class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRea
                 subjectDetail?.invoke(item)
             }
 
+        }
+    }
+
+    private fun formatPrice(price: Double?): String {
+        if (price == null) return "$0.00"
+        return when {
+            price >= 1.0 -> {
+                val formatter = DecimalFormat("$#,##0.00")
+                formatter.format(price)
+            }
+            price < 0.000001 && price > 0 -> {
+                val formatter = DecimalFormat("$0.00E0")
+                formatter.format(price)
+            }
+            else -> {
+                val formatter = DecimalFormat("$0.000000")
+                formatter.format(price)
+            }
         }
     }
 

@@ -18,6 +18,10 @@ class HomeViewModel @Inject constructor(private val coinMarketRepository: CoinMa
     private val _marketCap = MutableStateFlow<GlobalResponse?>(null)
     val marketCap: StateFlow<GlobalResponse?> = _marketCap
 
+    init {
+        getMarketCap()
+    }
+
     fun getMarketCap() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

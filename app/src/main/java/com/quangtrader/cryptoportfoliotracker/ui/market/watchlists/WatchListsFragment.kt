@@ -1,5 +1,6 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.watchlists
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class WatchListsFragment : BaseFragment<FragmentWatchlistsBinding>() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setData() {
         viewLifecycleOwner.lifecycleScope.launch {
             watchListsViewModel.getAllWatchListsCoin.collect {
@@ -62,6 +64,7 @@ class WatchListsFragment : BaseFragment<FragmentWatchlistsBinding>() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            adapterWatchLists.notifyDataSetChanged()
         }
 
     }
