@@ -3,74 +3,83 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
+import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.utils.formatPrice
 import javax.inject.Inject
 import java.text.DecimalFormat
 
 
-class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRealtimeBinding>() {
-    var subjectDetail: ((CoinUI) -> Unit)? = null
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomListTokenRealtimeBinding
-        get() = CustomListTokenRealtimeBinding::inflate
 
-    @SuppressLint("DefaultLocale")
-    override fun bindItem(
-        item: CoinUI,
-        binding: CustomListTokenRealtimeBinding,
-        position: Int
-    ) {
-        binding.apply {
-            Glide.with(root).load(item.logo).into(iconToken);
+class AdapterCoin @Inject constructor() :
+    ListAdapter<CoinUI, AdapterCoin.CoinViewHolder>(DiffCallback) {
+
+    var subjectDetail: ((CoinUI) -> Unit)? = null
+
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id.hashCode().toLong()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
+        val binding = CustomListTokenRealtimeBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return CoinViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    inner class CoinViewHolder(
+        private val binding: CustomListTokenRealtimeBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: CoinUI) = with(binding) {
+            if (iconToken.tag != item.logo) {
+                iconToken.tag = item.logo
+                Glide.with(root).load(item.logo).into(iconToken)
+            }
             nameToken.text = item.symbol
             marketCapitalizationToken.text = item.marketCap?.formatMarketCap() ?: "--"
-//            val df = DecimalFormat("#.##")
-//            df.minimumFractionDigits = 6
-//            df.maximumFractionDigits = 6
-//            val formatted = df.format(item.price)
-           // priceToken.text = "$".plus(formatted.toString())
+
             priceToken.text = formatPrice(item.price)
-            if (item.percentChange24h == null) {
-                cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.gray))
-                return
-            }
-            val percentText = String.format("%.2f%%", item.percentChange24h)
-            val colorRes = item.percentChange24h?.let {
-                if (it >= 0) cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.green)) else cardPercent24H.setCardBackgroundColor(
-                    root.resources.getColor(R.color.red)
-                )
-            }
+
+            // Percent
             percentRealtime.text = item.percentChange24h.formatPercent()
-            viewToken.clicks {
+            val color = if ((item.percentChange24h ?: 0.0) >= 0)
+                R.color.green else R.color.red
+            cardPercent24H.setCardBackgroundColor(root.resources.getColor(color))
+
+            viewToken.setOnClickListener {
                 subjectDetail?.invoke(item)
             }
-
         }
     }
 
-    private fun formatPrice(price: Double?): String {
-        if (price == null) return "$0.00"
-        return when {
-            price >= 1.0 -> {
-                val formatter = DecimalFormat("$#,##0.00")
-                formatter.format(price)
-            }
-            price < 0.000001 && price > 0 -> {
-                val formatter = DecimalFormat("$0.00E0")
-                formatter.format(price)
-            }
-            else -> {
-                val formatter = DecimalFormat("$0.000000")
-                formatter.format(price)
-            }
-        }
+    companion object DiffCallback : DiffUtil.ItemCallback<CoinUI>() {
+
+        override fun areItemsTheSame(oldItem: CoinUI, newItem: CoinUI): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: CoinUI, newItem: CoinUI): Boolean =
+            oldItem.price == newItem.price &&
+                    oldItem.percentChange24h == newItem.percentChange24h
     }
 
-    @SuppressLint("DefaultLocale")
+        @SuppressLint("DefaultLocale")
     fun Double.formatMarketCap(): String {
         return when {
             this >= 1_000_000_000_000 -> String.format("%.2fT", this / 1_000_000_000_000)
@@ -80,12 +89,4 @@ class AdapterCoin @Inject constructor() : BaseAdapter<CoinUI, CustomListTokenRea
             else -> String.format("%.2f", this)
         }
     }
-
-    fun Double?.formatPercent(digits: Int = 2): String {
-        if (this == null) return "0.00%"
-        return String.format("%.${digits}f%%", this)
-    }
-
-
 }
-

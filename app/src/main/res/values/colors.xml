@@ -14,7 +14,8 @@
     <color name="gray">#999999</color>
     <color name="red">#ff01</color>
     <color name="yellowMax">#E68B06</color>
-
+    <color name="greenAlpha">#7BD706</color>
+    <color name="redAlpha">#F85C67</color>
     <color name="blue01">#3F51B5</color>
 
     <color name="blackAlpha">#1D1D1D</color>

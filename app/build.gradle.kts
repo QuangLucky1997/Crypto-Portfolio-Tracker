@@ -1,4 +1,4 @@
-plugins {
+    plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -59,6 +59,7 @@ dependencies {
 
 
     implementation(libs.hilt.android)
+    implementation(libs.androidx.lifecycle.service)
     kapt(libs.hilt.android.compiler)
 
     //Timber
@@ -135,6 +136,9 @@ dependencies {
 
 
     implementation(libs.dots.indicator)
+
+    implementation("androidx.core:core:1.17.0")
+    implementation("androidx.core:core-ktx:1.17.0")
 
 
     implementation("nl.joery.animatedbottombar:library:1.1.0")

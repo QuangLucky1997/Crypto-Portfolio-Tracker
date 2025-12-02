@@ -66,6 +66,7 @@ billingKtx = "7.0.0"
 gdpr = "3.0.0"
 version-serialization = "1.6.21"
 zip4j = "2.11.2"
+lifecycleService = "2.10.0"
 
 
 
@@ -200,6 +201,7 @@ uber-autodispose = { module = "com.uber.autodispose:autodispose", version.ref = 
 uber-autodispose-lifecycle = { module = "com.uber.autodispose:autodispose-lifecycle", version.ref = "user-autodispose" }
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
 zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
+androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleService" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -17,6 +17,7 @@
     <string name="portfolio">Portfolio</string>
     <string name="news">News</string>
     <string name="settings">Settings</string>
+    <string name="calculator">Calculator</string>
 
     <string name="market2">Markets</string>
 
@@ -77,4 +78,27 @@
     <string name="number">$</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
+
+
+
+    <string name="alert_by_price">ALERT BY PRICE</string>
+    <string name="alert_by_percent">ALERT BY PERCENT</string>
+    <string name="enter_target_price">Enter Target Price</string>
+    <string name="save">SAVE</string>
+    <string name="frequency">Frequency</string>
+    <string name="one_time">One Time</string>
+    <string name="coin2">Coin</string>
+    <string name="buy_price">Buy price</string>
+    <string name="search">Search</string>
+    <string name="text_dollar">$</string>
+    <string name="_1">0</string>
+    <string name="investment">Investment</string>
+    <string name="sell_price">Sell price</string>
+    <string name="investment_fee">Investment Fee</string>
+    <string name="exit_fee">Exit Fee</string>
+    <string name="investment_result">Investment Result</string>
+    <string name="profit_loss">Profit/Loss</string>
+    <string name="total_investment_amount">Total Investment Amount</string>
+    <string name="total_exit_amount">Total Exit Amount</string>
+    <string name="calculator_profit">Calculator Profit</string>
 </resources>

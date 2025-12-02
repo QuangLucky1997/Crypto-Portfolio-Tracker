@@ -33,7 +33,7 @@ class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
         val activity = requireActivity() as DetailTokenActivity
         val tokenID = activity.intent.getStringExtra(Constants.EXTRA_NAME_COIN)
         tokenID?.let {
-            setData(tokenID)
+          setData(tokenID.plus(" Token"))
         }
         adapterNewsByToken.subjectViewNew = { it->
             val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)

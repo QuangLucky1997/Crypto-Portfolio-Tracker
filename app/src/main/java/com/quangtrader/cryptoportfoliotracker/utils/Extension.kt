@@ -1,6 +1,9 @@
 package com.quangtrader.cryptoportfoliotracker.utils
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.compose.ui.text.intl.Locale
@@ -26,6 +29,7 @@ fun Double?.formatPriceTrending(price: Double, decimals: Int = 6): String {
         "0"
     }
 }
+
 fun Double?.formatPercent(digits: Int = 2): String {
     if (this == null) return "0.00%"
     return String.format("%.${digits}f%%", this)
@@ -92,13 +96,16 @@ fun formatDateTime(isoDateTimeString: String?, outputPattern: String = "dd/MM/yy
     }
     return try {
         val zonedDateTime = ZonedDateTime.parse(isoDateTimeString)
-        val outputFormatter = DateTimeFormatter.ofPattern(outputPattern,
-            java.util.Locale.US)
+        val outputFormatter = DateTimeFormatter.ofPattern(
+            outputPattern,
+            java.util.Locale.US
+        )
         zonedDateTime.format(outputFormatter)
     } catch (e: Exception) {
         isoDateTimeString
     }
 }
+
 fun formatPrice(price: Double?): String {
     if (price == null) return "$0.00"
     return when {
@@ -106,6 +113,7 @@ fun formatPrice(price: Double?): String {
             val df = DecimalFormat("#,##0.00")
             "$" + df.format(price)
         }
+
         price < 0.000001 && price > 0 -> {
             var tempPrice = price
             var decimalPlaces = 0
@@ -117,11 +125,20 @@ fun formatPrice(price: Double?): String {
             val df = DecimalFormat(pattern)
             "$" + df.format(price)
         }
+
         else -> {
             val df = DecimalFormat("0.000000")
             "$" + df.format(price)
         }
     }
+}
+
+
+fun openAppInfo(context: Context) {
+    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+        data = Uri.parse("package:${context.packageName}")
+    }
+    context.startActivity(intent)
 }
 
 

@@ -1,18 +1,22 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.overview
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import androidx.compose.ui.unit.Constraints
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import authenticator.app.otp.authentication.fa.common.extentions.formatNumberWithCommas
 import authenticator.app.otp.authentication.fa.common.extentions.getTradingViewChartHtml
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentOverviewBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
+import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.alert.AlertTokenActivity
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
 import com.quangtrader.cryptoportfoliotracker.utils.formatPriceTrending
@@ -34,18 +38,20 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
     @SuppressLint("DefaultLocale", "SetJavaScriptEnabled")
     private fun setData() {
         binding.apply {
-            val activity = requireActivity() as DetailTokenActivity
-            val name = activity.intent.getStringExtra(Constants.EXTRA_NAME_COIN)
+            val intent = requireActivity().intent
+            val name = intent.getStringExtra(Constants.EXTRA_NAME_COIN)
             if (name != null) {
                 tokenName = name
             }
-            val rankerMarket = activity.intent.getIntExtra(Constants.EXTRA_MARKET_RANK_COIN, -1)
-            val priceMarket = activity.intent.getDoubleExtra(Constants.EXTRA_PRICE_COIN, 0.0)
-            val symbolToken = activity.intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
+
+            val rankerMarket = intent.getIntExtra(Constants.EXTRA_MARKET_RANK_COIN, -1)
+            val priceMarket = intent.getDoubleExtra(Constants.EXTRA_PRICE_COIN, 0.0)
+            val symbolToken = intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
+            val logoToken = intent.getStringExtra(Constants.EXTRA_LOGO_COIN)
             nameToken.text = name
             textMarketRank.text = "#".plus(rankerMarket.toString())
             priceToken.text = "$".plus(priceMarket.formatPriceTrending(priceMarket))
-            val dataPercent24H = activity.intent.getDoubleExtra(Constants.EXTRA_PRICE_24H, 0.0)
+            val dataPercent24H = intent.getDoubleExtra(Constants.EXTRA_PRICE_24H, 0.0)
             val percentText = String.format("%.2f%%", dataPercent24H)
             val colorRes = dataPercent24H.let {
                 if (it >= 0) {
@@ -77,7 +83,16 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
                     }
                 }
             }
-
+            notificationImg.clicks {
+                symbolToken?.let { it1 ->
+                    logoToken?.let { logo ->
+                        moveScreenAlert(
+                            logo,
+                            it1
+                        )
+                    }
+                }
+            }
 
         }
     }
@@ -111,7 +126,15 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
                     R.id.chip1m -> loadChart(tokenSymbol, "M")
                 }
             }
+
         }
+    }
+
+    private fun moveScreenAlert(logoToken: String, symbolToken: String) {
+        val intent = Intent(requireContext(), AlertTokenActivity::class.java)
+        intent.putExtra(Constants.EXTRA_LOGO_COIN, logoToken)
+        intent.putExtra(Constants.EXTRA_SYMBOL_COIN, symbolToken)
+        startActivity(intent)
     }
 
 }

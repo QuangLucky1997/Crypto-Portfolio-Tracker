@@ -6,7 +6,7 @@
     <item
         android:id="@+id/tab_portfolio"
         android:icon="@drawable/invest_version"
-        android:title="@string/portfolio" />
+        android:title="@string/calculator" />
     <item
         android:id="@+id/tab_news"
         android:icon="@drawable/news_version"

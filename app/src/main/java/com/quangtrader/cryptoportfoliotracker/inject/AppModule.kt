@@ -7,13 +7,12 @@ import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
-import com.quangtrader.cryptoportfoliotracker.dao.CoinService
+import com.quangtrader.cryptoportfoliotracker.dao.CoinDao
 import com.quangtrader.cryptoportfoliotracker.data.api.BinanceApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinGeckoTrendingApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsCryptoApi
-import com.quangtrader.cryptoportfoliotracker.data.remote.NewsByTokenResponse
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -94,7 +93,6 @@ class AppModule {
 
         return retrofit.create(CoinMarketApi::class.java)
     }
-
 
 
     @Provides
@@ -288,7 +286,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDao(db: AppDatabase): CoinService = db.dao()
+    fun provideDao(db: AppDatabase): CoinDao = db.dao()
+
 
 
 }

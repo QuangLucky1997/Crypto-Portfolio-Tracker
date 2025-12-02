@@ -1,23 +1,23 @@
 package com.quangtrader.cryptoportfoliotracker.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityHomeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
-import com.quangtrader.cryptoportfoliotracker.utils.formatMarketCap
-import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.ui.base.BaseNotificationHelper
+import com.quangtrader.cryptoportfoliotracker.utils.openAppInfo
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import nl.joery.animatedbottombar.AnimatedBottomBar
-import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
     private val homeViewPaperAdapter by lazy { HomeViewPaperAdapter(this) }
+    private lateinit var notificationHelper: BaseNotificationHelper
 
     override fun onCreateView() {
         super.onCreateView()
@@ -26,7 +26,21 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             statusBarColor = resources.getColor(R.color.colorMain, null)
         }
         initData()
+        requestNotification()
 
+    }
+
+    private fun requestNotification() {
+        notificationHelper = BaseNotificationHelper(this)
+        if (!notificationHelper.isNotificationPermissionGranted()) {
+            notificationHelper.requestNotificationPermission(this) { granted ->
+                if (granted) {
+
+                } else {
+                    openAppNotificationSettings(this)
+                }
+            }
+        }
     }
 
     @SuppressLint("DefaultLocale")
@@ -60,7 +74,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             })
 
 
+        }
+    }
 
+    fun openAppNotificationSettings(context: Context) {
+        try {
+            val intent = Intent().apply {
+                action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+            }
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            openAppInfo(context)
         }
     }
 }
