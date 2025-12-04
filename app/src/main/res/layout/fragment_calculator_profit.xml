@@ -26,720 +26,734 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/viewInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewTop">
-
-        <LinearLayout
-            android:id="@+id/view1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/viewSearchToken"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/coin2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cardCustomSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        app:cardCornerRadius="@dimen/_8sdp"
-                        app:strokeColor="@color/gray"
-                        app:strokeWidth="1dp">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <EditText
-                                android:id="@+id/edtSearchToken"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:background="@null"
-                                android:fontFamily="@font/inter_bold"
-                                android:hint="@string/search"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/white_alpha"
-                                android:textSize="@dimen/_10ssp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/imgDrop"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/imgDrop"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:layout_marginEnd="@dimen/_5sdp"
-                                android:src="@drawable/dropdown"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvListToken"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/cardCustomSearch"
-                        android:visibility="visible" />
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewBuyPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/buy_price"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardBuyPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:strokeColor="@color/gray"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/viewDollar"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="match_parent"
-                            android:background="@color/blackAlpha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/inter_bold"
-                                android:text="@string/text_dollar"
-                                android:textColor="@color/yellow"
-                                android:textSize="@dimen/_12ssp" />
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/edtPriceBuy"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:background="@null"
-                            android:fontFamily="@font/inter"
-                            android:hint="@string/_1"
-                            android:inputType="number"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/viewDollar"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view1"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/viewInvestToken"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/investment"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardInvestment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:strokeColor="@color/gray"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/viewDollarInvest"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="match_parent"
-                            android:background="@color/blackAlpha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/inter_bold"
-                                android:text="@string/text_dollar"
-                                android:textColor="@color/yellow"
-                                android:textSize="@dimen/_12ssp" />
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/edtInvest"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:background="@null"
-                            android:fontFamily="@font/inter"
-                            android:hint="@string/_1"
-                            android:inputType="number"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/viewDollarInvest"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewSellPrice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/sell_price"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardSellPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:strokeColor="@color/gray"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/viewDollarSell"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="match_parent"
-                            android:background="@color/blackAlpha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/inter_bold"
-                                android:text="@string/text_dollar"
-                                android:textColor="@color/yellow"
-                                android:textSize="@dimen/_12ssp" />
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/edtPriceSell"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:background="@null"
-                            android:fontFamily="@font/inter"
-                            android:hint="@string/_1"
-                            android:inputType="number"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/viewDollarSell"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view2"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/viewInvestmentFee"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/investment_fee"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardInvestmentFee"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:strokeColor="@color/gray"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/viewDollarInvestFee"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="match_parent"
-                            android:background="@color/blackAlpha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/inter_bold"
-                                android:text="@string/text_dollar"
-                                android:textColor="@color/yellow"
-                                android:textSize="@dimen/_12ssp" />
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/edtInvestFee"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:background="@null"
-                            android:fontFamily="@font/inter"
-                            android:hint="@string/_1"
-                            android:inputType="number"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/viewDollarInvestFee"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewExitFee"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/exit_fee"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardExitFee"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:strokeColor="@color/gray"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RelativeLayout
-                            android:id="@+id/viewDollarExitFee"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="match_parent"
-                            android:background="@color/blackAlpha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:fontFamily="@font/inter_bold"
-                                android:text="@string/text_dollar"
-                                android:textColor="@color/yellow"
-                                android:textSize="@dimen/_12ssp" />
-                        </RelativeLayout>
-
-                        <EditText
-                            android:id="@+id/edtExitFee"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:background="@null"
-                            android:fontFamily="@font/inter"
-                            android:hint="@string/_1"
-                            android:inputType="number"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
-                            android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/viewDollarExitFee"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </RelativeLayout>
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardResult"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_8sdp"
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@+id/viewTop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewInput"
-        app:strokeColor="@color/gray"
-        app:strokeWidth="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/viewTopResult"
+            <RelativeLayout
+                android:id="@+id/viewInput"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/investment_result"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14ssp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/viewSearchToken"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:text="@string/profit_loss"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_10ssp" />
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardColorProfitOrLoss"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        app:cardBackgroundColor="@color/greenAlpha"
-                        app:cardCornerRadius="@dimen/_6sdp">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp">
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/coin2"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
 
-                            <ImageView
-                                android:id="@+id/tv_indicator"
-                                android:layout_width="@dimen/_12sdp"
-                                android:layout_height="@dimen/_12sdp"
-                                android:layout_marginEnd="4dp"
-                                android:src="@drawable/up_trend"
-                                android:textColor="#39FF14"
-                                android:textSize="18sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="HardcodedText" />
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp">
 
-                            <TextView
-                                android:id="@+id/tv_profit_data"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:fontFamily="@font/inter_semi_bold"
-                                android:singleLine="true"
-                                android:text="$81,109(811.01%)"
-                                android:textColor="#39FF14"
-                                android:textSize="@dimen/_12ssp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/tv_indicator"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="HardcodedText" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cardCustomSearch"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                app:cardCornerRadius="@dimen/_8sdp"
+                                app:strokeColor="@color/gray"
+                                app:strokeWidth="1dp">
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <EditText
+                                        android:id="@+id/edtSearchToken"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="@dimen/_5sdp"
+                                        android:background="@null"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:hint="@string/search"
+                                        android:textColor="@color/black"
+                                        android:textColorHint="@color/white_alpha"
+                                        android:textSize="@dimen/_10ssp"
+                                        android:drawablePadding="@dimen/_2sdp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toStartOf="@+id/imgDrop"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <ImageView
+                                        android:id="@+id/imgDrop"
+                                        android:layout_width="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_20sdp"
+                                        android:layout_marginEnd="@dimen/_5sdp"
+                                        android:src="@drawable/dropdown"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                    </androidx.cardview.widget.CardView>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvListToken"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_200sdp"
+                                android:visibility="gone"
+                                android:layout_below="@+id/cardCustomSearch"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/viewBuyPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/buy_price"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardBuyPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:strokeColor="@color/gray"
+                            app:strokeWidth="1dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:id="@+id/viewDollar"
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blackAlpha"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:text="@string/text_dollar"
+                                        android:textColor="@color/yellow"
+                                        android:textSize="@dimen/_12ssp" />
+                                </RelativeLayout>
+
+                                <EditText
+                                    android:id="@+id/edtPriceBuy"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:background="@null"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="@string/_1"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray"
+                                    android:textSize="@dimen/_12ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/viewDollar"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-
-                <RelativeLayout
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:paddingBottom="@dimen/_3sdp"
+                <LinearLayout
+                    android:id="@+id/view2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view1"
+                    android:orientation="horizontal">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/viewInvestToken"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/investment"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardInvestment"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:strokeColor="@color/gray"
+                            app:strokeWidth="1dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:id="@+id/viewDollarInvest"
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blackAlpha"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:text="@string/text_dollar"
+                                        android:textColor="@color/yellow"
+                                        android:textSize="@dimen/_12ssp" />
+                                </RelativeLayout>
+
+                                <EditText
+                                    android:id="@+id/edtInvest"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:background="@null"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="@string/_1"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray"
+                                    android:textSize="@dimen/_12ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/viewDollarInvest"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/viewSellPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_semi_bold"
-                            android:text="@string/total_investment_amount"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/_10ssp" />
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/sell_price"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
 
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardTotalInvestmentAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardSellPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            app:cardBackgroundColor="@color/greenAlpha"
-                            app:cardCornerRadius="@dimen/_6sdp">
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:strokeColor="@color/gray"
+                            app:strokeWidth="1dp">
 
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="8dp">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-                                <TextView
-                                    android:id="@+id/tv_total_amount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:fontFamily="@font/inter_semi_bold"
-                                    android:singleLine="true"
-                                    android:text="$81,109(811.01%)"
-                                    android:textColor="#39FF14"
+                                <RelativeLayout
+                                    android:id="@+id/viewDollarSell"
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blackAlpha"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:text="@string/text_dollar"
+                                        android:textColor="@color/yellow"
+                                        android:textSize="@dimen/_12ssp" />
+                                </RelativeLayout>
+
+                                <EditText
+                                    android:id="@+id/edtPriceSell"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:background="@null"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="@string/_1"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray"
                                     android:textSize="@dimen/_12ssp"
-                                    tools:ignore="HardcodedText" />
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/viewDollarSell"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            </RelativeLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
 
-
-                        </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view2"
+                    android:orientation="horizontal">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/viewInvestmentFee"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/viewBuyPrice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/investment_fee"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardInvestmentFee"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:strokeColor="@color/gray"
+                            app:strokeWidth="1dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:id="@+id/viewDollarInvestFee"
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blackAlpha"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:text="@string/text_dollar"
+                                        android:textColor="@color/yellow"
+                                        android:textSize="@dimen/_12ssp" />
+                                </RelativeLayout>
+
+                                <EditText
+                                    android:id="@+id/edtInvestFee"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:background="@null"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="@string/_1"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray"
+                                    android:textSize="@dimen/_12ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/viewDollarInvestFee"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/viewExitFee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_semi_bold"
-                            android:text="@string/total_exit_amount"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/_10ssp" />
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/exit_fee"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12ssp" />
 
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardTotalExitAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardExitFee"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            app:cardBackgroundColor="@color/greenAlpha"
-                            app:cardCornerRadius="@dimen/_6sdp">
+                            app:cardCornerRadius="@dimen/_8sdp"
+                            app:strokeColor="@color/gray"
+                            app:strokeWidth="1dp">
 
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="8dp">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-                                <TextView
-                                    android:id="@+id/tv_total_exit_amount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:fontFamily="@font/inter_semi_bold"
-                                    android:singleLine="true"
-                                    android:text="$81,109(811.01%)"
-                                    android:textColor="#39FF14"
+                                <RelativeLayout
+                                    android:id="@+id/viewDollarExitFee"
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blackAlpha"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:text="@string/text_dollar"
+                                        android:textColor="@color/yellow"
+                                        android:textSize="@dimen/_12ssp" />
+                                </RelativeLayout>
+
+                                <EditText
+                                    android:id="@+id/edtExitFee"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:background="@null"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="@string/_1"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray"
                                     android:textSize="@dimen/_12ssp"
-                                    tools:ignore="HardcodedText" />
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/viewDollarExitFee"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            </RelativeLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
 
-
-                        </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
-                </RelativeLayout>
 
-
-
-
-
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardCalculator"
-                app:cardBackgroundColor="@color/yellow"
-                app:layout_constraintTop_toBottomOf="@+id/viewTopResult"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:cardCornerRadius="@dimen/_12sdp"
-                android:layout_margin="@dimen/_30sdp"
+                </LinearLayout>
+            </RelativeLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardResult"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp">
-                <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewInput"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="1dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:layout_centerInParent="true"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/black"
-                        android:text="@string/calculator_profit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/viewTopResult"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/investment_result"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_semi_bold"
+                                android:text="@string/profit_loss"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_10ssp" />
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardColorProfitOrLoss"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_30sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                app:cardBackgroundColor="@color/greenAlpha"
+                                app:cardCornerRadius="@dimen/_6sdp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="12dp"
+                                    android:paddingVertical="8dp">
+
+                                    <ImageView
+                                        android:id="@+id/tv_indicator"
+                                        android:layout_width="@dimen/_12sdp"
+                                        android:layout_height="@dimen/_12sdp"
+                                        android:layout_marginEnd="4dp"
+                                        android:src="@drawable/up_trend"
+                                        android:textColor="#39FF14"
+                                        android:textSize="18sp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:id="@+id/tv_profit_data"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/_5sdp"
+                                        android:fontFamily="@font/inter_semi_bold"
+                                        android:singleLine="true"
+                                        android:text="$81,109(811.01%)"
+                                        android:textColor="#39FF14"
+                                        android:textSize="@dimen/_12ssp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@id/tv_indicator"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:ignore="HardcodedText" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_semi_bold"
+                                    android:text="@string/total_investment_amount"
+                                    android:textColor="@color/gray"
+                                    android:textSize="@dimen/_10ssp" />
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardTotalInvestmentAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/greenAlpha"
+                                    app:cardCornerRadius="@dimen/_6sdp">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="12dp"
+                                        android:paddingVertical="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tv_total_amount"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:fontFamily="@font/inter_semi_bold"
+                                            android:singleLine="true"
+                                            android:text="$81,109(811.01%)"
+                                            android:textColor="#39FF14"
+                                            android:textSize="@dimen/_12ssp"
+                                            tools:ignore="HardcodedText" />
+
+                                    </RelativeLayout>
+
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_semi_bold"
+                                    android:text="@string/total_exit_amount"
+                                    android:textColor="@color/gray"
+                                    android:textSize="@dimen/_10ssp" />
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardTotalExitAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/greenAlpha"
+                                    app:cardCornerRadius="@dimen/_6sdp">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="12dp"
+                                        android:paddingVertical="8dp">
+
+                                        <TextView
+                                            android:id="@+id/tv_total_exit_amount"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:fontFamily="@font/inter_semi_bold"
+                                            android:singleLine="true"
+                                            android:text="$81,109(811.01%)"
+                                            android:textColor="#39FF14"
+                                            android:textSize="@dimen/_12ssp"
+                                            tools:ignore="HardcodedText" />
+
+                                    </RelativeLayout>
+
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCalculator"
+                        app:cardBackgroundColor="@color/yellow"
+                        app:layout_constraintTop_toBottomOf="@+id/viewTopResult"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:cardCornerRadius="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/inter_bold"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/black"
+                                android:text="@string/calculator_profit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-    </com.google.android.material.card.MaterialCardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

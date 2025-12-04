@@ -7,10 +7,6 @@ class Preferences  @Inject constructor(private val rxPref: RxSharedPreferences) 
     val isUpgraded = rxPref.getBoolean("isUpgraded", false)
     val keyAppLanguage = rxPref.getString("keyAppLanguage", "en")
     val isConfigLanguage = rxPref.getBoolean("isConfigLanguage", false)
-
-
-
-
     val isFirstInstall = rxPref.getBoolean("isFirstInstall", false)
 
 

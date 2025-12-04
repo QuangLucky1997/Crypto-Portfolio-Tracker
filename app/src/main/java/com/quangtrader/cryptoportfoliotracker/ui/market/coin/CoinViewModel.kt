@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinData
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.data.remote.Data
+import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCoinMarket
 import com.quangtrader.cryptoportfoliotracker.data.repository.BinanceWebSocketManager
 import com.quangtrader.cryptoportfoliotracker.data.repository.CoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,10 @@ class CoinViewModel @Inject constructor(private val coinRepository: CoinReposito
 
     private val wsManager = BinanceWebSocketManager()
     private val _coins = MutableStateFlow<List<CoinUI>>(emptyList())
+
+    private val _coinsOnly = MutableStateFlow<List<CoinUI>>(emptyList())
     val coins: StateFlow<List<CoinUI>> = _coins
+    val coinsOnlyAPI: StateFlow<List<CoinUI>> = _coinsOnly
 
     private val coinCache = mutableMapOf<String, CoinUI>()
     private var wsConnected = false
@@ -32,10 +36,20 @@ class CoinViewModel @Inject constructor(private val coinRepository: CoinReposito
             val ids = responseTokens.data.mapNotNull { it.id }
             val responseIcons = coinRepository.getIconsForTokens(ids)
             val mergedList = coinRepository.mergeCoins(responseTokens, responseIcons)
-
             mergedList.forEach { coinCache[it.symbol.lowercase()] = it }
             _coins.value = mergedList
             if (!wsConnected) startWebSocket(mergedList.map { it.symbol.lowercase() + "usdt" })
+        }
+    }
+
+    fun onlyLoadCoinAPI(){
+        viewModelScope.launch {
+            val responseTokens = coinRepository.getTokens(limit = 100)
+            val ids = responseTokens.data.mapNotNull { it.id }
+            val responseIcons = coinRepository.getIconsForTokens(ids)
+            val mergedList = coinRepository.mergeCoins(responseTokens, responseIcons)
+            mergedList.forEach { coinCache[it.symbol.lowercase()] = it }
+            _coinsOnly.value = mergedList
         }
     }
 

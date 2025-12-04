@@ -53,22 +53,6 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
                             binding.rvListToken.visibility = View.VISIBLE
                             adapterCoin.submitList(list)
                         }
-                        if (prefs.isFirstInstall.get()) {
-                            for (item in list) {
-                                val logoData = item.logo
-                                val priceData = item.price
-                                if (logoData != null && priceData != null) {
-                                    val token = TokenTop100(
-                                        0,
-                                        item.symbol,
-                                        item.name,
-                                        priceData,
-                                        logoData
-                                    )
-                                    calculatorViewModel.saveTokenTop100(token)
-                                }
-                            }
-                        }
                     }
             }
         }
