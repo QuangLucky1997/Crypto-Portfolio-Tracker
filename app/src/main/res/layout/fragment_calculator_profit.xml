@@ -122,7 +122,7 @@
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_200sdp"
-                                android:visibility="gone"
+                                android:visibility="invisible"
                                 android:layout_below="@+id/cardCustomSearch"/>
                         </RelativeLayout>
 
@@ -592,7 +592,7 @@
                                         android:layout_marginStart="@dimen/_5sdp"
                                         android:fontFamily="@font/inter_semi_bold"
                                         android:singleLine="true"
-                                        android:text="$81,109(811.01%)"
+                                        android:text="$0"
                                         android:textColor="#39FF14"
                                         android:textSize="@dimen/_12ssp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -652,7 +652,7 @@
                                             android:layout_centerInParent="true"
                                             android:fontFamily="@font/inter_semi_bold"
                                             android:singleLine="true"
-                                            android:text="$81,109(811.01%)"
+                                            android:text="$0"
                                             android:textColor="#39FF14"
                                             android:textSize="@dimen/_12ssp"
                                             tools:ignore="HardcodedText" />
@@ -702,7 +702,7 @@
                                             android:layout_centerInParent="true"
                                             android:fontFamily="@font/inter_semi_bold"
                                             android:singleLine="true"
-                                            android:text="$81,109(811.01%)"
+                                            android:text="$0"
                                             android:textColor="#39FF14"
                                             android:textSize="@dimen/_12ssp"
                                             tools:ignore="HardcodedText" />
@@ -730,6 +730,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp">
                         <RelativeLayout
+                            android:id="@+id/viewCalculator"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <TextView

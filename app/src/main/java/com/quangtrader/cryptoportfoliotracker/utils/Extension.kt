@@ -4,10 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.compose.ui.text.intl.Locale
 import com.quangtrader.cryptoportfoliotracker.data.remote.GlobalData
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -140,6 +147,65 @@ fun openAppInfo(context: Context) {
     }
     context.startActivity(intent)
 }
+
+
+fun formatPriceCustom(price: Double?): String {
+    if (price == null) return "$0.00"
+    return when {
+        price >= 1.0 -> {
+            val df = DecimalFormat("#,##0.00")
+            df.format(price)
+        }
+
+        price < 0.000001 && price > 0 -> {
+            var tempPrice = price
+            var decimalPlaces = 0
+            while (tempPrice < 1 && tempPrice > 0) {
+                tempPrice *= 10
+                decimalPlaces++
+            }
+            val pattern = "0." + "0".repeat(decimalPlaces + 2)
+            val df = DecimalFormat(pattern)
+            df.format(price)
+        }
+
+        else -> {
+            val df = DecimalFormat("0.000000")
+            df.format(price)
+        }
+    }
+}
+
+fun EditText.textChanges(): Flow<String> = callbackFlow {
+    val watcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            trySend(s.toString())
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    addTextChangedListener(watcher)
+    send(text.toString())
+    awaitClose { removeTextChangedListener(watcher) }
+}
+
+fun String.parseToBigDecimal(): BigDecimal? {
+    val cleanThousands = this.replace(".", "")
+    val finalFormat = cleanThousands.replace(",", ".")
+    return finalFormat.toBigDecimalOrNull()
+}
+
+fun formatCurrency(value: BigDecimal): String {
+    return "$${value.setScale(2, RoundingMode.HALF_UP).toPlainString()}"
+}
+
+fun formatPercentage(value: BigDecimal): String {
+    return "${value.setScale(2, RoundingMode.HALF_UP).toPlainString()}%"
+}
+
 
 
 
