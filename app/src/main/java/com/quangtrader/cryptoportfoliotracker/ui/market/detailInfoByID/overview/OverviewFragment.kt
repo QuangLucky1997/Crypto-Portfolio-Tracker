@@ -18,6 +18,7 @@ import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.alert.AlertTokenActivity
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.utils.formatMarketCap
 import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
 import com.quangtrader.cryptoportfoliotracker.utils.formatPriceTrending
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,25 +65,32 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
             symbolToken?.let {
                 loadChart(it, "D")
                 handleInterval(it)
-            }
-            overViewModel.getAllInfoToken(tokenName.lowercase())
-            viewLifecycleOwner.lifecycleScope.launch {
-                overViewModel.infoToken.collect { token ->
-                    if (token != null) {
-                        dataMarketCap.text =
-                            "$".plus(formatNumberWithCommas(token.marketData.marketCap.usd))
-                        dataFullyDilutedValuation.text =
-                            "$".plus(formatNumberWithCommas(token.marketData.fullyDilutedValuation.usd))
-                        dataTotalVol.text =
-                            "$".plus(formatNumberWithCommas(token.marketData.totalVolume.usd))
-                        dataHigh24h.text = "$".plus(token.marketData.high24h.usd.toString())
-                        dataLow24h.text = "$".plus(token.marketData.low24h.usd.toString())
-                        textItemCategories1.text = token.categories[0]
-                        textItemCategories2.text = token.categories[1]
-                        val dataTest = token.exchange
+                overViewModel.getAllInfoToken(it.lowercase())
+                viewLifecycleOwner.lifecycleScope.launch {
+                    overViewModel.infoToken.collect { token ->
+                        token?.data?.values?.forEach { it ->
+                            it.quote.USD?.marketCap?.let { it1 ->
+                                dataMarketCap.text = formatMarketCap(
+                                    it1
+                                )
+                            }
+                            dataFullyDilutedValuation.text = formatMarketCap(
+                                it.quote.USD?.fullyDilutedMarketCap ?: 0.0
+                            )
+                            it.quote.USD?.volume24h?.let { it1 ->
+                                dataTotalVol.text = formatMarketCap(
+                                    it1
+                                )
+                            }
+                            percentChange1H.text = it.quote.USD?.percentChange1h.formatPercent()
+                            percentChange24H.text = it.quote.USD?.percentChange24h.formatPercent()
+                            percentChange7D.text = it.quote.USD?.percentChange7d.formatPercent()
+                            percentChange30D.text = it.quote.USD?.percentChange30d.formatPercent()
+                        }
                     }
                 }
             }
+
             notificationImg.clicks {
                 symbolToken?.let { it1 ->
                     logoToken?.let { logo ->

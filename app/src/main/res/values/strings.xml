@@ -48,8 +48,13 @@
     <string name="stats">Stats</string>
     <string name="market_cap">Market Cap</string>
     <string name="fully_diluted_valuation">Fully Diluted Valuation</string>
-    <string name="total_volume">Total Volume</string>
-    <string name="high_24h">High 24h</string>
+    <string name="total_volume">Volume 24H</string>
+    <string name="percent_change_1h">Percent Change 1H</string>
+    <string name="percent_change_24h">Percent Change 24H</string>
+    <string name="percent_change_7d">Percent Change 7D</string>
+    <string name="percent_change_30D">Percent Change 30D</string>
+    <string name="percent_change_60D">Percent Change 60D</string>
+    <string name="percent_change_90D">Percent Change 90D</string>
     <string name="low_24h">Low 24h</string>
     <string name="no_data">No Data</string>
     <string name="btc_dominate">BTC Dominance</string>

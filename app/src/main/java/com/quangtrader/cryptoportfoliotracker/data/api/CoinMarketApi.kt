@@ -2,6 +2,7 @@ package com.quangtrader.cryptoportfoliotracker.data.api
 
 
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinInfoResponse
+import com.quangtrader.cryptoportfoliotracker.data.remote.InfoTokenResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCoinMarket
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 
@@ -24,5 +25,15 @@ interface CoinMarketApi {
         @Query("id") ids: String,
         @Header("X-CMC_PRO_API_KEY") apiKey: String = Constants.API_KEY
     ): CoinInfoResponse
+
+
+    @GET("/v1/cryptocurrency/quotes/latest?")
+    suspend fun getFullInfoToken(
+        @Query("symbol") symbol: String,
+        @Header("X-CMC_PRO_API_KEY") apiKey: String = Constants.API_KEY
+    ): InfoTokenResponse
+
+
+
 
 }

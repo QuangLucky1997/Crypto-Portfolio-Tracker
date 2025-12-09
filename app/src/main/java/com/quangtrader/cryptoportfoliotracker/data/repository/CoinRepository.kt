@@ -3,6 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.data.repository
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinInfoResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
+import com.quangtrader.cryptoportfoliotracker.data.remote.InfoTokenResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCoinMarket
 import javax.inject.Inject
 
@@ -25,6 +26,10 @@ class CoinRepository @Inject constructor(
     suspend fun getIconsForTokens(ids: List<Int>): CoinInfoResponse {
         val idsParam = ids.joinToString(",")
         return coinMarketApi.getIconCoin(idsParam)
+    }
+
+    suspend fun getFullInfoToken(symbolData:String): InfoTokenResponse {
+        return coinMarketApi.getFullInfoToken(symbolData)
     }
 
 
