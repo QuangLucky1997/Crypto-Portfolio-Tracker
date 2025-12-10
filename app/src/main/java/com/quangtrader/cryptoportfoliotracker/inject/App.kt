@@ -3,10 +3,15 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.google.firebase.FirebaseApp
 
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
+import com.quangtrader.cryptoportfoliotracker.helper.Preferences
 
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application() {
@@ -19,16 +24,16 @@ class App : Application() {
         app = this
     }
 
-//    @Inject
-//    lateinit var prefs: Preferences
+    @Inject
+    lateinit var prefs: Preferences
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate() {
         super.onCreate()
-      //  RemoteConfigManager.init()
+       // RemoteConfigManager.init()
         app = this
         createNotificationChannels()
-//        FirebaseApp.initializeApp(this)
-//        Firebase.messaging.isAutoInitEnabled = true
+        FirebaseApp.initializeApp(this)
+        Firebase.messaging.isAutoInitEnabled = true
     }
 
 

@@ -40,29 +40,5 @@ interface CoinDao {
     fun getAllTop100(): Flow<List<TokenTop100>>
 
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertAlert(alert: NotificationEntity)
-//
-//    @Delete
-//    suspend fun deleteAlert(alert: NotificationEntity)
-//
-//    @Query("SELECT * FROM NotificationEntity ORDER BY createdAt DESC")
-//    fun getAllAlertsFlow(): Flow<List<NotificationEntity>>
-//
-//
-//    @Query("SELECT * FROM NotificationEntity WHERE isTriggered = 0")
-//    suspend fun getActiveAlerts(): List<NotificationEntity>
-//
-//
-//    @Query("SELECT * FROM NotificationEntity WHERE symbol = :symbol AND isTriggered = 0")
-//    suspend fun getAlertsBySymbol(symbol: String): List<NotificationEntity>
-//
-//
-//    @Query("SELECT DISTINCT symbol FROM NotificationEntity WHERE isTriggered = 0")
-//    suspend fun getAllSymbols(): List<String>
-//
-//
-//    @Query("UPDATE NotificationEntity SET isTriggered = 1 WHERE id = :id")
-//    suspend fun markTriggered(id: Int)
 
 }

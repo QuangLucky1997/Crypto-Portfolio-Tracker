@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665052782670",
+    "project_id": "crypto-portfolio-tracker-89265",
+    "storage_bucket": "crypto-portfolio-tracker-89265.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665052782670:android:20117463c55400cc15a31f",
+        "android_client_info": {
+          "package_name": "com.quangtrader.cryptoportfoliotracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAteql3pEZ4fHNExenoUeXr3DGHNPtai1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

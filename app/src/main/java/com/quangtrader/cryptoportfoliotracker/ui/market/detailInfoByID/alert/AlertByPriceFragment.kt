@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentAlertByPriceBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import kotlinx.coroutines.tasks.await
 
 class AlertByPriceFragment : BaseFragment<FragmentAlertByPriceBinding>() {
     override val _binding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlertByPriceBinding
@@ -67,6 +69,10 @@ class AlertByPriceFragment : BaseFragment<FragmentAlertByPriceBinding>() {
             val symbolData = requireActivity().intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
             tokenText.text = symbolData.plus("/USDT")
         }
+    }
+
+    suspend fun getFcmToken(): String {
+        return FirebaseMessaging.getInstance().token.await()
     }
 
     override fun onResume() {

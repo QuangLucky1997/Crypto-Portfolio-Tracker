@@ -1,11 +1,13 @@
-    plugins {
+plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-
     alias(libs.plugins.hilt)
+
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -60,6 +62,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.lifecycle.service)
+   // implementation(libs.firebase.firestore.ktx)
     kapt(libs.hilt.android.compiler)
 
     //Timber
@@ -68,7 +71,6 @@ dependencies {
     implementation(libs.lottie)
     //Glide
     implementation(libs.glide)
-
 
 
     //ssd, ssp
@@ -113,25 +115,25 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.adapter.rxjava2)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.adapter.rxjava2)
     //Billing
     implementation(libs.billing.ktx)
-    implementation (libs.stetho.okhttp3)
-    implementation (libs.okhttp3.okhttp)
+    implementation(libs.stetho.okhttp3)
+    implementation(libs.okhttp3.okhttp)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.okhttp3.okhttp)
-    implementation (libs.flaviofaria.kenburnsview)
+    implementation(libs.flaviofaria.kenburnsview)
 
 
 
-    implementation (libs.makeramen.roundedimageview)
+    implementation(libs.makeramen.roundedimageview)
     implementation(libs.commons.codec)
     implementation(libs.androidx.runtime)
-    implementation (libs.carouselrecyclerview)
+    implementation(libs.carouselrecyclerview)
 
 
 
@@ -146,6 +148,11 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementation("com.google.android.material:material:1.12.0")
+
+
+
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
 
 
