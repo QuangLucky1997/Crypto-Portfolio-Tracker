@@ -52,9 +52,7 @@
             android:name=".ui.market.coin.detailCoin.ChartTokenActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".ui.market.detailInfoByID.alert.AlertTokenActivity"
-            android:exported="true" />
+
     </application>
 
 </manifest>

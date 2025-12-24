@@ -106,4 +106,15 @@
     <string name="total_investment_amount">Total Investment Amount</string>
     <string name="total_exit_amount">Total Exit Amount</string>
     <string name="calculator_profit">Calculator Profit</string>
+    <string name="theme">THEME</string>
+    <string name="light">💡 Light</string>
+    <string name="dark">🌙 Dark</string>
+    <string name="system">⚙️ System</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_us_on_play_store">Rate on US</string>
+    <string name="default_home_screen">Choose Default Screen</string>
+    <string name="screener_display">Screener Display</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="ai_token">AI Token Insight</string>
+    <string name="please_enter_the_name_of_the_token_you_want_to_analyze_for_example_btc_eth_sol">Please enter the name of the token you want to analyze, for example: BTC, ETH, SOL, ...</string>
 </resources>

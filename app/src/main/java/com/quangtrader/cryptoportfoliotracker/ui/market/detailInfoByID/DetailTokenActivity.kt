@@ -68,7 +68,7 @@ class DetailTokenActivity :
                 }
 
                 3 -> {
-                    tab.text = getString(R.string.alert)
+                    tab.text = getString(R.string.calculator)
                 }
 
             }

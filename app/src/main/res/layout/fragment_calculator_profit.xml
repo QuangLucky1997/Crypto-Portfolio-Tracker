@@ -5,29 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
-    <RelativeLayout
-        android:id="@+id/viewTop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textMarket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:fontFamily="@font/inter_bold"
-            android:text="Calculator Spot"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_20ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
-        app:layout_constraintTop_toBottomOf="@+id/viewTop"
+     app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,42 +67,24 @@
 
                                     <EditText
                                         android:id="@+id/edtSearchToken"
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_marginStart="@dimen/_5sdp"
                                         android:background="@null"
                                         android:fontFamily="@font/inter_bold"
                                         android:hint="@string/search"
                                         android:textColor="@color/black"
-                                        android:textColorHint="@color/white_alpha"
                                         android:textSize="@dimen/_10ssp"
                                         android:drawablePadding="@dimen/_2sdp"
                                         app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toStartOf="@+id/imgDrop"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
-
-                                    <ImageView
-                                        android:id="@+id/imgDrop"
-                                        android:layout_width="@dimen/_20sdp"
-                                        android:layout_height="@dimen/_20sdp"
-                                        android:layout_marginEnd="@dimen/_5sdp"
-                                        android:src="@drawable/dropdown"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </com.google.android.material.card.MaterialCardView>
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvListToken"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_200sdp"
-                                android:visibility="invisible"
-                                android:layout_below="@+id/cardCustomSearch"/>
+
                         </RelativeLayout>
 
                     </LinearLayout>

@@ -13,6 +13,12 @@ object Constants {
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
+    const val API_GEMINI = "AIzaSyAyoZihMyTz1fshofK_9Mk9wGex1nDyjFw"
+
+
+    const val BASE_GEMINI = "https://generativelanguage.googleapis.com/"
+
+
     const val API_NEWS = "l7q9lYBQWVeqmz6H1s6Lo9m/uBrROWX4SfHT3HETya4="
     const val NEWS_API = "e1b92310c90e485ba995a5d08375efa7"
 

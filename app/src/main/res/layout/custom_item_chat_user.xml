@@ -1,0 +1,15 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:padding="@dimen/_4sdp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tvUserMessage"
+        android:background="@drawable/bg_user_message"
+        android:padding="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:maxWidth="@dimen/_200sdp"/>
+</LinearLayout>

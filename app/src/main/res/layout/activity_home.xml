@@ -27,7 +27,7 @@
         app:abb_indicatorMargin="@dimen/_16sdp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
-        app:abb_tabColor="@color/green"
+        app:abb_tabColor="@color/blue01"
         app:abb_tabColorSelected="@color/black"
         app:abb_tabs="@menu/tabs"
         app:layout_constraintBottom_toBottomOf="parent" />

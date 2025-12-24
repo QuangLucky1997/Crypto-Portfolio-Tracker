@@ -15,8 +15,6 @@ import authenticator.app.otp.authentication.fa.common.extentions.getTradingViewC
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentOverviewBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
-import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
-import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.alert.AlertTokenActivity
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.utils.formatMarketCap
 import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
@@ -94,10 +92,10 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
             notificationImg.clicks {
                 symbolToken?.let { it1 ->
                     logoToken?.let { logo ->
-                        moveScreenAlert(
-                            logo,
-                            it1
-                        )
+//                        moveScreenAlert(
+//                            logo,
+//                            it1
+//                        )
                     }
                 }
             }
@@ -138,11 +136,11 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
         }
     }
 
-    private fun moveScreenAlert(logoToken: String, symbolToken: String) {
-        val intent = Intent(requireContext(), AlertTokenActivity::class.java)
-        intent.putExtra(Constants.EXTRA_LOGO_COIN, logoToken)
-        intent.putExtra(Constants.EXTRA_SYMBOL_COIN, symbolToken)
-        startActivity(intent)
-    }
+//    private fun moveScreenAlert(logoToken: String, symbolToken: String) {
+//        val intent = Intent(requireContext(), AlertTokenActivity::class.java)
+//        intent.putExtra(Constants.EXTRA_LOGO_COIN, logoToken)
+//        intent.putExtra(Constants.EXTRA_SYMBOL_COIN, symbolToken)
+//        startActivity(intent)
+//    }
 
 }

@@ -4,9 +4,9 @@
         android:icon="@drawable/market_version"
         android:title="@string/market" />
     <item
-        android:id="@+id/tab_portfolio"
-        android:icon="@drawable/invest_version"
-        android:title="@string/calculator" />
+        android:id="@+id/tab_AIChat"
+        android:icon="@drawable/robot"
+        android:title="@string/ai_token" />
     <item
         android:id="@+id/tab_news"
         android:icon="@drawable/news_version"
