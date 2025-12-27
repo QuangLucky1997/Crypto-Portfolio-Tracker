@@ -5,7 +5,7 @@
         android:title="@string/market" />
     <item
         android:id="@+id/tab_AIChat"
-        android:icon="@drawable/robot"
+        android:icon="@drawable/rb2"
         android:title="@string/ai_token" />
     <item
         android:id="@+id/tab_news"

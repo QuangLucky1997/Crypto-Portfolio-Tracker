@@ -115,6 +115,10 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationProtobuf" }
 
 
+google-gemini = { module = "com.google.ai.client.generativeai:generativeai", version = "0.9.0" }
+
+
+
 
 
 

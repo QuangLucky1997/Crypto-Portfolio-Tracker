@@ -1,17 +1,22 @@
 package com.quangtrader.cryptoportfoliotracker.inject
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.ai.client.generativeai.GenerativeModel
+import com.google.ai.client.generativeai.type.RequestOptions
+import com.google.ai.client.generativeai.type.content
+import com.google.ai.client.generativeai.type.generationConfig
 import com.google.gson.GsonBuilder
+import com.quangtrader.cryptoportfoliotracker.BuildConfig
 import com.quangtrader.cryptoportfoliotracker.dao.CoinDao
 import com.quangtrader.cryptoportfoliotracker.data.api.BinanceApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinGeckoTrendingApi
 import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
-import com.quangtrader.cryptoportfoliotracker.data.api.GeminiApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsCryptoApi
 import com.quangtrader.cryptoportfoliotracker.utils.Constants
@@ -20,6 +25,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.JsonNull.content
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -275,52 +281,6 @@ class AppModule {
         return retrofit.create(NewsCryptoApi::class.java)
     }
 
-
-    @Provides
-    @Singleton
-    fun provideChatBotGemini(): GeminiApi {
-        val loggingInterceptor = HttpLoggingInterceptor { message ->
-            Timber.tag("Realtime_DATA").e(message)
-        }
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val networkInterceptor = Interceptor {
-            val request = it.request().newBuilder().build()
-            it.proceed(request)
-        }
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val requestBuilder = chain
-                    .request()
-                    .newBuilder()
-
-                chain.proceed(requestBuilder.build())
-            }
-            .addInterceptor(loggingInterceptor)
-            .addNetworkInterceptor(networkInterceptor)
-            .addNetworkInterceptor(StethoInterceptor())
-            .hostnameVerifier { _, _ -> true }
-            .retryOnConnectionFailure(false)
-            .connectTimeout(2, TimeUnit.MINUTES)
-            .writeTimeout(2, TimeUnit.MINUTES)
-            .readTimeout(2, TimeUnit.MINUTES)
-            .build()
-
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_GEMINI)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        return retrofit.create(GeminiApi::class.java)
-    }
-
-
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
@@ -333,6 +293,59 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDao(db: AppDatabase): CoinDao = db.dao()
+
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    object GeminiModule {
+        @SuppressLint("SecretInSource")
+        @Provides
+        @Singleton
+        fun provideGeminiModel(): GenerativeModel {
+            val config = generationConfig {
+                temperature = 0.15f
+                topK = 32
+                topP = 1f
+            }
+
+            return GenerativeModel(
+                modelName = "gemini-flash-latest",
+                apiKey = Constants.API_GEMINI,
+                requestOptions = RequestOptions(apiVersion = "v1beta"),
+                generationConfig = config,
+                systemInstruction = content {
+                    text("You are a PROFESSIONAL LONG-TERM CRYPTO PRICE ACTION ANALYST.\n" +
+                            "Focus on D1 / W1. No indicators. No noise.\n" +
+                            "\n" +
+                            "When I send a token + timeframe, OUTPUT only:\n" +
+                            "\n" +
+                            "━━━━━━━━━━━━━━\n" +
+                            "\uD83D\uDCCA {TOKEN} | ⏱ {D1 / W1}\n" +
+                            "\n" +
+                            "\uD83D\uDCC8 Macro Trend: Bullish / Bearish / Range\n" +
+                            "\n" +
+                            "\uD83D\uDFE2 ACCUMULATION (BUY ZONE):\n" +
+                            "• Zone: {price range}\n" +
+                            "• Basis: {demand / major support / liquidity sweep}\n" +
+                            "\n" +
+                            "\uD83D\uDD34 DISTRIBUTION (SELL ZONE):\n" +
+                            "• Zone: {price range}\n" +
+                            "• Basis: {supply / major resistance / liquidity target}\n" +
+                            "\n" +
+                            "⚠\uFE0F Macro Invalidation:\n" +
+                            "• {weekly structure break / key level}\n" +
+                            "\n" +
+                            "━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "Rules:\n" +
+                            "- Zones must be untested or major HTF levels\n" +
+                            "- If no clear macro zone → WAIT\n" +
+                            "- Capital protection first\n" +
+                            "- Professional, minimal, no hype\n")
+                }
+            )
+        }
+    }
 
 
 

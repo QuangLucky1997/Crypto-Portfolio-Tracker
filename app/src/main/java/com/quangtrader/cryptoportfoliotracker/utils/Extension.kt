@@ -8,16 +8,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.compose.ui.text.intl.Locale
-import com.quangtrader.cryptoportfoliotracker.data.remote.GlobalData
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.pow
@@ -204,6 +205,11 @@ fun formatCurrency(value: BigDecimal): String {
 
 fun formatPercentage(value: BigDecimal): String {
     return "${value.setScale(2, RoundingMode.HALF_UP).toPlainString()}%"
+}
+
+fun Long.toDateTimeString(): String {
+    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return sdf.format(Date(this))
 }
 
 

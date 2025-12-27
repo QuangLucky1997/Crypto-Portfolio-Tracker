@@ -83,7 +83,7 @@
     <string name="number">$</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
-
+    <string name="title_bot">Hello! I\'m your Crypto Market Analyst. I can help you with technical analysis, identify support/resistance zones, and provide insights on various cryptocurrencies. Which coin would you like analyzed today?</string>
 
 
     <string name="alert_by_price">ALERT BY PRICE</string>
@@ -117,4 +117,7 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ai_token">AI Token Insight</string>
     <string name="please_enter_the_name_of_the_token_you_want_to_analyze_for_example_btc_eth_sol">Please enter the name of the token you want to analyze, for example: BTC, ETH, SOL, ...</string>
+    <string name="token_analysis_with_cryptobot">Token analysis with QuantBot</string>
+    <string name="assistant_quantai">Assistant QuantAI</string>
+    <string name="history_question">History Question</string>
 </resources>

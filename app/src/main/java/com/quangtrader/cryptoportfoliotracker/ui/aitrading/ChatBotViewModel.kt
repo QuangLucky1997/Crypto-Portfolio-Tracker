@@ -2,96 +2,117 @@ package com.quangtrader.cryptoportfoliotracker.ui.aitrading
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.ai.client.generativeai.GenerativeModel
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
 import com.quangtrader.cryptoportfoliotracker.data.repository.GeminiChatBotRepository
+import com.quangtrader.cryptoportfoliotracker.data.repository.ManagerDBRoomRepository
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
+import timber.log.Timber
 import javax.inject.Inject
-import kotlin.coroutines.cancellation.CancellationException
 
 
 @HiltViewModel
 class ChatBotViewModel @Inject constructor(
-    private val geminiChatBotRepository: GeminiChatBotRepository
+    private val generativeModel: GenerativeModel,
+    private val geminiChatBotRepository: GeminiChatBotRepository,
+    private val chatBotRepositoryDatabase: ManagerDBRoomRepository
 ) : ViewModel() {
-
     private val _messages = MutableStateFlow<List<ChatBotMessage>>(emptyList())
-    val messages = _messages.asStateFlow()
+    val messages: StateFlow<List<ChatBotMessage>> = _messages.asStateFlow()
 
-    private var botJob: Job? = null
+    val getAllSessionChat = chatBotRepositoryDatabase.getAllHistoryChatBot.stateIn(viewModelScope,
+        SharingStarted.WhileSubscribed(5000), emptyList())
+    private var chatSession = generativeModel.startChat()
 
     init {
-        showGreetingIfNeeded()
+        viewModelScope.launch {
+            delay(100)
+            showWelcomeMessage()
+        }
     }
 
-    fun sendMessage(text: String) {
-        if (text.isBlank()) return
+    fun sendMessage(userText: String) {
+        val userMsg = ChatBotMessage.User(userText)
+        _messages.value = _messages.value + userMsg
+        val botTimestamp = System.currentTimeMillis()
+        val botLoadingMsg = ChatBotMessage.Bot("", isLoading = true, timestamp = botTimestamp)
+        _messages.value = _messages.value + botLoadingMsg
 
-        botJob?.cancel()
-
-        // User message
-        addMessage(ChatBotMessage.User(text))
-
-        // Bot loading
-        addMessage(ChatBotMessage.Bot(text = "", isLoading = true))
-
-        botJob = viewModelScope.launch {
+        viewModelScope.launch {
             try {
-                val botReply = withTimeout(15_000L) {
-                    geminiChatBotRepository.analyzeToken(text)
+                val symbol = extractSymbol(userText)
+                val enrichedPrompt = if (symbol != null) {
+                    val dataToken = geminiChatBotRepository.getChatResponse(symbol).first()
+                    """
+            Analyze the following market data for: $symbol
+            Timeframe: D1
+            Market Data: $dataToken
+            Based on this data, provide a professional technical outlook.
+            """.trimIndent()
+                } else {
+                    userText
                 }
-
-                removeLastMessage() // remove loading
-                addMessage(ChatBotMessage.Bot(text = botReply))
-
-            } catch (e: TimeoutCancellationException) {
-                removeLastMessage()
-                addMessage(
-                    ChatBotMessage.Bot(
-                        text = "⚠️ Analysis timed out. Please try again.",
-                        isError = true
-                    )
-                )
-            } catch (e: CancellationException) {
+                var fullText = ""
+                chatSession.sendMessageStream(enrichedPrompt).collect { chunk ->
+                    fullText += chunk.text
+                    updateBotMessage(botTimestamp, fullText, isLoading = false)
+                }
             } catch (e: Exception) {
-                removeLastMessage()
-                addMessage(
-                    ChatBotMessage.Bot(
-                        text = "⚠️ Unable to analyze at the moment. Please try again later.",
-                        isError = true
-                    )
-                )
+                Timber.d(e.printStackTrace().toString())
             }
         }
-
     }
-    private fun showGreetingIfNeeded() {
-        if (_messages.value.isNotEmpty()) return
 
-        addMessage(
-            ChatBotMessage.Bot(
-                text = """
-👋 Hello! I’m an AI token analysis assistant.
-My role is to analyze cryptocurrency tokens using pure price action.
-Enter a token symbol (e.g. BTC, ETH, SOL) to get started.
-⚠️ This analysis is for informational purposes only.
-                """.trimIndent()
-            )
+    fun saveHistoryChat(chatBot: HistoryChatBotEntity) {
+        viewModelScope.launch {
+            try {
+                chatBotRepositoryDatabase.saveHistoryChat(chatBot)
+            } catch (e: Exception) {
+                Timber.e("Save history failed: ${e.message}")
+            }
+        }
+    }
+
+    private fun updateBotMessage(
+        timestamp: Long,
+        text: String,
+        isLoading: Boolean = false,
+        isError: Boolean = false
+    ) {
+        _messages.value = _messages.value.map {
+            if (it is ChatBotMessage.Bot && it.timestamp == timestamp) {
+                it.copy(text = text, isLoading = isLoading, isError = isError)
+            } else it
+        }
+    }
+
+
+    private fun extractSymbol(text: String): String? {
+        val regex = Regex("\\b[A-Z]{3,5}\\b")
+        val match = regex.find(text.uppercase())
+        return match?.value
+    }
+
+    private fun showWelcomeMessage() {
+        val welcomeMsg = ChatBotMessage.Bot(
+            text = "Hello! I'm QuantAI - a financial assistant at Crypto Tracker.\n" +
+                    "I can help you analyze buy and sell zones for your token.",
+            timestamp = System.currentTimeMillis(),
+            isLoading = false
         )
+        _messages.value = listOf(welcomeMsg)
     }
 
-    private fun addMessage(message: ChatBotMessage) {
-        _messages.value = _messages.value + message
-    }
 
-    private fun removeLastMessage() {
-        _messages.value = _messages.value.dropLast(1)
-    }
 }
 
 

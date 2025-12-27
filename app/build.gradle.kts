@@ -153,6 +153,9 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+
+
 
 
 
