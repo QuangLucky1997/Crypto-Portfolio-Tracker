@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/viewToken"
     android:layout_margin="@dimen/_2sdp"
+    android:background="?attr/appBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -23,7 +24,7 @@
             android:textSize="@dimen/_12ssp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"/>
+            android:textColor="?attr/textPrimary"/>
         <TextView
             android:id="@+id/fullTokenName"
             android:layout_gravity="center_vertical"

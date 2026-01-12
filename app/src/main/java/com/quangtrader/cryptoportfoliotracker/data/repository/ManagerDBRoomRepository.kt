@@ -11,7 +11,7 @@ class ManagerDBRoomRepository @Inject constructor(private val coinDao: CoinDao) 
     val allCoinFAV: Flow<List<CoinFav>> = coinDao.getAllCoinFAV()
     val getAllFavCoin: Flow<List<CoinFav>> = coinDao.getAllFavCoin()
     val allTokenTop100: Flow<List<TokenTop100>> = coinDao.getAllTop100()
-    val getAllHistoryChatBot: Flow<List<HistoryChatBotEntity>> = coinDao.getAllHistory()
+    //val getAllHistoryChatBot: Flow<List<HistoryChatBotEntity>> = coinDao.getAllHistory()
 
     fun addFav(coinFav: CoinFav): Long {
         return coinDao.createFavCoin(coinFav)
@@ -31,14 +31,14 @@ class ManagerDBRoomRepository @Inject constructor(private val coinDao: CoinDao) 
     }
 
 
-    suspend fun saveHistoryChat(chatBot: HistoryChatBotEntity): Long {
-        return coinDao.saveHistoryChat(chatBot)
-    }
-
-    fun deleteChatById(userId: Int) {
-        coinDao.deleteChatById(userId)
-
-    }
+//    suspend fun saveHistoryChat(chatBot: HistoryChatBotEntity): Long {
+//        return coinDao.saveHistoryChat(chatBot)
+//    }
+//
+//    fun deleteChatById(userId: Int) {
+//        coinDao.deleteChatById(userId)
+//
+//    }
 
 
 }

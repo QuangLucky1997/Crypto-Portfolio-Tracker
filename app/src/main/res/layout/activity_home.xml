@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/appBackground">
 
 
 
@@ -21,14 +21,14 @@
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:background="?attr/appBackground"
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="@dimen/_4sdp"
         app:abb_indicatorMargin="@dimen/_16sdp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
         app:abb_tabColor="@color/blue01"
-        app:abb_tabColorSelected="@color/black"
+        app:abb_tabColorSelected="?attr/textPrimary"
         app:abb_tabs="@menu/tabs"
         app:layout_constraintBottom_toBottomOf="parent" />
 

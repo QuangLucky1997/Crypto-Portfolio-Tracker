@@ -1,8 +1,6 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID
 
 
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -68,7 +66,7 @@ class DetailTokenActivity :
                 }
 
                 3 -> {
-                    tab.text = getString(R.string.calculator)
+                    tab.text = getString(R.string.profit)
                 }
 
             }

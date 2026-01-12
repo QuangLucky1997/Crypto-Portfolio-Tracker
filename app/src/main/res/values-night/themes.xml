@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.CryptoPortfolioTracker"
+        parent="Theme.Material3.DayNight.NoActionBar"
+        >
+
+        <item name="appBackground">@color/black</item>
+        <item name="appSurface">@color/blackAlpha</item>
+        <item name="textPrimary">@color/white</item>
+        <item name="textSecondary">@color/gray_600</item>
+
+    </style>
+
+
+</resources>

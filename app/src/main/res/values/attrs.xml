@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Background -->
+    <attr name="appBackground" format="color" />
+    <attr name="appSurface" format="color" />
+    <attr name="appCard" format="color" />
+
+    <!-- Text -->
+    <attr name="textPrimary" format="color" />
+    <attr name="textSecondary" format="color" />
+
+    <!-- Brand -->
+    <attr name="colorPrimaryCustom" format="color" />
+    <attr name="colorAccentCustom" format="color" />
+
+    <!-- Status -->
+    <attr name="colorSuccess" format="color" />
+    <attr name="colorWarning" format="color" />
+    <attr name="colorError" format="color" />
+
+</resources>

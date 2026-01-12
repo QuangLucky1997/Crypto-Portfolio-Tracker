@@ -39,6 +39,7 @@
     <string name="markets">MARKET</string>
     <string name="alert">ALERT</string>
     <string name="newDetail">NEWS</string>
+    <string name="cal">Profit Cal</string>
     <string name="_1h">1H</string>
     <string name="_1d">1D</string>
     <string name="_1w">1W</string>
@@ -120,4 +121,5 @@
     <string name="token_analysis_with_cryptobot">Token analysis with QuantBot</string>
     <string name="assistant_quantai">Assistant QuantAI</string>
     <string name="history_question">History Question</string>
+    <string name="profit">Profit</string>
 </resources>

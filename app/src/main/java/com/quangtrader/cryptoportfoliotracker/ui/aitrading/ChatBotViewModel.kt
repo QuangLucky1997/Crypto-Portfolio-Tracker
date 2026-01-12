@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -22,97 +23,116 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatBotViewModel @Inject constructor(
-    private val generativeModel: GenerativeModel,
-    private val geminiChatBotRepository: GeminiChatBotRepository,
+    private val geminiRepository: GeminiChatBotRepository,
     private val chatBotRepositoryDatabase: ManagerDBRoomRepository
 ) : ViewModel() {
+
     private val _messages = MutableStateFlow<List<ChatBotMessage>>(emptyList())
     val messages: StateFlow<List<ChatBotMessage>> = _messages.asStateFlow()
 
-    val getAllSessionChat = chatBotRepositoryDatabase.getAllHistoryChatBot.stateIn(viewModelScope,
-        SharingStarted.WhileSubscribed(5000), emptyList())
-    private var chatSession = generativeModel.startChat()
-
     init {
-        viewModelScope.launch {
-            delay(100)
-            showWelcomeMessage()
-        }
+        showWelcomeMessage()
     }
 
     fun sendMessage(userText: String) {
         val userMsg = ChatBotMessage.User(userText)
-        _messages.value = _messages.value + userMsg
+        _messages.update { it + userMsg }
+
         val botTimestamp = System.currentTimeMillis()
-        val botLoadingMsg = ChatBotMessage.Bot("", isLoading = true, timestamp = botTimestamp)
-        _messages.value = _messages.value + botLoadingMsg
+        addBotLoading(botTimestamp)
 
         viewModelScope.launch {
-            try {
-                val symbol = extractSymbol(userText)
-                val enrichedPrompt = if (symbol != null) {
-                    val dataToken = geminiChatBotRepository.getChatResponse(symbol).first()
-                    """
-            Analyze the following market data for: $symbol
-            Timeframe: D1
-            Market Data: $dataToken
-            Based on this data, provide a professional technical outlook.
-            """.trimIndent()
-                } else {
-                    userText
-                }
-                var fullText = ""
-                chatSession.sendMessageStream(enrichedPrompt).collect { chunk ->
-                    fullText += chunk.text
-                    updateBotMessage(botTimestamp, fullText, isLoading = false)
-                }
-            } catch (e: Exception) {
-                Timber.d(e.printStackTrace().toString())
+            runCatching {
+                val prompt = buildPrompt(userText)
+                geminiRepository.analyze(prompt)
+            }.onSuccess { response ->
+                updateBotMessage(
+                    timestamp = botTimestamp,
+                    text = response,
+                    isLoading = false
+                )
+            }.onFailure { error ->
+                Timber.e(error)
+                updateBotMessage(
+                    timestamp = botTimestamp,
+                    text = "⚠️ Failed to analyze. Please try again.",
+                    isLoading = false,
+                    isError = true
+                )
             }
         }
     }
 
-    fun saveHistoryChat(chatBot: HistoryChatBotEntity) {
-        viewModelScope.launch {
-            try {
-                chatBotRepositoryDatabase.saveHistoryChat(chatBot)
-            } catch (e: Exception) {
-                Timber.e("Save history failed: ${e.message}")
-            }
-        }
+    // ----------------------------
+    // Helpers
+    // ----------------------------
+
+    private suspend fun buildPrompt(userText: String): String {
+        val symbol = extractSymbol(userText) ?: return userText
+
+        val marketData = geminiRepository.analyze(
+            "Provide recent technical market data for token $symbol"
+        )
+
+        return """
+            You are a professional crypto trader.
+            
+            Token: $symbol
+            Timeframe: D1
+            Market Data:
+            $marketData
+
+            Provide:
+            - Trend analysis
+            - Key support/resistance
+            - Buy/Sell zone
+            - Risk warning
+        """.trimIndent()
+    }
+
+    private fun addBotLoading(timestamp: Long) {
+        val botLoading = ChatBotMessage.Bot(
+            text = "",
+            timestamp = timestamp,
+            isLoading = true
+        )
+        _messages.update { it + botLoading }
     }
 
     private fun updateBotMessage(
         timestamp: Long,
         text: String,
-        isLoading: Boolean = false,
+        isLoading: Boolean,
         isError: Boolean = false
     ) {
-        _messages.value = _messages.value.map {
-            if (it is ChatBotMessage.Bot && it.timestamp == timestamp) {
-                it.copy(text = text, isLoading = isLoading, isError = isError)
-            } else it
+        _messages.update { list ->
+            list.map {
+                if (it is ChatBotMessage.Bot && it.timestamp == timestamp) {
+                    it.copy(
+                        text = text,
+                        isLoading = isLoading,
+                        isError = isError
+                    )
+                } else it
+            }
         }
     }
 
-
     private fun extractSymbol(text: String): String? {
-        val regex = Regex("\\b[A-Z]{3,5}\\b")
-        val match = regex.find(text.uppercase())
-        return match?.value
+        return Regex("\\b[A-Z]{3,5}\\b")
+            .find(text.uppercase())
+            ?.value
     }
 
     private fun showWelcomeMessage() {
-        val welcomeMsg = ChatBotMessage.Bot(
-            text = "Hello! I'm QuantAI - a financial assistant at Crypto Tracker.\n" +
-                    "I can help you analyze buy and sell zones for your token.",
-            timestamp = System.currentTimeMillis(),
-            isLoading = false
+        _messages.value = listOf(
+            ChatBotMessage.Bot(
+                text = "Hello! I'm QuantAI 🤖\nI can analyze buy & sell zones for crypto tokens.",
+                timestamp = System.currentTimeMillis()
+            )
         )
-        _messages.value = listOf(welcomeMsg)
     }
-
-
 }
+
 
 

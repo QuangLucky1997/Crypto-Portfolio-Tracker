@@ -20,7 +20,7 @@
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_7sdp"
-        android:textColor="@color/black"
+        android:textColor="?attr/textPrimary"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintBottom_toTopOf="@+id/tv_subtitle" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_regular"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/textPrimary"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

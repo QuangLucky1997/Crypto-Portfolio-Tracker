@@ -38,14 +38,14 @@ interface CoinDao {
     fun getAllTop100(): Flow<List<TokenTop100>>
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun saveHistoryChat(chatHistory: HistoryChatBotEntity): Long
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun saveHistoryChat(chatHistory: HistoryChatBotEntity): Long
 
-    @Query("DELETE FROM historychatbotentity WHERE idChat = :userId")
-     fun deleteChatById(userId: Int)
+//    @Query("DELETE FROM historychatbotentity WHERE idChat = :userId")
+//     fun deleteChatById(userId: Int)
 
-    @Query("SELECT * FROM HistoryChatBotEntity")
-    fun getAllHistory(): Flow<List<HistoryChatBotEntity>>
+//    @Query("SELECT * FROM HistoryChatBotEntity")
+//    fun getAllHistory(): Flow<List<HistoryChatBotEntity>>
 
 
 }

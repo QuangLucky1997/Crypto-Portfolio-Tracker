@@ -1,21 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    <style name="Theme.CryptoPortfolioTracker" parent="Theme.AppCompat.DayNight.NoActionBar" />-->
+    <style name="Theme.CryptoPortfolioTracker"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-    <style name="Theme.CryptoPortfolioTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurface">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <!-- App -->
+        <item name="appBackground">@color/color_background</item>
+        <item name="appSurface">@color/color_surface</item>
+
+        <!-- Text -->
+        <item name="textPrimary">@color/color_text_primary</item>
+        <item name="textSecondary">@color/color_text_secondary</item>
+
+        <!-- Brand -->
+        <item name="colorPrimaryCustom">@color/color_primary</item>
+        <item name="colorAccentCustom">@color/color_accent</item>
+
+
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorSecondary">@color/color_accent</item>
+
     </style>
 
 
-    <style name="Widget.MyApp.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+    <style name="Widget.MyApp.Chip.Choice"
+        parent="Widget.MaterialComponents.Chip.Choice">
+
+        <!-- Shape -->
+        <item name="chipCornerRadius">8dp</item>
+
+        <!-- Background -->
         <item name="chipBackgroundColor">@color/selector_chip_background</item>
+
+        <!-- Text -->
         <item name="android:textColor">@color/selector_chip_text</item>
+
+        <!-- Stroke -->
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">?attr/colorOutline</item>
+
+        <!-- Icon -->
         <item name="checkedIconVisible">false</item>
+        <item name="chipIconVisible">false</item>
+
+        <!-- Ripple -->
+        <item name="rippleColor">?attr/colorPrimary</item>
+
     </style>
 
-    <style name="ThemeOverlay.MyApp.Chip" parent="ThemeOverlay.MaterialComponents.Light">
+
+    <style name="ThemeOverlay.MyApp.Chip"
+        parent="ThemeOverlay.MaterialComponents">
+
+        <item name="colorPrimary">@color/chip_primary</item>
+        <item name="colorOnSurface">@color/chip_on_surface</item>
+        <item name="colorOutline">@color/chip_outline</item>
+
     </style>
+
 </resources>

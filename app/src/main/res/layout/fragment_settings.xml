@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/appBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -11,7 +12,7 @@
         android:layout_margin="@dimen/_5sdp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/settings"
-        android:textColor="@color/black"
+        android:textColor="?attr/textPrimary"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,12 +34,13 @@
                 android:layout_margin="@dimen/_5sdp"
                 android:fontFamily="@font/inter_regular"
                 android:text="@string/theme"
-                android:textColor="@color/black"
+                android:textColor="?attr/textPrimary"
                 android:textSize="@dimen/_14ssp" />
 
             <com.google.android.material.card.MaterialCardView
                 app:strokeWidth="@dimen/_1sdp"
-                app:strokeColor="@color/black"
+                app:strokeColor="?attr/textPrimary"
+                app:cardBackgroundColor="?attr/appBackground"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:id="@+id/segmentTheme"
@@ -69,15 +71,16 @@
                             android:id="@+id/cardLight"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:cardBackgroundColor="@color/black"
+                            app:cardBackgroundColor="?attr/appBackground"
                             app:cardCornerRadius="@dimen/_4sdp"
                             app:cardElevation="@dimen/_4sdp">
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                                 <TextView
+                                    android:id="@+id/textLight"
                                     android:fontFamily="@font/inter_bold"
-                                    android:textColor="@color/white"
+                                    android:textColor="?attr/textPrimary"
                                     android:text="@string/light"
                                     android:textSize="@dimen/_10ssp"
                                     android:layout_centerInParent="true"
@@ -95,7 +98,6 @@
                         android:layout_height="match_parent">
                         <TextView
                             android:fontFamily="@font/inter_bold"
-                            android:textColor="@color/gray"
                             android:text="@string/dark"
                             android:textSize="@dimen/_10ssp"
                             android:layout_centerInParent="true"
@@ -106,15 +108,16 @@
                             android:id="@+id/cardDark"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:cardBackgroundColor="@color/black"
+                            app:cardBackgroundColor="?attr/appBackground"
                             app:cardCornerRadius="@dimen/_4sdp"
                             app:cardElevation="@dimen/_4sdp">
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                                 <TextView
+                                    android:id="@+id/textDark"
                                     android:fontFamily="@font/inter_bold"
-                                    android:textColor="@color/white"
+                                    android:textColor="?attr/textPrimary"
                                     android:text="@string/dark"
                                     android:textSize="@dimen/_10ssp"
                                     android:layout_centerInParent="true"
@@ -125,41 +128,6 @@
                         </androidx.cardview.widget.CardView>
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/viewSystem"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:fontFamily="@font/inter_bold"
-                            android:textColor="@color/gray"
-                            android:text="@string/system"
-                            android:textSize="@dimen/_10ssp"
-                            android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <androidx.cardview.widget.CardView
-                            android:visibility="gone"
-                            android:id="@+id/cardSystem"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardBackgroundColor="@color/black"
-                            app:cardCornerRadius="@dimen/_4sdp"
-                            app:cardElevation="@dimen/_4sdp">
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:fontFamily="@font/inter_bold"
-                                    android:textColor="@color/white"
-                                    android:text="@string/system"
-                                    android:textSize="@dimen/_10ssp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                            </RelativeLayout>
-                        </androidx.cardview.widget.CardView>
-                    </RelativeLayout>
 
 
 
@@ -171,97 +139,99 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
-            <RelativeLayout
-                android:layout_marginTop="@dimen/_20sdp"
-                android:id="@+id/settingVibrate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp">
+<!--            <RelativeLayout-->
+<!--                android:layout_marginTop="@dimen/_20sdp"-->
+<!--                android:id="@+id/settingVibrate"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                android:layout_marginStart="@dimen/_10sdp">-->
 
-                <ImageView
-                    android:id="@+id/imgVibrate"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/eye" />
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_toEndOf="@+id/imgVibrate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/screener_display"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgVibrate"-->
+<!--                    android:layout_width="@dimen/_20sdp"-->
+<!--                    android:layout_height="@dimen/_20sdp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:src="@drawable/eye"-->
+<!--                    app:tint="@color/blue01" />-->
+<!--                <TextView-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_toEndOf="@+id/imgVibrate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:text="@string/screener_display"-->
+<!--                    android:textColor="?attr/textPrimary"-->
+<!--                    android:textSize="@dimen/_12ssp" />-->
 
-                <TextView
-                    android:id="@+id/textDisplay"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/screener_display"
-                    android:textColor="@color/gray"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:textSize="@dimen/_10ssp" />
-
-
-            </RelativeLayout>
-            <View
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/gray"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-
-            <RelativeLayout
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/settingDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp">
-
-                <ImageView
-                    android:id="@+id/imgDf"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/home" />
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_toEndOf="@+id/imgDf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/default_home_screen"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <TextView
-                    android:id="@+id/textResult"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="cẹc"
-                    android:textColor="@color/gray"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:textSize="@dimen/_10ssp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/textDisplay"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:text="@string/screener_display"-->
+<!--                    android:textColor="?attr/textPrimary"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:textSize="@dimen/_10ssp" />-->
 
 
-            </RelativeLayout>
-            <View
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/gray"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
+<!--            </RelativeLayout>-->
+<!--            <View-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:background="@color/gray"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_1sdp"/>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:id="@+id/settingDefault"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                android:layout_marginStart="@dimen/_10sdp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgDf"-->
+<!--                    android:layout_width="@dimen/_20sdp"-->
+<!--                    android:layout_height="@dimen/_20sdp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    app:tint="@color/blue01"-->
+<!--                    android:src="@drawable/home" />-->
+<!--                <TextView-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_toEndOf="@+id/imgDf"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:text="@string/default_home_screen"-->
+<!--                    android:textColor="?attr/textPrimary"-->
+<!--                    android:textSize="@dimen/_12ssp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textResult"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="?attr/textPrimary"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:textSize="@dimen/_10ssp" />-->
+
+
+<!--            </RelativeLayout>-->
+<!--            <View-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:background="@color/gray"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_1sdp"/>-->
 
             <RelativeLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -277,6 +247,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    app:tint="@color/blue01"
                     android:src="@drawable/like" />
                 <TextView
                     android:layout_centerVertical="true"
@@ -286,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/rate_us_on_play_store"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/textPrimary"
                     android:textSize="@dimen/_12ssp" />
 
 
@@ -311,6 +282,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    app:tint="@color/blue01"
                     android:src="@drawable/policy" />
                 <TextView
                     android:layout_centerVertical="true"
@@ -320,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/privacy_policy"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/textPrimary"
                     android:textSize="@dimen/_12ssp" />
 
 
@@ -345,6 +317,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    app:tint="@color/blue01"
                     android:src="@drawable/feedback" />
                 <TextView
                     android:layout_centerVertical="true"
@@ -354,17 +327,17 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/feedback"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/textPrimary"
                     android:textSize="@dimen/_12ssp" />
 
 
 
             </RelativeLayout>
-            <View
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/gray"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
+<!--            <View-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:background="@color/gray"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_1sdp"/>-->
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

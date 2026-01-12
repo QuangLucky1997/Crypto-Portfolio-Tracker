@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="?attr/appBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/inter_bold"
                         android:text="DOGE"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_12ssp" />
 
                     <androidx.cardview.widget.CardView
@@ -61,8 +61,7 @@
                                 android:layout_centerInParent="true"
                                 android:layout_margin="@dimen/_2sdp"
                                 android:fontFamily="@font/inter_bold"
-                                android:text="#8"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/textPrimary"
                                 android:textSize="@dimen/_10ssp" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -73,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -82,7 +82,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_4sdp"
-                        app:cardBackgroundColor="@color/blackAlpha"
+                        app:cardBackgroundColor="?attr/textPrimary"
                         app:cardCornerRadius="@dimen/_4sdp">
 
                         <RelativeLayout
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
-                        app:cardBackgroundColor="@color/blackAlpha"
+                        app:cardBackgroundColor="?attr/textPrimary"
                         app:cardCornerRadius="@dimen/_4sdp">
 
                         <RelativeLayout
@@ -139,7 +139,7 @@
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/inter_bold"
                         android:text="DOGE"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_14ssp" />
 
 
@@ -166,8 +166,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="@dimen/_2sdp"
                             android:fontFamily="@font/inter_bold"
-                            android:text="+1.64%"
-                            android:textColor="@color/white"
+                            android:textColor="?attr/textPrimary"
                             android:textSize="@dimen/_10ssp" />
                     </LinearLayout>
 
@@ -206,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_15m"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1h"
@@ -214,7 +213,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1h"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip4h"
@@ -222,7 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_4h"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1d"
@@ -231,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/_1d"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1w"
@@ -239,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1w"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1m"
@@ -247,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1m"
-                android:textColor="@color/white" />
+                android:textColor="?attr/textPrimary" />
         </com.google.android.material.chip.ChipGroup>
 
         <TextView
@@ -257,26 +256,30 @@
             android:layout_margin="@dimen/_8sdp"
             android:fontFamily="@font/inter_bold"
             android:text="@string/stats"
-            android:textColor="@color/white"
+            android:textColor="?attr/textPrimary"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroupTimeRange" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            app:cardBackgroundColor="@color/blackAlpha"
+            android:paddingBottom="@dimen/_10sdp"
+            app:cardBackgroundColor="?attr/appBackground"
             app:cardCornerRadius="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textStats">
+            app:layout_constraintTop_toBottomOf="@+id/textStats"
+            app:strokeColor="@color/gray"
+            app:strokeWidth="@dimen/_1sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_5sdp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -290,7 +293,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/market_cap"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -301,7 +304,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -317,7 +320,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/fully_diluted_valuation"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -328,7 +331,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -344,7 +347,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/total_volume"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -355,7 +358,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -371,7 +374,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/percent_change_1h"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -382,7 +385,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -398,7 +401,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/percent_change_24h"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -409,7 +412,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -425,7 +428,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/percent_change_7d"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -436,7 +439,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
 
@@ -452,7 +455,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/percent_change_30D"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
 
                     <TextView
@@ -463,16 +466,12 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/no_data"
-                        android:textColor="@color/white_alpha"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </RelativeLayout>
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-
-
-
-
+        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

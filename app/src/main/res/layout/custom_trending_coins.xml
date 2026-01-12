@@ -3,6 +3,7 @@
     android:id="@+id/viewTokenTrending"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/appBackground"
     android:padding="@dimen/_5sdp">
 
 
@@ -46,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="BTC"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/textPrimary"
                     android:textSize="@dimen/_12ssp" />
 
                 <LinearLayout
@@ -85,7 +86,7 @@
                         android:layout_marginStart="@dimen/_5sdp"
                         android:fontFamily="@font/inter_bold"
                         android:text="ajskajska"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/textPrimary"
                         android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
 
@@ -146,7 +147,7 @@
         android:fontFamily="@font/inter_bold"
         android:singleLine="true"
         android:text="$111,314.05"
-        android:textColor="@color/black"
+        android:textColor="?attr/textPrimary"
         android:textSize="@dimen/_12ssp" />
 
 

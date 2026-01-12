@@ -23,6 +23,7 @@ import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.JsonNull.content
@@ -346,6 +347,9 @@ class AppModule {
             )
         }
     }
+
+
+
 
 
 
