@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.utils
+package com.quangtrader.cryptoportfoliotracker.common.utils
 
 object Constants {
     const val BASE_URL = "https://pro-api.coinmarketcap.com"
@@ -13,11 +13,13 @@ object Constants {
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
-    const val API_GEMINI = "XXXXXXXXXXXXXXXXX"
+    const val API_GEMINI = "AIzaSyAMOIHjulgGvNgucGkMMdDVLyjiVj1bSNA"
 
 
-
-
+    const val POLICY_LINK =
+        "https://doc-hosting.flycricket.io/crypto-tracker-privacy-policy/8d40f442-6c25-47f5-bd00-50c7709fcee3/privacy"
+    const val TERM_OF_USE =
+        "https://doc-hosting.flycricket.io/crypto-tracker-terms-of-use/e0f31ad5-7719-4603-b352-e717808d13a6/terms"
 
 
     const val BASE_GEMINI = "https://generativelanguage.googleapis.com/"
@@ -48,6 +50,9 @@ object Constants {
 
 
     const val EXTRA_LINK_NEWS = "EXTRA_LINK_NEWS"
+
+
+    const val MAIL_SUPPORT = "Voidmaink39c@gmail.com"
 
 
 }

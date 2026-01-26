@@ -1,15 +1,14 @@
 package com.quangtrader.cryptoportfoliotracker.ui.news
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.getRelativeTime
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.getRelativeTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

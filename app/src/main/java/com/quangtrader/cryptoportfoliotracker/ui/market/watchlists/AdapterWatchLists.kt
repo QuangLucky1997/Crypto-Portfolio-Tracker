@@ -3,13 +3,13 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.watchlists
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
-import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class AdapterWatchLists @Inject constructor() :
         position: Int
     ) {
         binding.apply {
-            Glide.with(root).load(item.logo).into(iconToken);
+            Glide.with(root).load(item.logo).into(iconToken)
             nameToken.text = item.symbol
             marketCapitalizationToken.text = item.marketCap.formatMarketCap()
             val df = DecimalFormat("#.##")

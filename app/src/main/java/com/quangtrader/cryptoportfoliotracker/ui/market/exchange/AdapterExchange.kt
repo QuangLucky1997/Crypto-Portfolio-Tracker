@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.Ticker
-import com.quangtrader.cryptoportfoliotracker.data.remote.Ticket
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomExchangeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
-import com.quangtrader.cryptoportfoliotracker.utils.formatVolume
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatVolume
 import javax.inject.Inject
 
 class AdapterExchange @Inject constructor() :

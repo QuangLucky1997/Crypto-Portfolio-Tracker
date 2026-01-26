@@ -12,8 +12,8 @@ import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentWatchlistsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.coin.detailCoin.ChartTokenActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.SwipeHelperRight
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.SwipeHelperRight
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

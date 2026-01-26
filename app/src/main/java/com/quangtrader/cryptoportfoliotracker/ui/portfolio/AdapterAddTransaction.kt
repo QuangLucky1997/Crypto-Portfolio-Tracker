@@ -3,7 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.portfolio
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.data.local.CoinTransaction
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomItemHeaderBinding

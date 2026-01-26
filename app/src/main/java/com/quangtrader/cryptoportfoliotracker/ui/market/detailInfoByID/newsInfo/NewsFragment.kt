@@ -2,20 +2,17 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.newsInfo
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.quangtrader.cryptoportfoliotracker.data.remote.Article
 
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
 import com.quangtrader.cryptoportfoliotracker.ui.news.ShowNewsActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.formatDateTime
-import com.quangtrader.cryptoportfoliotracker.utils.getRelativeTime
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatDateTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,11 +33,11 @@ class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
           setData(tokenID.plus(" Token"))
         }
         adapterNewsByToken.subjectViewNew = { it->
-            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
-            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
-            intentDetail.putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
-            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.url)
-            startActivity(intentDetail)
+//            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
+//            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
+//            intentDetail.putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
+//            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.url)
+//            startActivity(intentDetail)
         }
 
     }

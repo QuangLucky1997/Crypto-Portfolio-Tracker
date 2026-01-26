@@ -2,12 +2,12 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.newsInfo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.data.remote.Article
 import com.quangtrader.cryptoportfoliotracker.databinding.ItemNewsNormalBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
-import com.quangtrader.cryptoportfoliotracker.utils.formatDateTime
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatDateTime
 import javax.inject.Inject
 
 class AdapterNewsByToken @Inject constructor() : BaseAdapter<Article, ItemNewsNormalBinding>() {

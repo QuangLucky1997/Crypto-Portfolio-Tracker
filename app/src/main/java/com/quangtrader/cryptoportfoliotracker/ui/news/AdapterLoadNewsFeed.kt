@@ -3,15 +3,13 @@ package com.quangtrader.cryptoportfoliotracker.ui.news
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
-import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.data.remote.NewsResponse
 import com.quangtrader.cryptoportfoliotracker.databinding.ItemNewsFeatureBinding
 import com.quangtrader.cryptoportfoliotracker.databinding.ItemNewsNormalBinding
-import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseMultiAdapter
-import com.quangtrader.cryptoportfoliotracker.utils.getRelativeTime
+import com.quangtrader.cryptoportfoliotracker.common.utils.getRelativeTime
 import javax.inject.Inject
 
 class AdapterLoadNewsFeed @Inject constructor() : BaseMultiAdapter<NewsResponse>() {

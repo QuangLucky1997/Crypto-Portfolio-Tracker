@@ -3,10 +3,10 @@ package com.quangtrader.cryptoportfoliotracker.ui.portfolio
 import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityListTransactionBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

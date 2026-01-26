@@ -11,9 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentAiTradingBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
 
-    private val viewModel by viewModels<ChatBotViewModel>()
+    private val chatBotViewModel by viewModels<ChatBotViewModel>()
 
     @Inject
     lateinit var chatAdapter: AdapterChatBotGemini
@@ -50,7 +51,7 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
     private fun observeMessages() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.messages.collectLatest { messages ->
+                chatBotViewModel.messages.collectLatest { messages ->
                     val shouldScroll = binding.rvChatBot.isAtBottom()
 
                     chatAdapter.submitList(messages) {
@@ -80,13 +81,11 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
         btnSend.clicks(debounce = 300) {
             val text = edtMess.text.toString().trim()
             if (text.isNotEmpty()) {
-                viewModel.sendMessage(text)
+                chatBotViewModel.sendMessage(text)
+                val historyChatBot = HistoryChatBotEntity(0, text, System.currentTimeMillis())
+                chatBotViewModel.addHistoryChat(historyChatBot)
                 edtMess.text.clear()
             }
-        }
-
-        imgBack.clicks {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         imgHistory.clicks(debounce = 500) {

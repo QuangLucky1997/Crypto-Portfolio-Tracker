@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.getRelativeTime
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.getRelativeTime
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.getValue
+import androidx.core.view.isVisible
 
 @AndroidEntryPoint
 class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
@@ -26,20 +30,44 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
         get() = FragmentNewsByTypeBinding::inflate
 
     override fun onViewCreated() {
+        binding.rvNewsFeedByType.adapter = adapterLoadNewsFeed
         setDataNewsHandpicked()
         openNews()
     }
 
+
+
     private fun setDataNewsHandpicked() {
         newsViewModel.getAllNewsByType("trending")
         showLoading(true)
-        viewLifecycleOwner.lifecycleScope.launch {
-            newsViewModel.dataNews.collect { it ->
-                adapterLoadNewsFeed.data = it.toMutableList()
-                showLoading(false)
-                binding.rvNewsFeedByType.adapter = adapterLoadNewsFeed
-            }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                newsViewModel.dataNews.collect { list ->
+                    if (list.isNotEmpty()) {
+                        adapterLoadNewsFeed.data = list.toMutableList()
+                        delay(500)
+                        showLoading(false)
+                    }
+                }
+            }
+        }
+    }
+    private fun showLoading(show: Boolean) {
+        binding.apply {
+            if (show) {
+                animationLoading.visibility = View.VISIBLE
+                rvNewsFeedByType.visibility = View.GONE
+                animationLoading.post {
+                    if (animationLoading.isVisible) {
+                        animationLoading.playAnimation()
+                    }
+                }
+            } else {
+                animationLoading.visibility = View.GONE
+                rvNewsFeedByType.visibility = View.VISIBLE
+                animationLoading.cancelAnimation()
+            }
         }
     }
 
@@ -53,18 +81,5 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
         }
     }
 
-    private fun showLoading(show: Boolean) {
-        binding.apply {
-            if (show) {
-                animationLoading.visibility = View.VISIBLE
-                rvNewsFeedByType.visibility = View.GONE
-                animationLoading.playAnimation()
-            } else {
-                animationLoading.visibility = View.GONE
-                rvNewsFeedByType.visibility = View.VISIBLE
-                animationLoading.cancelAnimation()
-            }
-        }
 
-    }
 }

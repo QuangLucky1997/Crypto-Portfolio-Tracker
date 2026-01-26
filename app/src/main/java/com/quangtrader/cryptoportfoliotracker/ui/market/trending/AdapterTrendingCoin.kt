@@ -3,11 +3,10 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.trending
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
-import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomTrendingCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import java.text.DecimalFormat

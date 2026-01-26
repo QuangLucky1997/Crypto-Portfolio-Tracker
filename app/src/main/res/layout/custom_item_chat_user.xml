@@ -11,6 +11,6 @@
         android:padding="@dimen/_10sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/textPrimary"
         android:maxWidth="@dimen/_200sdp"/>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.utils
+package com.quangtrader.cryptoportfoliotracker.common.utils
 
 import androidx.appcompat.app.AppCompatDelegate
 import com.quangtrader.cryptoportfoliotracker.data.local.ThemeMode

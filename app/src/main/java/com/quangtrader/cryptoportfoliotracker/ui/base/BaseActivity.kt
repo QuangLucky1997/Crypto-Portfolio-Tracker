@@ -1,16 +1,17 @@
 package com.quangtrader.cryptoportfoliotracker.ui.base
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.uber.autodispose.android.lifecycle.scope
-import com.uber.autodispose.autoDispose
+import com.quangtrader.cryptoportfoliotracker.common.utils.getColorCompat
+import com.quangtrader.cryptoportfoliotracker.common.utils.transparent
+import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.helper.lightNavigationBar
+import com.quangtrader.cryptoportfoliotracker.helper.lightStatusBar
 import java.util.Locale
-import javax.inject.Inject
 
 
 open class BaseActivity<VB : ViewBinding>(
@@ -50,6 +51,17 @@ open class BaseActivity<VB : ViewBinding>(
         }
         resources.updateConfiguration(config, resources.displayMetrics)
     }
+
+    fun initUISystem(color: Int = R.color.white) {
+        lightStatusBar()
+        lightNavigationBar()
+        transparent(true)
+        window.apply {
+            statusBarColor = getColorCompat(color)
+            navigationBarColor = getColorCompat(color)
+        }
+    }
+
 
 
 

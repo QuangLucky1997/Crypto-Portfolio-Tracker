@@ -1,7 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.quangtrader.cryptoportfoliotracker.data.roommodel.TokenTop100
+import com.quangtrader.cryptoportfoliotracker.common.utils.startChartToken
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentCoinBinding
 import com.quangtrader.cryptoportfoliotracker.helper.Preferences
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
-import com.quangtrader.cryptoportfoliotracker.ui.calculator.CalculatorViewModel
-import com.quangtrader.cryptoportfoliotracker.ui.market.coin.detailCoin.ChartTokenActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -25,8 +22,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CoinFragment : BaseFragment<FragmentCoinBinding>() {
     private val coinViewModel by viewModels<CoinViewModel>()
-
-    private val calculatorViewModel by viewModels<CalculatorViewModel>()
 
     @Inject
     lateinit var adapterCoin: AdapterCoin
@@ -64,15 +59,24 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
 
     private fun handleData() {
         adapterCoin.subjectDetail = { data ->
-            val intent = Intent(requireContext(), ChartTokenActivity::class.java)
-            intent.putExtra(Constants.EXTRA_NAME_COIN, data.name)
-            intent.putExtra(Constants.EXTRA_LOGO_COIN, data.logo)
-            intent.putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
-            intent.putExtra(Constants.EXTRA_PERCENT_24_H, data.percentChange24h)
-            intent.putExtra(Constants.EXTRA_LOGO, data.logo)
-            intent.putExtra(Constants.EXTRA_PRICE_COIN, data.price)
-            intent.putExtra(Constants.EXTRA_MARKET_CAP, data.marketCap)
-            startActivity(intent)
+            val logo = data.logo
+            val percent = data.percentChange24h
+            val price = data.price
+            val mktCap = data.marketCap
+            if (logo != null && percent != null && price != null && mktCap != null) {
+                startChartToken(
+                    true,
+                    data.name,
+                    logo,
+                    data.symbol,
+                    percent,
+                    price,
+                    mktCap
+                )
+            } else {
+                Log.e("DATA_ERROR", "Null fields: logo=$logo, percent=$percent, price=$price, mktCap=$mktCap")
+            }
+
         }
 
     }

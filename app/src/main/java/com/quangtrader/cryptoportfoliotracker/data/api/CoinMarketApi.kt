@@ -4,7 +4,7 @@ package com.quangtrader.cryptoportfoliotracker.data.api
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinInfoResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.InfoTokenResponse
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCoinMarket
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 
 import retrofit2.http.GET
 import retrofit2.http.Header

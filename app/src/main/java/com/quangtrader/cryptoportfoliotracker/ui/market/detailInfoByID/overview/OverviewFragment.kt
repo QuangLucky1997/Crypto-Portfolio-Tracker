@@ -1,24 +1,20 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.overview
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import androidx.compose.ui.unit.Constraints
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
-import authenticator.app.otp.authentication.fa.common.extentions.formatNumberWithCommas
-import authenticator.app.otp.authentication.fa.common.extentions.getTradingViewChartHtml
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.getTradingViewChartHtml
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentOverviewBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.formatMarketCap
-import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
-import com.quangtrader.cryptoportfoliotracker.utils.formatPriceTrending
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatMarketCap
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPriceTrending
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -105,11 +101,12 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadChart(dataNameCoin: String, dataTime: String) {
+        val data = dataNameCoin
         binding.apply {
             candleChartView.settings.javaScriptEnabled = true
             candleChartView.webViewClient = WebViewClient()
             val htmlContent =
-                getTradingViewChartHtml("BINANCE:${dataNameCoin?.uppercase()}USDT", dataTime)
+                getTradingViewChartHtml("CRYPTO:${dataNameCoin?.uppercase()}USD", dataTime)
             candleChartView.loadDataWithBaseURL(
                 "https://www.tradingview.com",
                 htmlContent,

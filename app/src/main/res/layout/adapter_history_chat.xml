@@ -7,6 +7,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_margin="@dimen/_5sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,11 +24,11 @@
         <TextView
             android:layout_marginStart="@dimen/_5sdp"
             android:id="@+id/timeText"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             android:textColor="?attr/textPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"/>
+            android:fontFamily="@font/inter_regular"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"

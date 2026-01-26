@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--     Test Admob -->
+    <string name="key_application_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+
+    <string name="key_full_splash" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="key_full_splash_backup" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="key_open_screen_splash" translatable="false">ca-app-pub-3940256099942544/9257395921</string>
+    <string name="key_open_screen_splash_backup" translatable="false">ca-app-pub-3940256099942544/9257395921</string>
+    <string name="key_full_screen_changes" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="key_full_screen_changes_backup" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="key_banner_merge" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="key_banner_detail" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="key_banner_scan" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="key_open_screen_background" translatable="false">ca-app-pub-3940256099942544/9257395921</string>
+    <string name="key_open_screen_background_backup" translatable="false">ca-app-pub-3940256099942544/9257395921</string>
+</resources>

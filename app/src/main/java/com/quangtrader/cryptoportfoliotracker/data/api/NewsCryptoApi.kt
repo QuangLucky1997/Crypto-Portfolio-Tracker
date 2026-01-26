@@ -1,7 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.data.api
 
 import com.quangtrader.cryptoportfoliotracker.data.remote.NewsByTokenResponse
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -2,10 +2,9 @@ package com.quangtrader.cryptoportfoliotracker.ui.calculator
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
-import com.quangtrader.cryptoportfoliotracker.data.roommodel.TokenTop100
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListSearchTokenBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import javax.inject.Inject

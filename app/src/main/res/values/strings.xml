@@ -122,4 +122,16 @@
     <string name="assistant_quantai">Assistant QuantAI</string>
     <string name="history_question">History Question</string>
     <string name="profit">Profit</string>
+
+    <string name="tell_us_the_problem_you_encountered">Tell us the problem you encountered</string>
+    <string name="type">Type</string>
+    <string name="submit">Submit</string>
+
+
+    <string name="lag">The app feels slow, lags, or crashes during use</string>
+    <string name="data">Prices, charts, or market data are not updating accurately or in real time.</string>
+    <string name="UI">The interface is confusing, hard to navigate, or difficult to use on mobile.</string>
+    <string name="terms_of_use">Terms &amp; Conditions</string>
+    <string name="this_action_may_contain_ads">This action can contain ads</string>
+    <string name="loading_ads">Loading Ads</string>
 </resources>

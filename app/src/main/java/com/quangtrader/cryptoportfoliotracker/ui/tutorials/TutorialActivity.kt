@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import authenticator.app.otp.authentication.fa.common.extentions.clickWithAnimationDebounce
+import com.quangtrader.cryptoportfoliotracker.common.utils.clickWithAnimationDebounce
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.local.Tutorial
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityTutorialsBinding

@@ -1,19 +1,21 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.trending
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.unit.Constraints
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentTrendingBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 
 @AndroidEntryPoint
 class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
@@ -26,6 +28,7 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
 
     override fun onViewCreated() {
         trendingCoinViewModel.loadAllTrendingCoin()
+        binding.rvTrendingCoin.adapter = adapterTrendingCoin
         loadData()
         handleData()
     }
@@ -44,12 +47,36 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
     }
 
     private fun loadData() {
+        showLoading(true)
         viewLifecycleOwner.lifecycleScope.launch {
-            trendingCoinViewModel.tokensTrending.collect { coinData ->
-                coinData.forEach {
-                    adapterTrendingCoin.data.add(it.item)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                trendingCoinViewModel.tokensTrending.collect { coinData ->
+                    if (coinData.isNotEmpty()) {
+                        val newList = coinData.map { it.item }
+                        adapterTrendingCoin.data = newList.toMutableList()
+                        showLoading(false)
+                    }
                 }
-                binding.rvTrendingCoin.adapter = adapterTrendingCoin
+            }
+        }
+    }
+
+    private fun showLoading(show: Boolean) {
+        binding.apply {
+            if (show) {
+                loadingTrendingCoin.visibility = View.VISIBLE
+                rvTrendingCoin.visibility = View.INVISIBLE
+                if (!loadingTrendingCoin.isAnimating) {
+                    loadingTrendingCoin.playAnimation()
+                }
+            } else {
+                if (loadingTrendingCoin.isVisible) {
+                    loadingTrendingCoin.postDelayed({
+                        loadingTrendingCoin.cancelAnimation()
+                        loadingTrendingCoin.visibility = View.GONE
+                        rvTrendingCoin.visibility = View.VISIBLE
+                    }, 800)
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.utils
+package com.quangtrader.cryptoportfoliotracker.common.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

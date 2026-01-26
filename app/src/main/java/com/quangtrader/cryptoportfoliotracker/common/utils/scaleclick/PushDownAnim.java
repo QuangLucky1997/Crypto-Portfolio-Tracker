@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.utils.scaleclick;
+package com.quangtrader.cryptoportfoliotracker.common.utils.scaleclick;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 

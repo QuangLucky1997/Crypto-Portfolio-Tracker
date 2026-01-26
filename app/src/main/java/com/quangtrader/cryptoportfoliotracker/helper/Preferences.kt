@@ -9,8 +9,8 @@ class Preferences  @Inject constructor(private val rxPref: RxSharedPreferences) 
     val keyAppLanguage = rxPref.getString("keyAppLanguage", "en")
     val isConfigLanguage = rxPref.getBoolean("isConfigLanguage", false)
     val isFirstInstall = rxPref.getBoolean("isFirstInstall", false)
-
-
+    val isTutorial = rxPref.getBoolean("isTutorial", false)
+    val isFirstOpen = rxPref.getBoolean("isFirstOpen", false)
     val themeMode = rxPref.getString("themeMode", ThemeMode.DARK.toString())
 
 

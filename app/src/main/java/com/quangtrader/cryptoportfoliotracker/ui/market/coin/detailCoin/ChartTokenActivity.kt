@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.repository.ManagerDBRoomRepository
@@ -12,7 +12,7 @@ import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityChartTokenBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import com.quangtrader.cryptoportfoliotracker.ui.market.watchlists.WatchListsViewModel
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +32,6 @@ class ChartTokenActivity :
         val priceCoin = intent.getDoubleExtra(Constants.EXTRA_PRICE_COIN,0.0)
         val symbolCoin = intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
         val percent24H = intent.getDoubleExtra(Constants.EXTRA_PERCENT_24_H, 0.0)
-        val logo = intent.getStringExtra(Constants.EXTRA_LOGO)
         val marketCap = intent.getDoubleExtra(Constants.EXTRA_MARKET_CAP, 0.0)
         nameCoin?.let {
             logoCoin?.let { it1 ->
@@ -52,7 +51,7 @@ class ChartTokenActivity :
             priceCoin,
             percent24H,
             marketCap,
-            logo
+            logoCoin
         )
     }
 

@@ -3,33 +3,39 @@ package com.quangtrader.cryptoportfoliotracker.ui.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
+import com.quangtrader.cryptoportfoliotracker.common.utils.tryOrNull
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.isNetworkAvailable
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityHomeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseNotificationHelper
-import com.quangtrader.cryptoportfoliotracker.utils.openAppInfo
+import com.quangtrader.cryptoportfoliotracker.common.utils.openAppInfo
+import com.quangtrader.cryptoportfoliotracker.helper.Preferences
+import com.quangtrader.cryptoportfoliotracker.inject.App.Companion.app
 import dagger.hilt.android.AndroidEntryPoint
 import nl.joery.animatedbottombar.AnimatedBottomBar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
     private val homeViewPaperAdapter by lazy { HomeViewPaperAdapter(this) }
+    @Inject
+    lateinit var preferences : Preferences
     private lateinit var notificationHelper: BaseNotificationHelper
-
-    override fun onCreateView() {
-        super.onCreateView()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         window.apply {
             navigationBarColor = resources.getColor(R.color.white, null)
-            statusBarColor = resources.getColor(R.color.colorMain, null)
+            statusBarColor = resources.getColor(R.color.white, null)
         }
         initData()
         requestNotification()
-
     }
-
     private fun requestNotification() {
         notificationHelper = BaseNotificationHelper(this)
         if (!notificationHelper.isNotificationPermissionGranted()) {
@@ -38,6 +44,26 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
                 } else {
                     openAppNotificationSettings(this)
+                }
+            }
+        }
+    }
+    private fun loadBannerAdmob() {
+        tryOrNull {
+            binding.viewAd.isVisible = true
+            binding.viewBanner.isVisible = true
+            binding.holderLoading.root.isVisible = true
+            binding.holderLoading.mShimmerFrameLayout.startShimmer()
+            app.bannerHome.loadAdMulti(this, binding.viewGroupAd) { isSuccess ->
+                when {
+                    isSuccess -> {
+                        binding.holderLoading.root.isVisible = false
+                        binding.holderLoading.mShimmerFrameLayout.stopShimmer()
+                    }
+
+                    else -> {
+                        binding.viewAd.isVisible = false
+                    }
                 }
             }
         }
@@ -87,5 +113,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         } catch (e: Exception) {
             openAppInfo(context)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        when {
+            !preferences.isUpgraded.get() && isNetworkAvailable() && app.isBannerHome && !app.isMaxClickAdsTotal() -> {
+                loadBannerAdmob()
+            }
+
+            else -> binding.viewAd.isVisible = false
+        }
+
     }
 }

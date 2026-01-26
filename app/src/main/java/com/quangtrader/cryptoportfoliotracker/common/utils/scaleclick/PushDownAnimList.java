@@ -1,4 +1,4 @@
-package com.quangtrader.cryptoportfoliotracker.utils.scaleclick;
+package com.quangtrader.cryptoportfoliotracker.common.utils.scaleclick;
 
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;

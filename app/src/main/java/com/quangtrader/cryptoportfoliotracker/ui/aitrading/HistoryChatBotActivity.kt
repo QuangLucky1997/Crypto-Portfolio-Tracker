@@ -4,20 +4,25 @@ import android.app.Activity
 import android.os.Build
 import androidx.activity.addCallback
 import androidx.activity.viewModels
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import androidx.lifecycle.lifecycleScope
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityHistoryChatbotBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HistoryChatBotActivity : BaseActivity<ActivityHistoryChatbotBinding>(
     ActivityHistoryChatbotBinding::inflate
 ) {
     private val chatBotViewModel by viewModels<ChatBotViewModel>()
+    @Inject lateinit var adapterShowHistory  : AdapterHistoryChatBot
     override fun onCreateView() {
         super.onCreateView()
         handleClick()
+        showHistoryChat()
         onBackPressedDispatcher.addCallback(this) {
             finish()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -42,6 +47,11 @@ class HistoryChatBotActivity : BaseActivity<ActivityHistoryChatbotBinding>(
     }
 
     private fun showHistoryChat(){
-
+        lifecycleScope.launch {
+            chatBotViewModel.getAllHistoryChat.collect { dataHistory ->
+                adapterShowHistory.data = dataHistory.toMutableList()
+                binding.rvHistoryBot.adapter = adapterShowHistory
+            }
+        }
     }
 }

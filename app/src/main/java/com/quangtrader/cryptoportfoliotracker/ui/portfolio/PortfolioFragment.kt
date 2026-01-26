@@ -3,7 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.portfolio
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentPortfolioBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

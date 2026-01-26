@@ -4,17 +4,24 @@ import android.graphics.Bitmap
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.tryOrNull
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityShowNewsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.isNetworkAvailable
+import com.quangtrader.cryptoportfoliotracker.helper.Preferences
+import com.quangtrader.cryptoportfoliotracker.inject.App.Companion.app
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShowNewsActivity : BaseActivity<ActivityShowNewsBinding>(ActivityShowNewsBinding::inflate) {
+    @Inject lateinit var preferences : Preferences
     override fun onCreateView() {
         super.onCreateView()
         val dataSource = intent.getStringExtra(Constants.EXTRA_SOURCE_NEWS)
@@ -61,6 +68,38 @@ class ShowNewsActivity : BaseActivity<ActivityShowNewsBinding>(ActivityShowNewsB
             }
         }
 
+    }
+
+    private fun loadBannerAdmob() {
+        tryOrNull {
+            binding.viewAdNewsShow.isVisible = true
+            binding.viewBanner.isVisible = true
+            binding.holderLoading.root.isVisible = true
+            binding.holderLoading.mShimmerFrameLayout.startShimmer()
+            app.bannerDetailShowNew.loadAdMulti(this, binding.viewGroupAd) { isSuccess ->
+                when {
+                    isSuccess -> {
+                        binding.holderLoading.root.isVisible = false
+                        binding.holderLoading.mShimmerFrameLayout.stopShimmer()
+                    }
+
+                    else -> {
+                        binding.viewAdNewsShow.isVisible = false
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        when {
+            !preferences.isUpgraded.get() && isNetworkAvailable() && app.isBannerHome && !app.isMaxClickAdsTotal() -> {
+                loadBannerAdmob()
+            }
+
+            else -> binding.viewAdNewsShow.isVisible = false
+        }
     }
 
 }

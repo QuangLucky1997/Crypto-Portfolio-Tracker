@@ -10,14 +10,13 @@ import com.quangtrader.cryptoportfoliotracker.ui.market.exchange.ExchangeFragmen
 
 
 class AdapterDetailToken (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> OverviewFragment()
             1 -> ExchangeFragment()
             2 -> NewsFragment()
-            3-> CalculatorFragment()
             else -> OverviewFragment()
         }
     }

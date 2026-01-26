@@ -16,7 +16,7 @@
         android:padding="12dp"
         android:layout_gravity="center_vertical"
         android:textColor="?attr/textPrimary"
-        android:textSize="15sp" />
+        android:textSize="@dimen/_14ssp" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAILoading"

@@ -1,14 +1,14 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID
 
 
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityDetailTokenBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
@@ -64,11 +64,6 @@ class DetailTokenActivity :
                 2 -> {
                     tab.text = getString(R.string.newDetail)
                 }
-
-                3 -> {
-                    tab.text = getString(R.string.profit)
-                }
-
             }
         }.attach()
     }

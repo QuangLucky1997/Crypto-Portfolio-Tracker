@@ -134,34 +134,22 @@ dependencies {
     implementation(libs.commons.codec)
     implementation(libs.androidx.runtime)
     implementation(libs.carouselrecyclerview)
-
-
-
     implementation(libs.dots.indicator)
 
     implementation("androidx.core:core:1.17.0")
     implementation("androidx.core:core-ktx:1.17.0")
 
-
     implementation("nl.joery.animatedbottombar:library:1.1.0")
-
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
     implementation("com.google.android.material:material:1.12.0")
-
-
 
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation("com.google.android.play:review:2.0.2")
 
-
-
-
-
-
-
-
+    implementation(libs.admob)
+    implementation(libs.shimmer)
 
 
 

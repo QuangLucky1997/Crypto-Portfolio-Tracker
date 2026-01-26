@@ -6,17 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
-import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
-import com.quangtrader.cryptoportfoliotracker.utils.formatPercent
-import com.quangtrader.cryptoportfoliotracker.utils.formatPrice
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPrice
 import javax.inject.Inject
-import java.text.DecimalFormat
-
 
 
 class AdapterCoin @Inject constructor() :

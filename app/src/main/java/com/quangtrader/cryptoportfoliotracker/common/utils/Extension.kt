@@ -1,13 +1,18 @@
-package com.quangtrader.cryptoportfoliotracker.utils
+package com.quangtrader.cryptoportfoliotracker.common.utils
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -31,7 +36,7 @@ fun Double?.formatPrice(digits: Int = 2): String {
 fun Double?.formatPriceTrending(price: Double, decimals: Int = 6): String {
     return try {
         price.toBigDecimal()
-            .setScale(decimals, java.math.RoundingMode.DOWN)
+            .setScale(decimals, RoundingMode.DOWN)
             .toPlainString()
     } catch (e: Exception) {
         "0"
@@ -106,7 +111,7 @@ fun formatDateTime(isoDateTimeString: String?, outputPattern: String = "dd/MM/yy
         val zonedDateTime = ZonedDateTime.parse(isoDateTimeString)
         val outputFormatter = DateTimeFormatter.ofPattern(
             outputPattern,
-            java.util.Locale.US
+            Locale.US
         )
         zonedDateTime.format(outputFormatter)
     } catch (e: Exception) {
@@ -143,12 +148,16 @@ fun formatPrice(price: Double?): String {
 
 
 fun openAppInfo(context: Context) {
-    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-        data = Uri.parse("package:${context.packageName}")
+    try {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:${context.packageName}")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
-    context.startActivity(intent)
 }
-
 
 fun formatPriceCustom(price: Double?): String {
     if (price == null) return "$0.00"
@@ -210,6 +219,78 @@ fun formatPercentage(value: BigDecimal): String {
 fun Long.toDateTimeString(): String {
     val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return sdf.format(Date(this))
+}
+
+fun sendEmailViaGmail(context: Context, to: String, subject: String, body: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "message/rfc822"
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
+        putExtra(Intent.EXTRA_SUBJECT, subject)
+        putExtra(Intent.EXTRA_TEXT, body)
+        setPackage("com.google.android.gm")
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+
+    try {
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        try {
+            intent.setPackage(null)
+            context.startActivity(Intent.createChooser(intent, "Send mail..."))
+        } catch (ex: Exception) {
+            Toast.makeText(context, "No email app found", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+fun openPlayStore(context: Context) {
+    val uri = Uri.parse("market://details?id=${context.packageName}")
+    val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+        addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+    }
+
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}")
+            )
+        )
+    }
+}
+
+fun Context.isNetworkAvailable(): Boolean {
+    val connectivityManager =
+        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetworkInfo = connectivityManager.activeNetworkInfo
+    return activeNetworkInfo != null && activeNetworkInfo.isConnected
+}
+
+
+fun getAppVersion(context: Context): Pair<String, Long> {
+    val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        context.packageManager.getPackageInfo(
+            context.packageName,
+            PackageManager.PackageInfoFlags.of(0)
+        )
+    } else {
+        @Suppress("DEPRECATION")
+        context.packageManager.getPackageInfo(context.packageName, 0)
+    }
+
+    val versionName = packageInfo.versionName ?: "Unknown"
+    val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        packageInfo.longVersionCode
+    } else {
+        @Suppress("DEPRECATION")
+        packageInfo.versionCode.toLong()
+    }
+
+    return Pair(versionName, versionCode)
 }
 
 

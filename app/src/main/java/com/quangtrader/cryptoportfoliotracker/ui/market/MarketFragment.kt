@@ -6,7 +6,6 @@ import android.net.Network
 import android.net.NetworkRequest
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
@@ -15,7 +14,7 @@ import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentMarketBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.home.HomeViewModel
-import com.quangtrader.cryptoportfoliotracker.utils.formatMarketCap
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatMarketCap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat

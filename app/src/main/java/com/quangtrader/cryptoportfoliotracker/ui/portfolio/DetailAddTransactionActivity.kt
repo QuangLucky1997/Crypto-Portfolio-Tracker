@@ -7,11 +7,11 @@ import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 import androidx.core.view.isGone
-import authenticator.app.otp.authentication.fa.common.extentions.clicks
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.utils.formatPrice
-import com.quangtrader.cryptoportfoliotracker.utils.showKeyboard
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatPrice
+import com.quangtrader.cryptoportfoliotracker.common.utils.showKeyboard
 
 @AndroidEntryPoint
 class DetailAddTransactionActivity :

@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
-import com.quangtrader.cryptoportfoliotracker.data.roommodel.TokenTop100
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -31,21 +30,16 @@ interface CoinDao {
     fun getAllFavCoin(): Flow<List<CoinFav>>
 
 
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun saveTop100Coin(token: TokenTop100): Long
+    fun saveHistoryChat(chatHistory: HistoryChatBotEntity): Long
 
-    @Query("SELECT * FROM TokenTop100")
-    fun getAllTop100(): Flow<List<TokenTop100>>
+    @Query("DELETE FROM HistoryChatBotEntity WHERE idChat = :userId")
+     fun deleteChatById(userId: Int)
 
-
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    suspend fun saveHistoryChat(chatHistory: HistoryChatBotEntity): Long
-
-//    @Query("DELETE FROM historychatbotentity WHERE idChat = :userId")
-//     fun deleteChatById(userId: Int)
-
-//    @Query("SELECT * FROM HistoryChatBotEntity")
-//    fun getAllHistory(): Flow<List<HistoryChatBotEntity>>
+    @Query("SELECT * FROM HistoryChatBotEntity")
+    fun getAllHistory(): Flow<List<HistoryChatBotEntity>>
 
 
 }

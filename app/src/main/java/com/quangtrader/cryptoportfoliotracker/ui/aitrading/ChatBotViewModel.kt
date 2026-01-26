@@ -2,13 +2,13 @@ package com.quangtrader.cryptoportfoliotracker.ui.aitrading
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.ai.client.generativeai.GenerativeModel
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
 import com.quangtrader.cryptoportfoliotracker.data.repository.GeminiChatBotRepository
 import com.quangtrader.cryptoportfoliotracker.data.repository.ManagerDBRoomRepository
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -30,8 +30,25 @@ class ChatBotViewModel @Inject constructor(
     private val _messages = MutableStateFlow<List<ChatBotMessage>>(emptyList())
     val messages: StateFlow<List<ChatBotMessage>> = _messages.asStateFlow()
 
+
+    val getAllHistoryChat = chatBotRepositoryDatabase.getAllHistoryChatBot.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        emptyList()
+    )
+
     init {
         showWelcomeMessage()
+    }
+
+
+    fun addHistoryChat(historyChat: HistoryChatBotEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val count = chatBotRepositoryDatabase.checkIfExists(historyChat.question).first()
+            if (count <= 0) {
+                chatBotRepositoryDatabase.saveHistoryChat(historyChat)
+            }
+        }
     }
 
     fun sendMessage(userText: String) {
@@ -42,20 +59,27 @@ class ChatBotViewModel @Inject constructor(
         addBotLoading(botTimestamp)
 
         viewModelScope.launch {
-            runCatching {
+            try {
                 val prompt = buildPrompt(userText)
-                geminiRepository.analyze(prompt)
-            }.onSuccess { response ->
+                val response = geminiRepository.analyze(prompt)
+
                 updateBotMessage(
                     timestamp = botTimestamp,
                     text = response,
                     isLoading = false
                 )
-            }.onFailure { error ->
-                Timber.e(error)
+            } catch (e: Exception) {
+                Timber.e(e, "Bot analyze failed")
+
                 updateBotMessage(
                     timestamp = botTimestamp,
-                    text = "⚠️ Failed to analyze. Please try again.",
+                    text = when (e) {
+                        is java.net.UnknownHostException ->
+                            "⚠️ No internet connection."
+
+                        else ->
+                            "⚠️ AI service error. Please try again."
+                    },
                     isLoading = false,
                     isError = true
                 )
@@ -63,9 +87,6 @@ class ChatBotViewModel @Inject constructor(
         }
     }
 
-    // ----------------------------
-    // Helpers
-    // ----------------------------
 
     private suspend fun buildPrompt(userText: String): String {
         val symbol = extractSymbol(userText) ?: return userText

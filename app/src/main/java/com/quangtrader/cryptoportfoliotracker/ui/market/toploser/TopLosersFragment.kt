@@ -10,7 +10,7 @@ import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.AdapterTopGainers
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.TopGainersViewModel
-import com.quangtrader.cryptoportfoliotracker.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
