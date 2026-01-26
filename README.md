@@ -10,8 +10,8 @@ Built with **Kotlin** and **Clean Architecture** to deliver fast, secure, and us
 - 📊 Track crypto assets in real time
 - 🔍 Search and add coins to watchlist
 - 🤖 AI Chatbot predicts and analyzes tokens
-- 💰 Calculate total portfolio value
-- 📈 View profit & loss
+- 📰 News about all types of cryptocurrencies
+- 📈 Analyzing the data and information of the coin.
 - 🌙 Dark mode support
 - 📡 Live market price updates
 
