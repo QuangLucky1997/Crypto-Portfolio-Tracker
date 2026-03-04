@@ -1,5 +1,7 @@
 package com.quangtrader.cryptoportfoliotracker.common.utils
 
+import android.app.Activity
+import android.app.Fragment
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -13,6 +15,7 @@ import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -292,6 +295,8 @@ fun getAppVersion(context: Context): Pair<String, Long> {
 
     return Pair(versionName, versionCode)
 }
+
+
 
 
 

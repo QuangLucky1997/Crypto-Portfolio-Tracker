@@ -38,7 +38,8 @@ class TutorialActivity : BaseActivity<ActivityTutorialsBinding>(ActivityTutorial
         window.statusBarColor = ContextCompat.getColor(this@TutorialActivity, R.color.white)
         binding.apply {
             viewPager2.adapter = adapterTutorial.apply {
-                this.data = listData()
+                this.submitList(listData())
+               // this.data = listData()
             }
 
             dotsIndicator.attachTo(viewPager2)

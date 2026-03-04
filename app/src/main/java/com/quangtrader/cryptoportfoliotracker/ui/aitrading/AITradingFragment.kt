@@ -1,18 +1,25 @@
 package com.quangtrader.cryptoportfoliotracker.ui.aitrading
 
 import android.app.Activity
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.disableKeyboard
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentAiTradingBinding
@@ -85,7 +92,10 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
                 val historyChatBot = HistoryChatBotEntity(0, text, System.currentTimeMillis())
                 chatBotViewModel.addHistoryChat(historyChatBot)
                 edtMess.text.clear()
+                val window = requireActivity().window
+                WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
             }
+
         }
 
         imgHistory.clicks(debounce = 500) {

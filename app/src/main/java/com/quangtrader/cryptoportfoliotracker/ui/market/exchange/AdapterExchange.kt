@@ -3,15 +3,17 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.exchange
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.Ticker
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomExchangeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatVolume
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import javax.inject.Inject
 
 class AdapterExchange @Inject constructor() :
-    BaseAdapter<Ticker, CustomExchangeBinding>() {
+    BaseAdapter<Ticker, CustomExchangeBinding>(DiffCallbackExchange()) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomExchangeBinding
         get() = CustomExchangeBinding::inflate
 
@@ -44,6 +46,16 @@ class AdapterExchange @Inject constructor() :
             }
             priceToken.text = "$".plus(item.last.toString())
             item.volume?.let { textVolume.text = formatVolume(it) }
+        }
+    }
+
+    class DiffCallbackExchange : DiffUtil.ItemCallback<Ticker>() {
+        override fun areItemsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
+            return oldItem.base == newItem.base
+        }
+
+        override fun areContentsTheSame(oldItem: Ticker, newItem: Ticker): Boolean {
+            return oldItem == newItem
         }
     }
 

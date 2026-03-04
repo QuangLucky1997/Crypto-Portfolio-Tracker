@@ -3,6 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.watchlists
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
@@ -10,11 +11,12 @@ import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
+import com.quangtrader.cryptoportfoliotracker.data.remote.Article
 import java.text.DecimalFormat
 import javax.inject.Inject
 
 class AdapterWatchLists @Inject constructor() :
-    BaseAdapter<CoinFav, CustomListTokenRealtimeBinding>() {
+    BaseAdapter<CoinFav, CustomListTokenRealtimeBinding>(DiffCallbackWatchList()) {
     var subjectDetail: ((CoinFav) -> Unit)? = null
     var subjectDeleteWatchLists: ((CoinFav) -> Unit)? = null
     var subjectNotification : ((CoinFav) -> Unit)? = null
@@ -57,6 +59,17 @@ class AdapterWatchLists @Inject constructor() :
             this >= 1_000_000 -> String.format("%.2fM", this / 1_000_000)
             this >= 1_000 -> String.format("%.2fK", this / 1_000)
             else -> String.format("%.2f", this)
+        }
+    }
+
+
+    class DiffCallbackWatchList : DiffUtil.ItemCallback<CoinFav>() {
+        override fun areItemsTheSame(oldItem: CoinFav, newItem: CoinFav): Boolean {
+            return oldItem.symbol == newItem.symbol
+        }
+
+        override fun areContentsTheSame(oldItem: CoinFav, newItem: CoinFav): Boolean {
+            return oldItem == newItem
         }
     }
 }

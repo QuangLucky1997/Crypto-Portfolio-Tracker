@@ -49,7 +49,8 @@ class HistoryChatBotActivity : BaseActivity<ActivityHistoryChatbotBinding>(
     private fun showHistoryChat(){
         lifecycleScope.launch {
             chatBotViewModel.getAllHistoryChat.collect { dataHistory ->
-                adapterShowHistory.data = dataHistory.toMutableList()
+                //adapterShowHistory.data = dataHistory.toMutableList()
+                adapterShowHistory.submitList(dataHistory)
                 binding.rvHistoryBot.adapter = adapterShowHistory
             }
         }

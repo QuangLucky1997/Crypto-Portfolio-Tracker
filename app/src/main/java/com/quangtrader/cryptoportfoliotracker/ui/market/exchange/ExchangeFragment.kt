@@ -35,8 +35,9 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             exchangeViewModel.exchange.collect { coinData ->
                 val ticketFilter = coinData?.tickers?.filter { it.target == "USDT" } ?: emptyList()
-                adapterExchange.data.clear()
-                adapterExchange.data.addAll(ticketFilter)
+                adapterExchange.submitList(ticketFilter)
+//                adapterExchange.data.clear()
+//                adapterExchange.data.addAll(ticketFilter)
                 binding.rvExchange.adapter = adapterExchange
 
             }

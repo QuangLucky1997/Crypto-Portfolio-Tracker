@@ -106,7 +106,7 @@ class ChartTokenActivity :
             tokenName.text = nameCoin
             webChart.settings.javaScriptEnabled = true
             webChart.webViewClient = WebViewClient()
-            val htmlContent = getTradingViewChartHtml("BINANCE:${symbolCoin}USDT")
+            val htmlContent = getTradingViewChartHtml("CRYPTO:${symbolCoin?.uppercase()}USD")
             webChart.loadDataWithBaseURL(
                 "https://www.tradingview.com",
                  htmlContent,
@@ -144,7 +144,7 @@ class ChartTokenActivity :
                         "enable_publishing": false,
                         "allow_symbol_change": true,
                         "container_id": "tradingview_123456789",
-                         "hide_top_toolbar": false,   // ẩn top toolbar
+                         "hide_top_toolbar": false, 
                 "hide_side_toolbar": false,
                 "allow_symbol_change": false
                     });

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Room
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -19,9 +20,11 @@ import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsCryptoApi
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor

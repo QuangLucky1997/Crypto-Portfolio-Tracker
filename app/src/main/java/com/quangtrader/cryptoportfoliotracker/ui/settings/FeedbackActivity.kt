@@ -60,7 +60,8 @@ class FeedbackActivity : BaseActivity<ActivityFeedbackBinding>(ActivityFeedbackB
         feedBacks.add(FeedBack(getString(R.string.data)))
         feedBacks.add(FeedBack(getString(R.string.lag)))
         feedBacks.add(FeedBack(getString(R.string.UI)))
-        adapterFeedback.data = feedBacks
+      //  adapterFeedback.data = feedBacks
+        adapterFeedback.submitList(feedBacks)
         binding.rvChooseType.adapter = adapterFeedback
     }
 }

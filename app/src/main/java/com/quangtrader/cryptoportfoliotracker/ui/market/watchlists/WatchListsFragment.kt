@@ -39,7 +39,9 @@ class WatchListsFragment : BaseFragment<FragmentWatchlistsBinding>() {
     private fun setData() {
         viewLifecycleOwner.lifecycleScope.launch {
             watchListsViewModel.getAllWatchListsCoin.collect {
-                adapterWatchLists.data = it.toMutableList()
+                data->
+                adapterWatchLists.submitList(data)
+//                adapterWatchLists.data = it.toMutableList()
             }
         }
         binding.apply {
@@ -83,7 +85,11 @@ class WatchListsFragment : BaseFragment<FragmentWatchlistsBinding>() {
                         "#4CAF50".toColorInt(),
                         clickListener = object : UnderlayButtonClickListener {
                             override fun onClick(pos: Int) {
-                                adapterWatchLists.subjectDeleteWatchLists?.invoke(adapterWatchLists.data[pos])
+                                val currentList = adapterWatchLists.currentList
+                                if (pos in currentList.indices) {
+                                    val item = currentList[pos]
+                                    adapterWatchLists.subjectDeleteWatchLists?.invoke(item)
+                                }
                             }
                         }
                     ))

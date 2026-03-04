@@ -4,20 +4,21 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
-import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
+import androidx.recyclerview.widget.DiffUtil
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.common.utils.getRelativeTime
+import com.quangtrader.cryptoportfoliotracker.data.roommodel.CoinFav
+import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
+import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.getValue
-import androidx.core.view.isVisible
 
 @AndroidEntryPoint
 class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
@@ -31,28 +32,44 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
     override fun onViewCreated() {
         binding.rvNewsFeedByType.adapter = adapterLoadNewsFeed
-        setDataNewsHandpicked()
+        setupRecyclerView()
+        observeViewModel()
+        newsViewModel.getAllNewsByType("trending")
         openNews()
     }
 
 
+    private fun setupRecyclerView() {
+        binding.rvNewsFeedByType.adapter = adapterLoadNewsFeed
+    }
 
-    private fun setDataNewsHandpicked() {
-        newsViewModel.getAllNewsByType("trending")
-        showLoading(true)
-
+    private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                newsViewModel.dataNews.collect { list ->
-                    if (list.isNotEmpty()) {
-                        adapterLoadNewsFeed.data = list.toMutableList()
-                        delay(500)
-                        showLoading(false)
+                newsViewModel.uiState.collect { uiState ->
+                    when (uiState) {
+                        is NewsViewUiState.Loading -> {
+                            binding.animationLoading.isVisible = true
+                        }
+
+                        is NewsViewUiState.Success -> {
+                            binding.animationLoading.isVisible = false
+                            adapterLoadNewsFeed.data = uiState.data.toMutableList()
+                            adapterLoadNewsFeed.notifyDataSetChanged()
+                        }
+
+                        is NewsViewUiState.Error -> {
+                            binding.animationLoading.isVisible = false
+                            val errorMsg =
+                                uiState.exception.localizedMessage ?: "Can not load news data"
+                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
     }
+
     private fun showLoading(show: Boolean) {
         binding.apply {
             if (show) {
@@ -73,13 +90,16 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
     private fun openNews() {
         adapterLoadNewsFeed.subjectDetailNew = {
-            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
-            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source)
-            intentDetail.putExtra(Constants.EXTRA_TIME_POST, getRelativeTime(it.feedDate))
-            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.link)
+            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java).apply {
+                putExtra(Constants.EXTRA_SOURCE_NEWS, it.source)
+                putExtra(Constants.EXTRA_TIME_POST, getRelativeTime(it.feedDate))
+                putExtra(Constants.EXTRA_LINK_NEWS, it.link)
+            }
             startActivity(intentDetail)
         }
     }
+
+
 
 
 }

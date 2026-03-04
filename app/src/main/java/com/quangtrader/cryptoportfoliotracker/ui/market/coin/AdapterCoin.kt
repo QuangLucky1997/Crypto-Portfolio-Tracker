@@ -12,6 +12,7 @@ import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPrice
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import javax.inject.Inject
 
 
@@ -85,4 +86,6 @@ class AdapterCoin @Inject constructor() :
             else -> String.format("%.2f", this)
         }
     }
+
+
 }

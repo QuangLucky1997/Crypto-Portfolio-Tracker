@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
-import com.quangtrader.cryptoportfoliotracker.common.utils.getTradingViewChartHtml
+import androidx.lifecycle.repeatOnLifecycle
 import com.quangtrader.cryptoportfoliotracker.R
-import com.quangtrader.cryptoportfoliotracker.databinding.FragmentOverviewBinding
-import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.common.utils.formatMarketCap
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPriceTrending
+import com.quangtrader.cryptoportfoliotracker.common.utils.getTradingViewChartHtml
+import com.quangtrader.cryptoportfoliotracker.databinding.FragmentOverviewBinding
+import com.quangtrader.cryptoportfoliotracker.helper.UiState
+import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -61,25 +63,26 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
                 handleInterval(it)
                 overViewModel.getAllInfoToken(it.lowercase())
                 viewLifecycleOwner.lifecycleScope.launch {
-                    overViewModel.infoToken.collect { token ->
-                        token?.data?.values?.forEach { it ->
-                            it.quote.USD?.marketCap?.let { it1 ->
-                                dataMarketCap.text = formatMarketCap(
-                                    it1
-                                )
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        overViewModel.uiState.collect { state ->
+                            when (state) {
+                                is UiState.Success -> {
+                                    val data = state.data
+                                    with(binding) {
+                                        dataMarketCap.text = data.marketCap
+                                        dataFullyDilutedValuation.text = data.fullyDilutedValuation
+                                        dataTotalVol.text = data.totalVol
+                                        percentChange1H.text = data.change1H
+                                        percentChange24H.text = data.change24H
+                                        percentChange7D.text = data.change7D
+                                        percentChange30D.text = data.change30D
+                                    }
+                                }
+
+                                is UiState.Loading -> {}
+                                is UiState.Error -> {}
+                                else -> {}
                             }
-                            dataFullyDilutedValuation.text = formatMarketCap(
-                                it.quote.USD?.fullyDilutedMarketCap ?: 0.0
-                            )
-                            it.quote.USD?.volume24h?.let { it1 ->
-                                dataTotalVol.text = formatMarketCap(
-                                    it1
-                                )
-                            }
-                            percentChange1H.text = it.quote.USD?.percentChange1h.formatPercent()
-                            percentChange24H.text = it.quote.USD?.percentChange24h.formatPercent()
-                            percentChange7D.text = it.quote.USD?.percentChange7d.formatPercent()
-                            percentChange30D.text = it.quote.USD?.percentChange30d.formatPercent()
                         }
                     }
                 }

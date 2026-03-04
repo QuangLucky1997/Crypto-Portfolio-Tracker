@@ -33,11 +33,11 @@ class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
           setData(tokenID.plus(" Token"))
         }
         adapterNewsByToken.subjectViewNew = { it->
-//            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
-//            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
-//            intentDetail.putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
-//            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.url)
-//            startActivity(intentDetail)
+            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
+            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
+            intentDetail.putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
+            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.url)
+            startActivity(intentDetail)
         }
 
     }
@@ -47,7 +47,8 @@ class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
         newsByTokenViewModel.getAllNewsByToken(dataToken)
         viewLifecycleOwner.lifecycleScope.launch {
             newsByTokenViewModel.dataNews.collect { coinData ->
-                adapterNewsByToken.data = coinData.articles.toMutableList()
+                adapterNewsByToken.submitList(coinData.articles)
+              //  adapterNewsByToken.data = coinData.articles.toMutableList()
                 binding.rvNewsFeedByType.adapter = adapterNewsByToken
             }
         }

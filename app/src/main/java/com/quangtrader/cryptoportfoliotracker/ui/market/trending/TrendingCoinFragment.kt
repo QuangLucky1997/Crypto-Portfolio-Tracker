@@ -1,21 +1,25 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.trending
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentTrendingBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
-import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.repeatOnLifecycle
 
 @AndroidEntryPoint
 class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
@@ -27,22 +31,28 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
         get() = FragmentTrendingBinding::inflate
 
     override fun onViewCreated() {
-        trendingCoinViewModel.loadAllTrendingCoin()
         binding.rvTrendingCoin.adapter = adapterTrendingCoin
         loadData()
+        trendingCoinViewModel.loadAllTrendingCoin()
         handleData()
     }
 
     private fun handleData() {
         adapterTrendingCoin.subjectTrending = { data ->
-            val intentTrending = Intent(requireActivity(), DetailTokenActivity::class.java)
-            intentTrending.putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
-            intentTrending.putExtra(Constants.EXTRA_LOGO_COIN, data.thumb)
-            intentTrending.putExtra(Constants.EXTRA_NAME_COIN, data.name)
-            intentTrending.putExtra(Constants.EXTRA_MARKET_RANK_COIN, data.marketCapRank)
-            intentTrending.putExtra(Constants.EXTRA_PRICE_COIN, data.data?.price ?: 0.0)
-            intentTrending.putExtra(Constants.EXTRA_PRICE_24H, data.data?.priceChangePercentage24h?.get("btc") ?: 0.0)
+            val intentTrending = Intent(requireActivity(), DetailTokenActivity::class.java).apply {
+                putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
+                putExtra(Constants.EXTRA_LOGO_COIN, data.thumb)
+                putExtra(Constants.EXTRA_NAME_COIN, data.name)
+                putExtra(Constants.EXTRA_MARKET_RANK_COIN, data.marketCapRank)
+                putExtra(Constants.EXTRA_PRICE_COIN, data.data?.price ?: 0.0)
+                putExtra(
+                    Constants.EXTRA_PRICE_24H,
+                    data.data?.priceChangePercentage24h?.get("btc") ?: 0.0
+                )
+            }
             startActivity(intentTrending)
+
+
         }
     }
 
@@ -50,11 +60,24 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
         showLoading(true)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                trendingCoinViewModel.tokensTrending.collect { coinData ->
-                    if (coinData.isNotEmpty()) {
-                        val newList = coinData.map { it.item }
-                        adapterTrendingCoin.data = newList.toMutableList()
-                        showLoading(false)
+                trendingCoinViewModel.tokensTrendingUiState.collect { coinDataUiState ->
+                    when (coinDataUiState) {
+                        is TrendingCoinUiState.Loading -> {
+                            binding.loadingTrendingCoin.isVisible = true
+                        }
+                        is TrendingCoinUiState.Success -> {
+                            binding.loadingTrendingCoin.isVisible = false
+                            val newList = coinDataUiState.data.map { it.item }
+                            adapterTrendingCoin.submitList(newList)
+                            adapterTrendingCoin.notifyDataSetChanged()
+                        }
+
+                        is TrendingCoinUiState.Error -> {
+                            binding.loadingTrendingCoin.isVisible = false
+                            val errorMsg = coinDataUiState.exception.localizedMessage
+                                ?: "Can not load news data"
+                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

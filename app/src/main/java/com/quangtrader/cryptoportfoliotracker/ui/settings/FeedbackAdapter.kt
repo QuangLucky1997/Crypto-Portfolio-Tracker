@@ -3,15 +3,17 @@ package com.quangtrader.cryptoportfoliotracker.ui.settings
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.local.FeedBack
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomFeedbackBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import javax.inject.Inject
 
 class FeedbackAdapter @Inject constructor() :
-    BaseAdapter<FeedBack, CustomFeedbackBinding>() {
+    BaseAdapter<FeedBack, CustomFeedbackBinding>(DiffCallbackFeedback()) {
 
     var subjectFeedbackItemPosition: ((FeedBack, ArrayList<FeedBack>) -> Unit)? = null
     private val selectedList = arrayListOf<FeedBack>()
@@ -43,6 +45,14 @@ class FeedbackAdapter @Inject constructor() :
 
         }
     }
+    class DiffCallbackFeedback : DiffUtil.ItemCallback<FeedBack>() {
+        override fun areItemsTheSame(oldItem: FeedBack, newItem: FeedBack): Boolean {
+            return oldItem.title == newItem.title
+        }
 
+        override fun areContentsTheSame(oldItem: FeedBack, newItem: FeedBack): Boolean {
+            return oldItem == newItem
+        }
+    }
 
 }

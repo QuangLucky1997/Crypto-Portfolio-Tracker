@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.quangtrader.cryptoportfoliotracker.data.remote.NewsResponse
 import com.quangtrader.cryptoportfoliotracker.data.repository.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,17 +13,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : ViewModel() {
-    private val news: MutableStateFlow<List<NewsResponse>> = MutableStateFlow(emptyList())
-    var dataNews: StateFlow<List<NewsResponse>> = news
+    private val _uiState = MutableStateFlow<NewsViewUiState>(NewsViewUiState.Success(emptyList()))
+    val uiState: StateFlow<NewsViewUiState> = _uiState
 
     fun getAllNewsByType(typeData: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
+            _uiState.value = NewsViewUiState.Loading
             try {
                 val data = newsRepository.getNewsByType(typeData)
-                news.value = data
+                _uiState.value = NewsViewUiState.Success(data)
             } catch (ex: Exception) {
-                Log.e("NewsViewModel", ex.message.toString())
+                _uiState.value = NewsViewUiState.Error(ex)
+                Log.e("NewsViewModel", "Error loading news", ex)
             }
         }
     }
+}
+
+
+sealed class NewsViewUiState {
+    object Loading : NewsViewUiState()
+    data class Success(val data: List<NewsResponse>) : NewsViewUiState()
+    data class Error(val exception: Throwable) : NewsViewUiState()
 }

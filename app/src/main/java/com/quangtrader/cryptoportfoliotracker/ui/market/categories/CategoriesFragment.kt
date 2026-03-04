@@ -28,9 +28,9 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
         categoriesViewModel.loadCategories()
         viewLifecycleOwner.lifecycleScope.launch {
             categoriesViewModel.categories.collect { coinData ->
-                val limitedData = coinData.take(30)
-                adapterCategories.data.clear()
-                adapterCategories.data.addAll(limitedData)
+//                val limitedData = coinData.take(30)
+//                adapterCategories.data.clear()
+//                adapterCategories.data.addAll(limitedData)
                 binding.rvCategories.adapter = adapterCategories
             }
         }

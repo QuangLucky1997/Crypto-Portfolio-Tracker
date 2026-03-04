@@ -3,9 +3,10 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.topgainers
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
+import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomGainerLoserCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
@@ -13,7 +14,9 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 class AdapterTopGainers @Inject constructor() :
-    BaseAdapter<GainerOrLoserCoinGeckoResponse, CustomGainerLoserCoinsBinding>() {
+    BaseAdapter<GainerOrLoserCoinGeckoResponse, CustomGainerLoserCoinsBinding>(
+        DiffCallbackTopGainers()
+    ) {
 
     var subjectGainers: ((GainerOrLoserCoinGeckoResponse) -> Unit)? = null
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomGainerLoserCoinsBinding
@@ -57,5 +60,21 @@ class AdapterTopGainers @Inject constructor() :
     fun Double?.formatPercent(digits: Int = 2): String {
         if (this == null) return "0.00%"
         return String.format("%.${digits}f%%", this)
+    }
+
+    class DiffCallbackTopGainers : DiffUtil.ItemCallback<GainerOrLoserCoinGeckoResponse>() {
+        override fun areItemsTheSame(
+            oldItem: GainerOrLoserCoinGeckoResponse,
+            newItem: GainerOrLoserCoinGeckoResponse
+        ): Boolean {
+            return oldItem.symbol == newItem.symbol
+        }
+
+        override fun areContentsTheSame(
+            oldItem: GainerOrLoserCoinGeckoResponse,
+            newItem: GainerOrLoserCoinGeckoResponse
+        ): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.categories
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.data.remote.ResponseCategoryCoin
@@ -10,7 +11,10 @@ import com.quangtrader.cryptoportfoliotracker.databinding.CustomCategoriesCoinBi
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import javax.inject.Inject
 
-class AdapterCategories @Inject constructor() : BaseAdapter<ResponseCategoryCoin, CustomCategoriesCoinBinding>() {
+class AdapterCategories @Inject constructor() :
+    BaseAdapter<ResponseCategoryCoin, CustomCategoriesCoinBinding>(
+        DiffCallbackCategories()
+    ) {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomCategoriesCoinBinding
         get() = CustomCategoriesCoinBinding::inflate
 
@@ -65,9 +69,26 @@ class AdapterCategories @Inject constructor() : BaseAdapter<ResponseCategoryCoin
             else -> String.format("%.2f", this)
         }
     }
+
     fun Double?.formatPercent(digits: Int = 2): String {
         if (this == null) return "0.00%"
         return String.format("%.${digits}f%%", this)
+    }
+
+    class DiffCallbackCategories : DiffUtil.ItemCallback<ResponseCategoryCoin>() {
+        override fun areItemsTheSame(
+            oldItem: ResponseCategoryCoin,
+            newItem: ResponseCategoryCoin
+        ): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(
+            oldItem: ResponseCategoryCoin,
+            newItem: ResponseCategoryCoin
+        ): Boolean {
+            return oldItem == newItem
+        }
     }
 
 }
