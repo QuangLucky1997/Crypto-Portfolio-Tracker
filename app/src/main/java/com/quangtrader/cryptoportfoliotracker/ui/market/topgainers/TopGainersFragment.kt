@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentGainerOrLoserCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
@@ -52,9 +53,8 @@ class TopGainersFragment : BaseFragment<FragmentGainerOrLoserCoinsBinding>() {
                         }
 
                         is TopGainersUiState.Error -> {
-                            val errorMsg =
-                                coinData.exception.localizedMessage ?: "Can not load data"
-                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+                            binding.animationLoading.setAnimation(R.raw.error404)
+                            binding.animationLoading.playAnimation()
                         }
                     }
                 }

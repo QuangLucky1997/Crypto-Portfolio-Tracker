@@ -7,6 +7,7 @@ import com.quangtrader.cryptoportfoliotracker.data.remote.CoinWrapper
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
 import com.quangtrader.cryptoportfoliotracker.data.repository.TopGainersOrLosersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ class TopGainersViewModel @Inject constructor(private val topGainerOrLoserReposi
 
 
     fun loadDataGainerOrLoser() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _tokensGainerOrLoser.value = TopGainersUiState.Loading
             try {
                 val response = topGainerOrLoserRepository.getTopGainerOrLoser()

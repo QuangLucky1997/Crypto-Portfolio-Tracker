@@ -15,17 +15,25 @@ import javax.inject.Inject
 @HiltViewModel
 class ExchangeViewModel @Inject constructor(private val exchangeRepository: ExchangeRepository) :
     ViewModel() {
-    private val _exchange = MutableStateFlow<TickerResponse?>(null)
-    var exchange: StateFlow<TickerResponse?> = _exchange
+    private val _exchange = MutableStateFlow<ExchangeUiState>(ExchangeUiState.Loading)
+    val exchange: StateFlow<ExchangeUiState> = _exchange
 
-    fun getExchangeByIdCoin(idCoin:String) {
+
+    fun getExchangeByIdCoin(idCoin: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _exchange.value = ExchangeUiState.Loading
             try {
                 val response = exchangeRepository.getExchange(idCoin)
-                _exchange.value = response
+                _exchange.value = ExchangeUiState.Success(response)
             } catch (ex: Exception) {
-                Log.d("Main123", ex.message.toString())
+                _exchange.value = ExchangeUiState.Error(ex)
             }
         }
     }
+}
+
+sealed class ExchangeUiState {
+    object Loading : ExchangeUiState()
+    data class Success(val data: TickerResponse) : ExchangeUiState()
+    data class Error(val exception: Throwable) : ExchangeUiState()
 }

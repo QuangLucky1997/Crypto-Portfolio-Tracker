@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentTrendingBinding
@@ -63,20 +64,17 @@ class TrendingCoinFragment : BaseFragment<FragmentTrendingBinding>() {
                 trendingCoinViewModel.tokensTrendingUiState.collect { coinDataUiState ->
                     when (coinDataUiState) {
                         is TrendingCoinUiState.Loading -> {
-                            binding.loadingTrendingCoin.isVisible = true
+                            showLoading(true)
                         }
                         is TrendingCoinUiState.Success -> {
-                            binding.loadingTrendingCoin.isVisible = false
+                            showLoading(false)
                             val newList = coinDataUiState.data.map { it.item }
                             adapterTrendingCoin.submitList(newList)
-                            adapterTrendingCoin.notifyDataSetChanged()
                         }
 
                         is TrendingCoinUiState.Error -> {
-                            binding.loadingTrendingCoin.isVisible = false
-                            val errorMsg = coinDataUiState.exception.localizedMessage
-                                ?: "Can not load news data"
-                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+                            binding.loadingTrendingCoin.setAnimation(R.raw.error404)
+                            binding.loadingTrendingCoin.playAnimation()
                         }
                     }
                 }
