@@ -87,13 +87,12 @@ fun getRelativeTime(timestamp: Long): String {
 }
 
 fun formatMarketCap(number: Double): String {
-    val suffix = listOf("", "K", "M", "B", "T") // K: nghìn, M: triệu, B: tỷ, T: nghìn tỷ
+    val suffix = listOf("", "K", "M", "B", "T")
     if (number < 1000) {
         return DecimalFormat("#,##0").format(number)
     }
     val tier = (Math.log10(number) / 3).toInt()
     if (tier >= suffix.size) {
-        // Đối với các số rất lớn, chỉ cần hiển thị ở dạng nghìn tỷ (T)
         val value = number / 10.0.pow(12)
         return "${DecimalFormat("#,##0.00").format(value)}T"
     }
@@ -294,6 +293,17 @@ fun getAppVersion(context: Context): Pair<String, Long> {
     }
 
     return Pair(versionName, versionCode)
+}
+
+
+fun Double.formatMarketCap2(): String {
+    return when {
+        this >= 1_000_000_000_000 -> String.format("%.2fT", this / 1_000_000_000_000)
+        this >= 1_000_000_000 -> String.format("%.2fB", this / 1_000_000_000)
+        this >= 1_000_000 -> String.format("%.2fM", this / 1_000_000)
+        this >= 1_000 -> String.format("%.2fK", this / 1_000)
+        else -> String.format("%.2f", this)
+    }
 }
 
 

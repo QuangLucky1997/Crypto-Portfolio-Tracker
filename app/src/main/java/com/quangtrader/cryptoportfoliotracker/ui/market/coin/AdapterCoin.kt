@@ -1,6 +1,5 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatMarketCap2
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomListTokenRealtimeBinding
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPercent
 import com.quangtrader.cryptoportfoliotracker.common.utils.formatPrice
-import com.quangtrader.cryptoportfoliotracker.data.remote.CoinItem
 import javax.inject.Inject
 
 
@@ -50,7 +49,7 @@ class AdapterCoin @Inject constructor() :
                 Glide.with(root).load(item.logo).into(iconToken)
             }
             nameToken.text = item.symbol
-            marketCapitalizationToken.text = item.marketCap?.formatMarketCap() ?: "--"
+            marketCapitalizationToken.text = item.marketCap?.formatMarketCap2() ?: "--"
 
             priceToken.text = formatPrice(item.price)
 
@@ -76,16 +75,6 @@ class AdapterCoin @Inject constructor() :
                     oldItem.percentChange24h == newItem.percentChange24h
     }
 
-        @SuppressLint("DefaultLocale")
-    fun Double.formatMarketCap(): String {
-        return when {
-            this >= 1_000_000_000_000 -> String.format("%.2fT", this / 1_000_000_000_000)
-            this >= 1_000_000_000 -> String.format("%.2fB", this / 1_000_000_000)
-            this >= 1_000_000 -> String.format("%.2fM", this / 1_000_000)
-            this >= 1_000 -> String.format("%.2fK", this / 1_000)
-            else -> String.format("%.2f", this)
-        }
-    }
 
 
 }

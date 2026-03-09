@@ -14,18 +14,20 @@ import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentGainerOrLoserCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
+import com.quangtrader.cryptoportfoliotracker.ui.market.coin.CoinViewModel
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.AdapterTopGainers
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.TopGainersUiState
 import com.quangtrader.cryptoportfoliotracker.ui.market.topgainers.TopGainersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class TopLosersFragment : BaseFragment<FragmentGainerOrLoserCoinsBinding>() {
-    private val topGainerOrLoserViewModel: TopGainersViewModel by viewModels()
+    private val topGainerOrLoserViewModel: CoinViewModel by viewModels()
     @Inject
     lateinit var adapterTopGainers: AdapterTopGainers
     override val _binding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentGainerOrLoserCoinsBinding
@@ -33,66 +35,45 @@ class TopLosersFragment : BaseFragment<FragmentGainerOrLoserCoinsBinding>() {
 
     override fun onViewCreated() {
         binding.rvGainerLoserCoin.adapter = adapterTopGainers
+        binding.rvGainerLoserCoin.setHasFixedSize(true)
         loadData()
+        topGainerOrLoserViewModel.loadCoins()
         handleData()
     }
 
     private fun loadData() {
-        topGainerOrLoserViewModel.loadDataGainerOrLoser()
-        showLoading(true)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                topGainerOrLoserViewModel.tokensGainerOrLoser.collect { coinData ->
-                    when (coinData) {
-                        is TopGainersUiState.Loading -> {
-                             showLoading(true)
-                        }
-
-                        is TopGainersUiState.Success -> {
-                            showLoading(false)
-                            val sortedData = coinData.data.sortedBy { it.priceChangePercentage24h }
-                            val topGainers = sortedData.take(20)
-                            adapterTopGainers.submitList(topGainers)
-                        }
-
-                        is TopGainersUiState.Error -> {
-                            binding.animationLoading.setAnimation(R.raw.error404)
-                            binding.animationLoading.playAnimation()
-                        }
+                topGainerOrLoserViewModel.coins.debounce(100).collect { coinData ->
+                    if (coinData.isEmpty()) {
+                        binding.loadingDataPg.visibility = View.VISIBLE
+                        binding.rvGainerLoserCoin.visibility = View.GONE
+                    } else {
+                        binding.loadingDataPg.visibility = View.GONE
+                        binding.rvGainerLoserCoin.visibility = View.VISIBLE
+                        val topGainers = coinData
+                            .sortedBy { it.percentChange24h ?: 999.0 }
+                            .take(20 )
+                        adapterTopGainers.submitList(topGainers)
                     }
+
                 }
             }
 
         }
     }
 
-    private fun showLoading(show: Boolean) {
-        binding.apply {
-            if (show) {
-                animationLoading.visibility = View.VISIBLE
-                rvGainerLoserCoin.visibility = View.GONE
-                animationLoading.post {
-                    if (animationLoading.isVisible) {
-                        animationLoading.playAnimation()
-                    }
-                }
-            } else {
-                animationLoading.visibility = View.GONE
-                rvGainerLoserCoin.visibility = View.VISIBLE
-                animationLoading.cancelAnimation()
-            }
-        }
-    }
+
 
     private fun handleData() {
         adapterTopGainers.subjectGainers = { data ->
             val intentTrending = Intent(requireActivity(), DetailTokenActivity::class.java).apply {
                 putExtra(Constants.EXTRA_SYMBOL_COIN, data.symbol)
-                putExtra(Constants.EXTRA_LOGO_COIN, data.image)
+                putExtra(Constants.EXTRA_LOGO_COIN, data.logo)
                 putExtra(Constants.EXTRA_NAME_COIN, data.name)
-                putExtra(Constants.EXTRA_MARKET_RANK_COIN, data.marketCapRank)
-                putExtra(Constants.EXTRA_PRICE_COIN, data.currentPrice ?: 0.0)
-                putExtra(Constants.EXTRA_PRICE_24H, data.priceChangePercentage24h)
+                putExtra(Constants.EXTRA_MARKET_RANK_COIN, data.marketCap)
+                putExtra(Constants.EXTRA_PRICE_COIN, data.price ?: 0.0)
+                putExtra(Constants.EXTRA_PRICE_24H, data.percentChange24h)
             }
             startActivity(intentTrending)
         }

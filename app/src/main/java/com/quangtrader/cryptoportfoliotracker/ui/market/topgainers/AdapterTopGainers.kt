@@ -7,39 +7,40 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
-import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatMarketCap2
+import com.quangtrader.cryptoportfoliotracker.data.remote.CoinUI
 import com.quangtrader.cryptoportfoliotracker.databinding.CustomGainerLoserCoinsBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseAdapter
 import java.text.DecimalFormat
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class AdapterTopGainers @Inject constructor() :
-    BaseAdapter<GainerOrLoserCoinGeckoResponse, CustomGainerLoserCoinsBinding>(
+    BaseAdapter<CoinUI, CustomGainerLoserCoinsBinding>(
         DiffCallbackTopGainers()
     ) {
 
-    var subjectGainers: ((GainerOrLoserCoinGeckoResponse) -> Unit)? = null
+    var subjectGainers: ((CoinUI) -> Unit)? = null
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> CustomGainerLoserCoinsBinding
         get() = CustomGainerLoserCoinsBinding::inflate
 
     @SuppressLint("DefaultLocale")
     override fun bindItem(
-        item: GainerOrLoserCoinGeckoResponse,
+        item: CoinUI,
         binding: CustomGainerLoserCoinsBinding,
         position: Int
     ) {
         binding.apply {
-            Glide.with(root).load(item.image).into(iconTokenTrending)
-            tokenGainers.text = item.name
-            textMarketRank.text = item.marketCapRank.toString()
+            Glide.with(root).load(item.logo).into(iconTokenTrending)
+            tokenGainers.text = item.symbol
+            textMarketRank.text = item.marketCap?.formatMarketCap2() ?: "--"
             textSymbolToken.text = item.symbol
             val df = DecimalFormat("#.##")
             df.minimumFractionDigits = 2
             df.maximumFractionDigits = 2
-            val formatted = df.format(item.currentPrice)
+            val formatted = df.format(item.price)
             priceToken.text = "$".plus(formatted.toString())
-            //val percentText = String.format("%.2f%%", item.priceChangePercentage24h)
-            val colorRes = item.priceChangePercentage24h
+            val colorRes = item.percentChange24h
             if (colorRes != null) {
                 if (colorRes >= 0) {
                     cardPercent24H.setCardBackgroundColor(root.resources.getColor(R.color.green))
@@ -50,7 +51,7 @@ class AdapterTopGainers @Inject constructor() :
                 }
 
             }
-            percentRealtime.text = item.priceChangePercentage24h.formatPercent()
+            percentRealtime.text = item.percentChange24h.formatPercent()
             viewToken.clicks {
                 subjectGainers?.invoke(item)
             }
@@ -62,17 +63,17 @@ class AdapterTopGainers @Inject constructor() :
         return String.format("%.${digits}f%%", this)
     }
 
-    class DiffCallbackTopGainers : DiffUtil.ItemCallback<GainerOrLoserCoinGeckoResponse>() {
+    class DiffCallbackTopGainers : DiffUtil.ItemCallback<CoinUI>() {
         override fun areItemsTheSame(
-            oldItem: GainerOrLoserCoinGeckoResponse,
-            newItem: GainerOrLoserCoinGeckoResponse
+            oldItem: CoinUI,
+            newItem: CoinUI
         ): Boolean {
             return oldItem.symbol == newItem.symbol
         }
 
         override fun areContentsTheSame(
-            oldItem: GainerOrLoserCoinGeckoResponse,
-            newItem: GainerOrLoserCoinGeckoResponse
+            oldItem: CoinUI,
+            newItem: CoinUI
         ): Boolean {
             return oldItem == newItem
         }

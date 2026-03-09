@@ -40,12 +40,12 @@
 
                 <TextView
                     android:id="@+id/tokenTrending"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:maxLength="15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter_bold"
+                    android:maxLength="15"
+                    android:maxLines="1"
                     android:text="BTC"
                     android:textColor="?attr/textPrimary"
                     android:textSize="@dimen/_12ssp" />
@@ -94,44 +94,46 @@
             </LinearLayout>
         </RelativeLayout>
 
+
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPercent24H"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_26sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             app:cardBackgroundColor="@color/green"
             app:cardCornerRadius="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_4sdp">
 
                 <ImageView
                     android:id="@+id/imgUpDown"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/_2sdp"
-                    android:padding="@dimen/_2sdp"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
                     android:src="@drawable/up_trend" />
 
                 <TextView
                     android:id="@+id/percentRealtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:ellipsize="none"
                     android:fontFamily="@font/inter_bold"
-                    android:text="+1.64%"
+                    android:maxLines="1"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/_11ssp" />
             </LinearLayout>
-
-
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

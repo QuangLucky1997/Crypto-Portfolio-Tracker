@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quangtrader.cryptoportfoliotracker.data.remote.CoinWrapper
 import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserCoinGeckoResponse
+import com.quangtrader.cryptoportfoliotracker.data.remote.GainerOrLoserUsingBinanceResponse
 import com.quangtrader.cryptoportfoliotracker.data.repository.TopGainersOrLosersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,6 @@ class TopGainersViewModel @Inject constructor(private val topGainerOrLoserReposi
                 _tokensGainerOrLoser.value = TopGainersUiState.Success(response)
             } catch (e: Exception) {
                 _tokensGainerOrLoser.value = TopGainersUiState.Error(e)
-                Log.d("MainError", e.message.toString())
             }
         }
     }
@@ -38,6 +38,6 @@ class TopGainersViewModel @Inject constructor(private val topGainerOrLoserReposi
 
 sealed class TopGainersUiState {
     object Loading : TopGainersUiState()
-    data class Success(val data: List<GainerOrLoserCoinGeckoResponse>) : TopGainersUiState()
+    data class Success(val data: List<GainerOrLoserUsingBinanceResponse>) : TopGainersUiState()
     data class Error(val exception: Throwable) : TopGainersUiState()
 }

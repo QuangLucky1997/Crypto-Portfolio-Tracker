@@ -1,7 +1,6 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.coin
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,7 +51,6 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
                     }
             }
         }
-
         coinViewModel.loadCoins()
         handleData()
 
@@ -74,7 +73,8 @@ class CoinFragment : BaseFragment<FragmentCoinBinding>() {
                     mktCap
                 )
             } else {
-                Log.e("DATA_ERROR", "Null fields: logo=$logo, percent=$percent, price=$price, mktCap=$mktCap")
+                Timber.tag("DATA_ERROR")
+                    .e("Null fields: logo=$logo, percent=$percent, price=$price, mktCap=$mktCap")
             }
 
         }

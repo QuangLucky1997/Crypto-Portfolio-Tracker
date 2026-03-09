@@ -41,17 +41,13 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
                 tokenName = name
             }
 
-            val rankerMarket = intent.getIntExtra(Constants.EXTRA_MARKET_RANK_COIN, -1)
             val priceMarket = intent.getDoubleExtra(Constants.EXTRA_PRICE_COIN, 0.0)
             val symbolToken = intent.getStringExtra(Constants.EXTRA_SYMBOL_COIN)
             val logoToken = intent.getStringExtra(Constants.EXTRA_LOGO_COIN)
             nameToken.text = name
-            textMarketRank.text = "#".plus(rankerMarket.toString())
             priceToken.text = "$".plus(priceMarket.formatPriceTrending(priceMarket))
-            val dataPercent24H = intent.getDoubleExtra(Constants.EXTRA_PRICE_24H, 0.0)
-            val percentText = String.format("%.2f%%", dataPercent24H)
-            val colorRes = dataPercent24H.let {
-                if (it >= 0) {
+            val dataPercent24H = intent.getDoubleExtra(Constants.EXTRA_PRICE_24H, 0.0).apply {
+                if (this >= 0) {
                     imgUpDown.setImageResource(R.drawable.up_trend)
                 } else {
                     imgUpDown.setImageResource(R.drawable.down_trend)
