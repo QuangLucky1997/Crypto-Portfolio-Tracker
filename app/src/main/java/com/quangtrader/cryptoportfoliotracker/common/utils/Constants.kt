@@ -15,7 +15,7 @@ object Constants {
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
-    const val API_GEMINI = "AIzaSyCuEWj9Wm8kdJJ17wvnfj6BKKu0tDF1nXs"
+    const val API_GEMINI = "xxxxxxxxx"
 
 
     const val POLICY_LINK =
