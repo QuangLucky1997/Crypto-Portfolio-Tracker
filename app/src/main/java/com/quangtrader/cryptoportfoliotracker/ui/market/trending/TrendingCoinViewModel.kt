@@ -7,6 +7,7 @@ import com.quangtrader.cryptoportfoliotracker.data.remote.CoinWrapper
 import com.quangtrader.cryptoportfoliotracker.data.remote.NewsResponse
 import com.quangtrader.cryptoportfoliotracker.data.repository.TrendingCoinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class TrendingCoinViewModel @Inject constructor(private val trendingCoinReposito
 
 
     fun loadAllTrendingCoin() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _tokenTrendingUiState.value  = TrendingCoinUiState.Loading
             try {
                 val response = trendingCoinRepository.getTrending()

@@ -1,6 +1,5 @@
 package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.newsInfo
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quangtrader.cryptoportfoliotracker.data.remote.NewsByTokenResponse
@@ -15,17 +14,25 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsByTokenViewModel @Inject constructor(private val newsRepository: NewsByTokenRepository) :
     ViewModel() {
-    private val newsByToken: MutableStateFlow<NewsByTokenResponse> =
-        MutableStateFlow(NewsByTokenResponse())
-    var dataNews: StateFlow<NewsByTokenResponse> = newsByToken
+    private val newsByToken: MutableStateFlow<NewsUiState> =
+        MutableStateFlow(NewsUiState.Loading)
+    var dataNews: StateFlow<NewsUiState> = newsByToken
     fun getAllNewsByToken(token: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            newsByToken.value = NewsUiState.Loading
             try {
-                val dataNewsByToken = newsRepository.getNewsByToken(token)
-                newsByToken.value = dataNewsByToken
+                val dtNews = newsRepository.getNewsByToken(token)
+                newsByToken.value = NewsUiState.Success(dtNews)
             } catch (ex: Exception) {
-                Log.e("ErrorApI", ex.message.toString())
+                newsByToken.value = NewsUiState.Error(ex)
             }
+
         }
     }
+}
+
+sealed class NewsUiState {
+    object Loading : NewsUiState()
+    data class Success(val data: NewsByTokenResponse) : NewsUiState()
+    data class Error(val exception: Throwable) : NewsUiState()
 }

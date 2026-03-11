@@ -55,7 +55,7 @@ class TrendingNewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
                         is NewsViewUiState.Success -> {
                             binding.animationLoading.isVisible = false
                             adapterLoadNewsFeed.data = uiState.data.toMutableList()
-                            adapterLoadNewsFeed.notifyDataSetChanged()
+                           adapterLoadNewsFeed.notifyDataSetChanged()
                         }
 
                         is NewsViewUiState.Error -> {

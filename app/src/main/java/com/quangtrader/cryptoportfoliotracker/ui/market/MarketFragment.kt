@@ -107,7 +107,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>() {
                 }
 
                 5 -> {
-                    tab.text = getString(R.string.categories)
+                    tab.text = getString(R.string.tradFi)
                 }
             }
         }.attach()

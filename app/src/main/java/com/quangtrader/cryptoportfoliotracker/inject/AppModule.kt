@@ -20,6 +20,7 @@ import com.quangtrader.cryptoportfoliotracker.data.api.CoinMarketApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsApi
 import com.quangtrader.cryptoportfoliotracker.data.api.NewsCryptoApi
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.data.api.BingXApi
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import dagger.Module
 import dagger.Provides
@@ -280,6 +281,51 @@ class AppModule {
             .build()
 
         return retrofit.create(NewsCryptoApi::class.java)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideOpenBingX(): BingXApi {
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.tag("BingxApi").e(message)
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val networkInterceptor = Interceptor {
+            val request = it.request().newBuilder().build()
+            it.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val requestBuilder = chain
+                    .request()
+                    .newBuilder()
+
+                chain.proceed(requestBuilder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(networkInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
+            .hostnameVerifier { _, _ -> true }
+            .retryOnConnectionFailure(false)
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .build()
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_BingX)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        return retrofit.create(BingXApi::class.java)
     }
 
     @Provides

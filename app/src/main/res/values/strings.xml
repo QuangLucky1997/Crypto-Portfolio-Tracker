@@ -27,7 +27,7 @@
     <string name="gainers">TOP GAINERS</string>
     <string name="losers">TOP LOSERS</string>
     <string name="exchange">EXCHANGE</string>
-    <string name="categories">CATEGORIES</string>
+    <string name="tradFi">TRADFI</string>
     <string name="watchLists">WATCHLISTS</string>
     <string name="symbol_oi">Symbol/OI</string>
     <string name="price">Price</string>

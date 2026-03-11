@@ -3,20 +3,23 @@ package com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.newsInfo
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-
+import androidx.lifecycle.repeatOnLifecycle
+import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.formatDateTime
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentNewsByTypeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
 import com.quangtrader.cryptoportfoliotracker.ui.news.ShowNewsActivity
-import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
-import com.quangtrader.cryptoportfoliotracker.common.utils.formatDateTime
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.getValue
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
@@ -28,28 +31,65 @@ class NewsFragment : BaseFragment<FragmentNewsByTypeBinding>() {
 
     override fun onViewCreated() {
         val activity = requireActivity() as DetailTokenActivity
+        binding.rvNewsFeedByType.adapter = adapterNewsByToken
         val tokenID = activity.intent.getStringExtra(Constants.EXTRA_NAME_COIN)
         tokenID?.let {
-          setData(tokenID.plus(" Token"))
+            setData(tokenID.plus(" Token"))
         }
-        adapterNewsByToken.subjectViewNew = { it->
-            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java)
-            intentDetail.putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
-            intentDetail.putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
-            intentDetail.putExtra(Constants.EXTRA_LINK_NEWS, it.url)
-            startActivity(intentDetail)
-        }
-
+        handleClick()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setData(dataToken: String) {
+        showLoading(true)
         newsByTokenViewModel.getAllNewsByToken(dataToken)
         viewLifecycleOwner.lifecycleScope.launch {
-            newsByTokenViewModel.dataNews.collect { coinData ->
-                adapterNewsByToken.submitList(coinData.articles)
-              //  adapterNewsByToken.data = coinData.articles.toMutableList()
-                binding.rvNewsFeedByType.adapter = adapterNewsByToken
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                newsByTokenViewModel.dataNews.collect { newsData ->
+                    when (newsData) {
+                        is NewsUiState.Loading -> {
+                            showLoading(true)
+                        }
+
+                        is NewsUiState.Success -> {
+                            showLoading(false)
+                            adapterNewsByToken.submitList(newsData.data.articles)
+                        }
+                        else -> {
+                            binding.animationLoading.setAnimation(R.raw.error404)
+                            binding.animationLoading.playAnimation()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleClick() {
+        adapterNewsByToken.subjectViewNew = { it ->
+            val intentDetail = Intent(requireContext(), ShowNewsActivity::class.java).apply {
+                putExtra(Constants.EXTRA_SOURCE_NEWS, it.source.name)
+                putExtra(Constants.EXTRA_TIME_POST, formatDateTime(it.publishedAt))
+                putExtra(Constants.EXTRA_LINK_NEWS, it.url)
+            }
+            startActivity(intentDetail)
+        }
+    }
+
+    private fun showLoading(show: Boolean) {
+        binding.apply {
+            if (show) {
+                animationLoading.visibility = View.VISIBLE
+                rvNewsFeedByType.visibility = View.GONE
+                animationLoading.post {
+                    if (animationLoading.isVisible) {
+                        animationLoading.playAnimation()
+                    }
+                }
+            } else {
+                animationLoading.visibility = View.GONE
+                rvNewsFeedByType.visibility = View.VISIBLE
+                animationLoading.cancelAnimation()
             }
         }
     }

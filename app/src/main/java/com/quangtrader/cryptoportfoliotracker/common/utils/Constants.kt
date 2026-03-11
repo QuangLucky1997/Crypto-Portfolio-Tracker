@@ -6,6 +6,8 @@ object Constants {
 
     const val BASE_BINANCE = "https://api.binance.com/"
 
+    const val BASE_BingX = "https://open-api.bingx.com"
+
 
     const val BASE_NEWS = "https://openapiv1.coinstats.app"
 
@@ -13,7 +15,7 @@ object Constants {
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
-    const val API_GEMINI = "AIzaSyDBBR3DA4beKQtOxHc2RuSdQF_CAafsGzc"
+    const val API_GEMINI = "AIzaSyCuEWj9Wm8kdJJ17wvnfj6BKKu0tDF1nXs"
 
 
     const val POLICY_LINK =
