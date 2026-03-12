@@ -12,8 +12,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/viewAd"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/viewAd"
@@ -67,5 +69,20 @@
         app:abb_tabColorSelected="?attr/textPrimary"
         app:abb_tabs="@menu/tabs"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/chatBotAnimation"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@id/viewAd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/chatbot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

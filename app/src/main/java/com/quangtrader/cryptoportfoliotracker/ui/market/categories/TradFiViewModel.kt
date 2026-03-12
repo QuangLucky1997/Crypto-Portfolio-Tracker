@@ -25,14 +25,9 @@ class TradFiViewModel @Inject constructor(
             try {
                 val tickersDeferred = async { tradFiRepository.getAllTradFi() }
                 val contractsDeferred = async { tradFiRepository.getTradFiByDisplayName() }
-
                 val tickersRes = tickersDeferred.await()
                 val contractsRes = contractsDeferred.await()
-
-                // 2. Tạo Map từ Contracts để tra cứu displayName nhanh hơn (O(1))
                 val contractMap = contractsRes.data.associateBy { it.symbol }
-
-                // 3. Xử lý chuỗi dữ liệu
                 val uiModels = tickersRes.data
                     .filter { ticker ->
                         val isUSDT = ticker.symbol?.endsWith("USDT", ignoreCase = true) == true
@@ -44,7 +39,7 @@ class TradFiViewModel @Inject constructor(
                         contract?.let {
                             val percent = ticker.priceChangePercent.toDoubleOrNull() ?: 0.0
                             TradFiClean(
-                                symbol = ticker.symbol ?: "",
+                                symbol = ticker.symbol,
                                 displayName = it.displayName.replace("-USDT", "", true),
                                 lastPrice = ticker.lastPrice.toDoubleOrNull() ?: 0.0,
                                 priceChangePercent = percent,

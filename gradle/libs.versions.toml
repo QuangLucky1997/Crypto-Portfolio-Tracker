@@ -9,6 +9,8 @@ lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 
+cameraxVersion = "1.4.0-alpha04"
+
 
 
 
@@ -40,7 +42,7 @@ rxlifecycleAndroidLifecycle = "2.2.2"
 stethoOkhttp3 = "1.6.0"
 timber = "5.0.1"
 sdp-ssp = "1.1.0"
-hilt = "2.48.1"
+hilt = "2.51.1"
 kotlin-coroutines = "1.7.3"
 kotlin-extensions = "1.9.0"
 lottie = "6.3.0"
@@ -81,6 +83,7 @@ lifecycleService = "2.10.0"
 
 
 [libraries]
+androidx-core = { module = "androidx.core:core", version.ref = "coreKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -120,7 +123,11 @@ google-gemini = { module = "com.google.ai.client.generativeai:generativeai", ver
 
 
 
-
+androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "cameraxVersion" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraxVersion" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }

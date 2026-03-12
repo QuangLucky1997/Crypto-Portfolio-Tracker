@@ -1,46 +1,37 @@
 package com.quangtrader.cryptoportfoliotracker.ui.aitrading
 
 import android.app.Activity
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Build
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
-import com.quangtrader.cryptoportfoliotracker.common.utils.disableKeyboard
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
-import com.quangtrader.cryptoportfoliotracker.databinding.FragmentAiTradingBinding
-import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
+import com.quangtrader.cryptoportfoliotracker.databinding.ActivityAiTradingBinding
+import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
+class AITradingActivity : BaseActivity<ActivityAiTradingBinding>(ActivityAiTradingBinding::inflate) {
 
     private val chatBotViewModel by viewModels<ChatBotViewModel>()
 
     @Inject
     lateinit var chatAdapter: AdapterChatBotGemini
 
-    override val _binding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAiTradingBinding
-        get() = FragmentAiTradingBinding::inflate
-
-    override fun onViewCreated() {
+    override fun onCreateView() {
+        super.onCreateView()
         setupRecyclerView()
         observeMessages()
         setupClicks()
@@ -56,11 +47,10 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
 
 
     private fun observeMessages() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 chatBotViewModel.messages.collectLatest { messages ->
                     val shouldScroll = binding.rvChatBot.isAtBottom()
-
                     chatAdapter.submitList(messages) {
                         if (shouldScroll && messages.isNotEmpty()) {
                             binding.rvChatBot.scrollToPosition(messages.lastIndex)
@@ -92,14 +82,14 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
                 val historyChatBot = HistoryChatBotEntity(0, text, System.currentTimeMillis())
                 chatBotViewModel.addHistoryChat(historyChatBot)
                 edtMess.text.clear()
-                val window = requireActivity().window
+                val window = this@AITradingActivity.window
                 WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
             }
 
         }
 
         imgHistory.clicks(debounce = 500) {
-            startActivity(Intent(requireContext(), HistoryChatBotActivity::class.java))
+            startActivity(Intent(this@AITradingActivity, HistoryChatBotActivity::class.java))
             animateOpen()
         }
     }
@@ -107,14 +97,14 @@ class AITradingFragment : BaseFragment<FragmentAiTradingBinding>() {
 
     private fun animateOpen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            activity?.overrideActivityTransition(
-                Activity.OVERRIDE_TRANSITION_OPEN,
+           this.overrideActivityTransition(
+               OVERRIDE_TRANSITION_OPEN,
                 R.anim.slide_animation_right,
                 R.anim.slide_animation_left
             )
         } else {
             @Suppress("DEPRECATION")
-            activity?.overridePendingTransition(
+            this.overridePendingTransition(
                 R.anim.slide_animation_right,
                 R.anim.slide_animation_left
             )

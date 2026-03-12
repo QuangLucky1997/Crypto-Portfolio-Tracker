@@ -54,7 +54,14 @@ object Constants {
     const val EXTRA_LINK_NEWS = "EXTRA_LINK_NEWS"
 
 
+
+    const val EXTRA_DATA_CROP ="EXTRA_DATA_CROP"
+
+
     const val MAIL_SUPPORT = "Voidmaink39c@gmail.com"
+
+
+
 
 
 }

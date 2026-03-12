@@ -6,10 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.quangtrader.cryptoportfoliotracker.common.utils.tryOrNull
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.common.utils.isNetworkAvailable
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityHomeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
@@ -17,6 +20,7 @@ import com.quangtrader.cryptoportfoliotracker.ui.base.BaseNotificationHelper
 import com.quangtrader.cryptoportfoliotracker.common.utils.openAppInfo
 import com.quangtrader.cryptoportfoliotracker.helper.Preferences
 import com.quangtrader.cryptoportfoliotracker.inject.App.Companion.app
+import com.quangtrader.cryptoportfoliotracker.ui.aitrading.AITradingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import nl.joery.animatedbottombar.AnimatedBottomBar
 import javax.inject.Inject
@@ -35,6 +39,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
         initData()
         requestNotification()
+        handleChatBot()
     }
     private fun requestNotification() {
         notificationHelper = BaseNotificationHelper(this)
@@ -69,6 +74,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
     }
 
+    private fun handleChatBot(){
+        binding.chatBotAnimation.clicks {
+           startActivity(Intent(this, AITradingActivity::class.java))
+        }
+    }
+
     @SuppressLint("DefaultLocale")
     private fun initData() {
         binding.apply {
@@ -95,6 +106,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             viewPagerHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    if (position == 1) {
+                        binding.chatBotAnimation.visibility = View.GONE
+                    } else {
+                        binding.chatBotAnimation.visibility = View.VISIBLE
+                    }
                     binding.bottomBar.selectTabAt(position, true)
                 }
             })
@@ -125,5 +141,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
             else -> binding.viewAd.isVisible = false
         }
 
+    }
+
+    fun setLottieVisibility(isVisible: Boolean) {
+        binding.chatBotAnimation.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }

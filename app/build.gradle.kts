@@ -136,17 +136,25 @@ dependencies {
     implementation(libs.carouselrecyclerview)
     implementation(libs.dots.indicator)
 
-    implementation("androidx.core:core:1.17.0")
-    implementation("androidx.core:core-ktx:1.17.0")
+    implementation(libs.androidx.core)
+    implementation("androidx.core:core-ktx:1.18.0")
 
     implementation("nl.joery.animatedbottombar:library:1.1.0")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.google.android.material:material:1.12.0")
 
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
-    implementation("com.google.android.play:review:2.0.2")
+    implementation(libs.google.gemini)
+
+    implementation("com.vanniktech:android-image-cropper:4.7.0")
+
+
+
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
 
     implementation(libs.admob)
     implementation(libs.shimmer)

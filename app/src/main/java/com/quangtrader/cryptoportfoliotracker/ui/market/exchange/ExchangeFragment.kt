@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
+import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.databinding.FragmentExchangeBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import com.quangtrader.cryptoportfoliotracker.ui.market.detailInfoByID.DetailTokenActivity
@@ -49,13 +50,18 @@ class ExchangeFragment : BaseFragment<FragmentExchangeBinding>() {
 
                         is ExchangeUiState.Success -> {
                             showLoading(false)
-                            val ticketFilter = ticketData.data.tickers?.filter { it.target == "USDT" }
+                            val ticketFilter =
+                                ticketData.data.tickers?.filter { it.target == "USDT" }
                             adapterExchange.submitList(ticketFilter)
 
                         }
+
                         is ExchangeUiState.Error -> {
-                            binding.animationLoading.setAnimation(R.raw.error404)
-                            binding.animationLoading.playAnimation()
+                            binding.apply {
+                                animationLoading.setAnimation(R.raw.error404)
+                                animationLoading.playAnimation ()
+                            }
+
                         }
                     }
                 }
