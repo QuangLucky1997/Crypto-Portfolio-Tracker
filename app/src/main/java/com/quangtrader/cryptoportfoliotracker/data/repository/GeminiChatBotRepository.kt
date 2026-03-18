@@ -5,11 +5,11 @@ import com.quangtrader.cryptoportfoliotracker.inject.AppModule
 import javax.inject.Inject
 
 class GeminiChatBotRepository @Inject constructor(
-   private val generativeModel: GenerativeModel
+    @AppModule.CryptoChatbotModel private val chatbotModel: GenerativeModel
 ) {
 
     suspend fun analyze(prompt: String): String {
-        val session = generativeModel.startChat()
+        val session = chatbotModel.startChat()
         val result = StringBuilder()
 
         try {

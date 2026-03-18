@@ -3,10 +3,11 @@ package com.quangtrader.cryptoportfoliotracker.data.repository
 import android.graphics.Bitmap
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
+import com.quangtrader.cryptoportfoliotracker.inject.AppModule
 import javax.inject.Inject
 
 class GeminiChartAnalysisRepository @Inject constructor(
-    private val generativeModel: GenerativeModel
+    @AppModule.ChartAnalystModel private val analystModel: GenerativeModel
 ) {
     suspend fun analyzeWithChart(userPrompt: String?, bitmap: Bitmap): String {
         val result = StringBuilder()
@@ -29,7 +30,7 @@ class GeminiChartAnalysisRepository @Inject constructor(
                 text(finalPrompt)
             }
 
-            generativeModel.generateContentStream(inputContent).collect { chunk ->
+            analystModel.generateContentStream(inputContent).collect { chunk ->
                 result.append(chunk.text.orEmpty())
             }
         } catch (e: Exception) {

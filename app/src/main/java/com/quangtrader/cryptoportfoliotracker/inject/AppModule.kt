@@ -343,7 +343,13 @@ class AppModule {
     fun provideDao(db: AppDatabase): CoinDao = db.dao()
 
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ChartAnalystModel
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class CryptoChatbotModel
 
     @Module
     @InstallIn(SingletonComponent::class)
@@ -351,6 +357,7 @@ class AppModule {
         @SuppressLint("SecretInSource")
         @Provides
         @Singleton
+        @ChartAnalystModel
         fun provideGeminiModel(): GenerativeModel {
             val config = generationConfig {
                 temperature = 0.15f
@@ -395,7 +402,165 @@ class AppModule {
                 }
             )
         }
+
+
+
+        @SuppressLint("SecretInSource")
+        @Provides
+        @Singleton
+        @CryptoChatbotModel
+        fun provideGeminiModelChatBot(): GenerativeModel {
+            val config = generationConfig {
+                temperature = 0.15f
+                topK = 32
+                topP = 1f
+            }
+            return GenerativeModel(
+                modelName = "gemini-flash-latest",
+                apiKey = Constants.API_GEMINI_CHAT_BOT,
+                generationConfig = config,
+                systemInstruction = content {
+                    text("Act as an elite Crypto Analyst combining Market Data + Technical Analysis + Fundamental Insights.\n" +
+                            "\n" +
+                            "Your task is to generate a professional crypto report with a clean UI-like format using icons, sections, and clear structure.\n" +
+                            "\n" +
+                            "Project Name: {PROJECT_NAME}\n" +
+                            "Price: {PRICE}\n" +
+                            "24h Volume: {VOLUME}\n" +
+                            "Performance:\n" +
+                            "- 1h: {PERF_1H}\n" +
+                            "- 24h: {PERF_24H}\n" +
+                            "- 7d: {PERF_7D}\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83D\uDE80 {PROJECT_NAME} ANALYSIS \uD83D\uDE80\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "\uD83D\uDCB0 Price: {PRICE}\n" +
+                            "\uD83D\uDCCA Vol 24h: {VOLUME}\n" +
+                            "\n" +
+                            "⏱ Performance:\n" +
+                            "• 1h: {PERF_1H}\n" +
+                            "• 24h: {PERF_24H}\n" +
+                            "• 7d: {PERF_7D}\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83D\uDE80 CRYPTO TRADING VERDICT \uD83D\uDE80\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "1. \uD83D\uDCCA Market Bias: (Bullish / Bearish / Neutral)\n" +
+                            "\n" +
+                            "2. \uD83C\uDFAF Execution Strategy: (Buy / Sell / No Trade)\n" +
+                            "\n" +
+                            "4. \uD83D\uDD25 Confidence Score: X/10\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83E\uDDE0 COMPREHENSIVE ANALYSIS\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "\uD83D\uDCCC Fundamental Overview:\n" +
+                            "- Mission & purpose\n" +
+                            "- Real-world relevance\n" +
+                            "- Competitive positioning\n" +
+                            "\n" +
+                            "\uD83D\uDCCC Team & Backers:\n" +
+                            "- Founder background\n" +
+                            "- Investors / partners\n" +
+                            "- Any red flags\n" +
+                            "\n" +
+                            "\uD83D\uDCCC Use Cases & Adoption:\n" +
+                            "- Key ecosystem (DeFi, NFT, AI, etc.)\n" +
+                            "- Actual adoption vs hype\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83D\uDCCA MARKET & TECHNICAL ANALYSIS\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "- Trend (Short-term + Long-term)\n" +
+                            "- Volume & liquidity insight\n" +
+                            "- Price behavior (trend / range / breakout)\n" +
+                            "\n" +
+                            "\uD83D\uDCCC Key Levels:\n" +
+                            "- Support:\n" +
+                            "- Resistance:\n" +
+                            "\n" +
+                            "\uD83D\uDCCC Price Action Insight:\n" +
+                            "(Explain clearly what's happening — consolidation, breakout, etc.)\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "⚠\uFE0F RISKS & WEAKNESSES\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "- Technical risks\n" +
+                            "- Market risks\n" +
+                            "- Fundamental risks\n" +
+                            "- Ecosystem risks\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83E\uDDE0 FINAL VERDICT\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "✅ Strengths:\n" +
+                            "- ...\n" +
+                            "\n" +
+                            "❌ Weaknesses:\n" +
+                            "- ...\n" +
+                            "\n" +
+                            "\uD83D\uDCC8 Long-term Potential: (High / Medium / Low)\n" +
+                            "⚡ Short-term Outlook: (Bullish / Neutral / Bearish)\n" +
+                            "\uD83D\uDC64 Suitable For: (Trader / Investor / Avoid)\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "\uD83D\uDCCA PROJECT SCORE\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "\n" +
+                            "- Technology: X/10\n" +
+                            "- Adoption: X/10\n" +
+                            "- Team: X/10\n" +
+                            "- Investment Potential: X/10\n" +
+                            "\n" +
+                            "---\n" +
+                            "\n" +
+                            "⚠\uFE0F Output Formatting Rules (VERY STRICT):\n" +
+                            "\n" +
+                            "- Output must be CLEAN PLAIN TEXT (no markdown)\n" +
+                            "- NEVER use: **, __, ##, [], (), backticks\n" +
+                            "- DO NOT bold anything\n" +
+                            "- DO NOT italic anything\n" +
+                            "- DO NOT add markdown headings\n" +
+                            "\n" +
+                            "- Use ONLY:\n" +
+                            "  ✔ Icons (emoji)\n" +
+                            "  ✔ Capital letters for emphasis\n" +
+                            "  ✔ Line breaks\n" +
+                            "  ✔ Dashes (-) and bullets (•)\n" +
+                            "\n" +
+                            "- Format like a mobile app report UI\n" +
+                            "- Keep spacing consistent and easy to read")
+                }
+            )
+        }
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
 
 
 
