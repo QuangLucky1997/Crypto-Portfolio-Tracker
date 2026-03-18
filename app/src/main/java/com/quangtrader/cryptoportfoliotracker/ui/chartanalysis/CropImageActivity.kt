@@ -1,14 +1,19 @@
 package com.quangtrader.cryptoportfoliotracker.ui.chartanalysis
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.widget.Toast
+import android.util.Log
+import androidx.core.content.res.ResourcesCompat
 import com.canhub.cropper.CropImageView
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityCropImageBinding
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class CropImageActivity :
@@ -18,6 +23,10 @@ class CropImageActivity :
 
     override fun onCreateView() {
         super.onCreateView()
+        window.apply {
+            navigationBarColor = resources.getColor(R.color.white, null)
+            statusBarColor = resources.getColor(R.color.white, null)
+        }
         sourceUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(Constants.EXTRA_DATA_CROP, Uri::class.java)
         } else {
@@ -32,7 +41,13 @@ class CropImageActivity :
                 setImageUriAsync(sourceUri)
             }
         } else {
-            Toast.makeText(this, "Không tìm thấy ảnh!", Toast.LENGTH_SHORT).show()
+            MotionToast.createToast(this,
+                "Failed ☹️",
+                "No image found!",
+                MotionToastStyle.ERROR,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this,R.font.inter_bold))
             finish()
         }
         binding.imgConfirm.clicks {
@@ -46,16 +61,24 @@ class CropImageActivity :
                 val croppedUri = result.uriContent
                 handleCroppedImage(croppedUri)
             } else {
-                Toast.makeText(this, "Crop thất bại: ${result.error}", Toast.LENGTH_SHORT).show()
+                MotionToast.createToast(this,
+                    "Failed ☹️",
+                    "Cropping failed!",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this,R.font.inter_bold))
             }
         }
         binding.cropImageView.croppedImageAsync()
     }
 
     private fun handleCroppedImage(uri: Uri?) {
-        Toast.makeText(this, "Crop thất bại: $uri", Toast.LENGTH_SHORT).show()
-//        val returnIntent = Intent().apply { putExtra("CROP_RESULT", uri) }
-//        setResult(RESULT_OK, returnIntent)
-//        finish()
+        val intent = Intent(this, ResultAnalysisChartActivity::class.java).apply {
+            putExtra(Constants.EXTRA_URI, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(intent)
+        finish()
     }
 }

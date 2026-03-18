@@ -15,7 +15,7 @@ object Constants {
     const val API_KEY = "efa27c2d-44bb-487e-80c7-ff1a6dc4c055"
 
 
-    const val API_GEMINI = "xxxxxxxxx"
+    const val API_GEMINI = "AIzaSyCDcufSayN6wOORXKka-FGWFgVUd_zxtDc"
 
 
     const val POLICY_LINK =
@@ -59,6 +59,12 @@ object Constants {
 
 
     const val MAIL_SUPPORT = "Voidmaink39c@gmail.com"
+
+
+
+    const val FORMAT_DATE = "yyyyMMdd_HHmmss"
+
+    const val EXTRA_URI ="EXTRA_URI"
 
 
 

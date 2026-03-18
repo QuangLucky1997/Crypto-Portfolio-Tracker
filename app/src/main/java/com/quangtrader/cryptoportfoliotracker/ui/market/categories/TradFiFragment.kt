@@ -14,6 +14,7 @@ import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import www.sanju.motiontoast.MotionToast
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,6 +45,7 @@ class TradFiFragment : BaseFragment<FragmentCategoriesBinding>() {
                         is TradFiUIState.Success -> {
                             showLoading(false)
                             adapterTraFi.submitList(state.data)
+
                         }
 
                         is TradFiUIState.Error -> {

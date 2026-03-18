@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.SystemClock
 import android.view.View
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
@@ -377,4 +378,15 @@ fun disableKeyboard(view: View) {
     val window = (view.context as? Activity)?.window ?: return
     val controller = WindowInsetsControllerCompat(window, view)
     controller.hide(WindowInsetsCompat.Type.ime())
+}
+
+
+fun Activity.showKeyboardModern(view: View) {
+    view.requestFocus()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.show(WindowInsets.Type.ime())
+    } else {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
 }

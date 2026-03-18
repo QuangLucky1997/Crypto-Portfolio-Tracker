@@ -1,10 +1,11 @@
 package com.quangtrader.cryptoportfoliotracker.data.repository
 
 import com.google.ai.client.generativeai.GenerativeModel
+import com.quangtrader.cryptoportfoliotracker.inject.AppModule
 import javax.inject.Inject
 
 class GeminiChatBotRepository @Inject constructor(
-    private val generativeModel: GenerativeModel
+   private val generativeModel: GenerativeModel
 ) {
 
     suspend fun analyze(prompt: String): String {
@@ -21,4 +22,5 @@ class GeminiChatBotRepository @Inject constructor(
 
         return result.toString()
     }
+
 }

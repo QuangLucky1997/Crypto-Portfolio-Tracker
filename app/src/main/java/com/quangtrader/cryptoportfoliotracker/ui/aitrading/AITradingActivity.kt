@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
 import com.quangtrader.cryptoportfoliotracker.R
+import com.quangtrader.cryptoportfoliotracker.common.utils.showKeyboard
 import com.quangtrader.cryptoportfoliotracker.data.chatbot.ChatBotMessage
 import com.quangtrader.cryptoportfoliotracker.data.roommodel.HistoryChatBotEntity
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivityAiTradingBinding
@@ -43,6 +44,7 @@ class AITradingActivity : BaseActivity<ActivityAiTradingBinding>(ActivityAiTradi
         setHasFixedSize(true)
         itemAnimator = null
         setItemViewCacheSize(20)
+        binding.edtMess.showKeyboard()
     }
 
 
@@ -86,6 +88,10 @@ class AITradingActivity : BaseActivity<ActivityAiTradingBinding>(ActivityAiTradi
                 WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
             }
 
+        }
+
+        imgBack.clicks(500) {
+            finish()
         }
 
         imgHistory.clicks(debounce = 500) {

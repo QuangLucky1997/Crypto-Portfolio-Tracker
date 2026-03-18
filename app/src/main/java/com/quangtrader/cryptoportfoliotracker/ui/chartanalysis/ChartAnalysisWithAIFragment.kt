@@ -14,8 +14,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.utils.CameraManager
 import com.quangtrader.cryptoportfoliotracker.common.utils.Constants
 import com.quangtrader.cryptoportfoliotracker.common.utils.clicks
@@ -23,6 +25,8 @@ import com.quangtrader.cryptoportfoliotracker.databinding.FragmentChartAnalysisA
 import com.quangtrader.cryptoportfoliotracker.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
 import java.util.Locale
 @AndroidEntryPoint
@@ -34,16 +38,20 @@ class ChartAnalysisWithAIFragment : BaseFragment<FragmentChartAnalysisAiBinding>
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
-        if (isGranted) startCamera() else Toast.makeText(
-            context,
-            "Permission Denied",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (isGranted) startCamera() else MotionToast.createToast(requireActivity(),
+            "Failed ☹️",
+            "Camera permission request failed!",
+            MotionToastStyle.ERROR,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(requireActivity(), R.font.inter_bold))
     }
 
 
     override val _binding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentChartAnalysisAiBinding
         get() = FragmentChartAnalysisAiBinding::inflate
+
+
 
     override fun onViewCreated() {
         cameraManager = CameraManager(requireContext())
@@ -83,7 +91,9 @@ class ChartAnalysisWithAIFragment : BaseFragment<FragmentChartAnalysisAiBinding>
                         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
                     }
 
-                    else -> {}
+                    else -> {
+
+                    }
                 }
             }
         }
@@ -109,7 +119,7 @@ class ChartAnalysisWithAIFragment : BaseFragment<FragmentChartAnalysisAiBinding>
     }
 
     private fun createOutputOptions(resolver: ContentResolver): ImageCapture.OutputFileOptions {
-        val name = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(System.currentTimeMillis())
+        val name = SimpleDateFormat(Constants.FORMAT_DATE, Locale.US).format(System.currentTimeMillis())
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")

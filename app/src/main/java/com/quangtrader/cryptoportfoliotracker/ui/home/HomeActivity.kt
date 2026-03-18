@@ -108,8 +108,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                     super.onPageSelected(position)
                     if (position == 1) {
                         binding.chatBotAnimation.visibility = View.GONE
+                        binding.viewBanner.visibility = View.GONE
                     } else {
                         binding.chatBotAnimation.visibility = View.VISIBLE
+                        binding.viewBanner.visibility = View.VISIBLE
                     }
                     binding.bottomBar.selectTabAt(position, true)
                 }

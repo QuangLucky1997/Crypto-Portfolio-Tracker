@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appBackground">
+
+
+    <RelativeLayout
+        android:id="@+id/viewTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backImg"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/blue01" />
+
+        <TextView
+            android:id="@+id/dataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/result_analysis_chart"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_toEndOf="@+id/backImg"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="?attr/textPrimary"
+            android:textSize="@dimen/_16ssp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/viewResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewTop">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:cardBackgroundColor="?attr/appBackground"
+                    app:cardCornerRadius="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textStats"
+                    app:strokeColor="@color/gray"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_160sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="@dimen/_4sdp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardDetailH1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:cardBackgroundColor="?attr/appBackground"
+                    app:cardCornerRadius="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textStats"
+                    app:strokeColor="@color/gray"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textToken"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="USD/CAD"
+                            android:textColor="?attr/textPrimary"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <TextView
+                            android:id="@+id/textTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:textColor="?attr/textPrimary"
+                            android:textSize="@dimen/_14ssp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardResultH2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:cardBackgroundColor="?attr/appBackground"
+                    app:cardCornerRadius="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textStats"
+                    app:strokeColor="@color/gray"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/market_structure"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textDataStructure"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/trend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textDataTrend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/key_levels"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textDataKeyLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/candlestick_pattern"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textDataCandleStickPattern"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/signal"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textSignal"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/entry"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textEntry"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/stoploss"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textStoploss"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/take_profit_1"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textTp1"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/take_profit_2"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textTp2"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/risk_reward"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textRiskReward"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:background="@color/gray_600"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/confidence"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_bold"
+                                android:textColor="?attr/textPrimary"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/textConfidence"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="sdjghjsdhsjd"
+                                android:layout_alignParentEnd="true"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:fontFamily="@font/inter_medium"
+                                android:textColor="@color/blue01"
+                                android:textSize="@dimen/_12ssp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationLoadingChart"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/candle_chart" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

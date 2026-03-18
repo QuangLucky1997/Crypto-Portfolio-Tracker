@@ -11,6 +11,13 @@ composeBom = "2024.09.00"
 
 cameraxVersion = "1.4.0-alpha04"
 
+openai = "3.8.2"
+
+image-cropper = "4.7.0"
+motion-toast = "1.4"
+
+
+
 
 
 
@@ -215,6 +222,12 @@ billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", versi
 zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
 androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleService" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+
+
+openai-client = { module = "com.aallam.openai:openai-client", version.ref = "openai" }
+
+vanniktech-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "image-cropper" }
+spikeysanju-motion-toast = { module = "com.github.Spikeysanju:MotionToast", version.ref = "motion-toast" }
 
 
 [plugins]

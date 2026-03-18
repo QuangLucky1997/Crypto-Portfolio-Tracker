@@ -146,7 +146,12 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation(libs.google.gemini)
 
-    implementation("com.vanniktech:android-image-cropper:4.7.0")
+
+
+    implementation(libs.openai.client)
+
+    implementation(libs.vanniktech.image.cropper)
+    implementation(libs.spikeysanju.motion.toast)
 
 
 

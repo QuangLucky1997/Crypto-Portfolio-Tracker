@@ -1,20 +1,25 @@
 package com.quangtrader.cryptoportfoliotracker.ui.splash
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
-import com.quangtrader.cryptoportfoliotracker.common.utils.startMain
-import com.quangtrader.cryptoportfoliotracker.common.utils.startTutorialActivity
-import com.quangtrader.cryptoportfoliotracker.common.utils.tryOrNull
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.ktx.BuildConfig
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.quangtrader.cryptoportfoliotracker.R
 import com.quangtrader.cryptoportfoliotracker.common.ads.GoogleMobileAdsConsentManager
 import com.quangtrader.cryptoportfoliotracker.common.utils.isNetworkAvailable
+import com.quangtrader.cryptoportfoliotracker.common.utils.startMain
+import com.quangtrader.cryptoportfoliotracker.common.utils.startTutorialActivity
+import com.quangtrader.cryptoportfoliotracker.common.utils.tryOrNull
 import com.quangtrader.cryptoportfoliotracker.databinding.ActivitySplashBinding
 import com.quangtrader.cryptoportfoliotracker.helper.Preferences
 import com.quangtrader.cryptoportfoliotracker.inject.App.Companion.app
@@ -28,6 +33,8 @@ import io.reactivex.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
@@ -36,7 +43,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
     @Inject
-    lateinit var preferences : Preferences
+    lateinit var preferences: Preferences
     private val subjectCreatedSplash: Subject<Unit> = PublishSubject.create()
     private val googleMobileAdsConsentManager by lazy {
         GoogleMobileAdsConsentManager.getInstance(
@@ -48,6 +55,19 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     override fun onCreateView() {
         super.onCreateView()
         initUISystem()
+        if (isNetworkAvailable()) {
+            syncRemoteConfig()
+        } else {
+            MotionToast.createToast(
+                this,
+                " No internet connection ☹️",
+                "Network unavailable. Please connect to the internet to continue.",
+                MotionToastStyle.ERROR,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, R.font.inter_bold)
+            )
+        }
         subjectCreatedSplash
             .debounce(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
@@ -74,6 +94,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
 
         subjectCreatedSplash.onNext(Unit)
     }
+
     private fun initializeMobileAdsSdk() {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return
@@ -119,7 +140,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             }
             config.setConfigSettingsAsync(configSettings)
             config.fetchAndActivate().addOnCompleteListener {
-                if(it.isSuccessful) {
+                if (it.isSuccessful) {
                     app.isShowAllAds = when {
                         else -> config.getBoolean("isShowAllAds")
                     }
@@ -130,7 +151,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
                     app.isBannerShowNews =
                         config.getBoolean("isBannerShowNews").takeIf { app.isShowAllAds } ?: false
                     app.isFullScreenChanges =
-                        config.getBoolean("isFullScreenChanges").takeIf { app.isShowAllAds } ?: false
+                        config.getBoolean("isFullScreenChanges").takeIf { app.isShowAllAds }
+                            ?: false
                     app.isFullSplash =
                         config.getBoolean("isFullSplash").takeIf { app.isShowAllAds } ?: false
                     app.isOpenBackground =
@@ -191,6 +213,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             }
         }
     }
+
     private fun doTaskAfterSyncRemoteConfig() {
         val task = {
             when (preferences.isUpgraded.get()) {
@@ -226,5 +249,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             task()
         }
     }
+
 
 }

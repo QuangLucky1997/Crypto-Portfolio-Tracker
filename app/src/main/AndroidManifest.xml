@@ -59,8 +59,15 @@
             android:exported="true" />
 
 
+
+        <activity
+            android:name=".ui.chartanalysis.ResultAnalysisChartActivity"
+            android:exported="true" />
+
         <activity android:name=".ui.settings.FeedbackActivity"/>
-        <activity android:name=".ui.aitrading.AITradingActivity"/>
+        <activity android:name=".ui.aitrading.AITradingActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
 
         <activity
             android:name=".ui.chartanalysis.CropImageActivity"

@@ -35,6 +35,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -342,6 +343,8 @@ class AppModule {
     fun provideDao(db: AppDatabase): CoinDao = db.dao()
 
 
+
+
     @Module
     @InstallIn(SingletonComponent::class)
     object GeminiModule {
@@ -354,41 +357,41 @@ class AppModule {
                 topK = 32
                 topP = 1f
             }
-
             return GenerativeModel(
                 modelName = "gemini-flash-latest",
                 apiKey = Constants.API_GEMINI,
-                requestOptions = RequestOptions(apiVersion = "v1beta"),
                 generationConfig = config,
                 systemInstruction = content {
-                    text("You are a PROFESSIONAL LONG-TERM CRYPTO PRICE ACTION ANALYST.\n" +
-                            "Focus on D1 / W1. No indicators. No noise.\n" +
+                    text("Act as an elite Market Structure & Price Action Analyst. Analyze the provided chart image with high precision.\n" +
                             "\n" +
-                            "When I send a token + timeframe, OUTPUT only:\n" +
+                            "MISSION:\n" +
+                            "1. Identify Asset & Timeframe.\n" +
+                            "2. Analyze Market Structure (HH/HL or LH/LL) and overall Trend.\n" +
+                            "3. Pinpoint Key Levels (Support/Resistance, Supply/Demand Zones).\n" +
+                            "4. Detect high-probability Candlestick Patterns at key zones.\n" +
+                            "5. Formulate a professional Trading Signal based on price action logic.\n" +
                             "\n" +
-                            "━━━━━━━━━━━━━━\n" +
-                            "\uD83D\uDCCA {TOKEN} | ⏱ {D1 / W1}\n" +
+                            "OUTPUT FORMAT (Return ONLY a raw JSON object. No conversational text, no markdown blocks, no explanations outside the JSON):\n" +
+                            "{\n" +
+                            "  \"asset\": \"{Name} | {TF}\",\n" +
+                            "  \"structure\": \"{Brief Description}\",\n" +
+                            "  \"trend\": \"{Bullish/Bearish/Neutral}\",\n" +
+                            "  \"key_levels\": \"{Price levels}\",\n" +
+                            "  \"candle_pattern\": \"{Pattern detected}\",\n" +
+                            "  \"signal\": \"{BUY/SELL/WAIT}\",\n" +
+                            "  \"signal_type\": \"{e.g., Bearish Reversal}\",\n" +
+                            "  \"entry\": {NumericValue},\n" +
+                            "  \"stop_loss\": {NumericValue},\n" +
+                            "  \"tp1\": {NumericValue},\n" +
+                            "  \"tp2\": {NumericValue},\n" +
+                            "  \"risk_reward\": \"{Ratio}\",\n" +
+                            "  \"confidence\": {1-100}\n" +
+                            "}\n" +
                             "\n" +
-                            "\uD83D\uDCC8 Macro Trend: Bullish / Bearish / Range\n" +
-                            "\n" +
-                            "\uD83D\uDFE2 ACCUMULATION (BUY ZONE):\n" +
-                            "• Zone: {price range}\n" +
-                            "• Basis: {demand / major support / liquidity sweep}\n" +
-                            "\n" +
-                            "\uD83D\uDD34 DISTRIBUTION (SELL ZONE):\n" +
-                            "• Zone: {price range}\n" +
-                            "• Basis: {supply / major resistance / liquidity target}\n" +
-                            "\n" +
-                            "⚠\uFE0F Macro Invalidation:\n" +
-                            "• {weekly structure break / key level}\n" +
-                            "\n" +
-                            "━━━━━━━━━━━━━━\n" +
-                            "\n" +
-                            "Rules:\n" +
-                            "- Zones must be untested or major HTF levels\n" +
-                            "- If no clear macro zone → WAIT\n" +
-                            "- Capital protection first\n" +
-                            "- Professional, minimal, no hype\n")
+                            "CRITICAL INSTRUCTIONS: \n" +
+                            "- All price fields (entry, stop_loss, tp1, tp2) MUST be numbers only (e.g., 1.3415). \n" +
+                            "- Do not use quotes for numeric values.\n" +
+                            "- Do not include any text before or after the JSON.")
                 }
             )
         }

@@ -137,4 +137,16 @@
     <string name="this_action_may_contain_ads">This action can contain ads</string>
     <string name="loading_ads">Loading Ads</string>
     <string name="crop_photo">Crop Photo</string>
+    <string name="result_analysis_chart">Result Analysis Chart</string>
+    <string name="entry">📍Entry</string>
+    <string name="market_structure">🏛️ Market Structure</string>
+    <string name="signal">🚀 Signal</string>
+    <string name="stoploss">🛑 Stoploss</string>
+    <string name="take_profit_1">✅ Take Profit 1</string>
+    <string name="take_profit_2">✅ Take Profit 2</string>
+    <string name="confidence">🔥Confidence</string>
+    <string name="trend">📈 Trend</string>
+    <string name="key_levels">🎯 Key Levels</string>
+    <string name="candlestick_pattern">🕯️Candlestick Pattern</string>
+    <string name="risk_reward">⚖️ RISK/REWARD:</string>
 </resources>

@@ -6,16 +6,23 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.google.gson.Gson
+import com.quangtrader.cryptoportfoliotracker.data.local.TradingSignal
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -305,6 +312,43 @@ fun Double.formatMarketCap2(): String {
         else -> String.format("%.2f", this)
     }
 }
+
+
+fun Uri?.toBitmap(context: Context): Bitmap? {
+    if (this == null) return null
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val source = ImageDecoder.createSource(context.contentResolver, this)
+            ImageDecoder.decodeBitmap(source)
+        } else {
+            @Suppress("DEPRECATION")
+            MediaStore.Images.Media.getBitmap(context.contentResolver, this)
+        }
+    } catch (e: Exception) {
+        null
+    }
+}
+
+fun parseGeminiResponse(rawResponse: String): TradingSignal? {
+    return try {
+        val cleanJson = rawResponse
+            .replace("```json", "")
+            .replace("```", "")
+            .trim()
+
+        Gson().fromJson(cleanJson, TradingSignal::class.java)
+    } catch (e: Exception) {
+        Log.e("PARSE_ERROR", "Lỗi định dạng: ${e.message}")
+        null
+    }
+}
+
+fun getSignalTime(): String {
+    val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return formatter.format(Date())
+}
+
+
 
 
 

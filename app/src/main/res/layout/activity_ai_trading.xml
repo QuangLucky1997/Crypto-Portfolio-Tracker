@@ -15,6 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp">
 
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_back"
+                app:tint="?attr/textPrimary" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
